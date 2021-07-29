@@ -2,12 +2,12 @@ program Menu;
 
 uses
   Forms,
-  Principal in 'Principal.pas' {Form1};
+  Principal in 'Principal.pas' {frPrincipal};
 
 {$R *.res}
 
 begin
   Application.Initialize;
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TfrPrincipal, frPrincipal);
   Application.Run;
 end.

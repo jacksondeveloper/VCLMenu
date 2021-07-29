@@ -4,10 +4,15 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs;
+  Dialogs, ExtCtrls;
 
 type
-  TForm1 = class(TForm)
+  TfrPrincipal = class(TForm)
+    pnContainer: TPanel;
+    pnTopo: TPanel;
+    pnPrincipal: TPanel;
+    Panel1: TPanel;
+    pnEsquerdo: TPanel;
   private
     { Private declarations }
   public
@@ -15,7 +20,7 @@ type
   end;
 
 var
-  Form1: TForm1;
+  frPrincipal: TfrPrincipal;
 
 implementation
 
