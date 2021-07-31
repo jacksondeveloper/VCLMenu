@@ -1,0 +1,2 @@
+inherited frMenuSubItem: TfrMenuSubItem
+end

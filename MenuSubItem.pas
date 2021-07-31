@@ -1,14 +1,13 @@
-unit ItemMenu;
+unit MenuSubItem;
 
 interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ItemBase, ExtCtrls, StdCtrls;
+  Dialogs, MenuItemBase, ExtCtrls;
 
 type
-  TfrItemMenu = class(TfrItemBase)
-    lbPrincipal: TLabel;
+  TfrMenuSubItem = class(TfrMenuItemBase)
   private
     { Private declarations }
   public
@@ -16,7 +15,7 @@ type
   end;
 
 var
-  frItemMenu: TfrItemMenu;
+  frMenuSubItem: TfrMenuSubItem;
 
 implementation
 

@@ -3,7 +3,7 @@ unit MenuController;
 interface
 
 uses
-  Classes, SysUtils, ItemMenu, ItemSubMenu, Controls;
+  Classes, SysUtils, MenuItem, MenuSubItem, Controls;
 
 type
 
@@ -33,26 +33,26 @@ implementation
 
 function TMenuController.AdicionarMenu(Caption: string): iMenuController;
 var
-  ItemMenu: TfrItemMenu;
+  MenuItem: TfrMenuItem;
   TopoMenu: Integer;
 begin
   Result := Self;
 
   if fListaMenu.Count > 0 then
-    TopoMenu := TfrItemMenu(fListaMenu[Pred(fListaMenu.Count)]).Top +
-                TfrItemMenu(fListaMenu[Pred(fListaMenu.Count)]).Height 
+    TopoMenu := TfrMenuItem(fListaMenu[Pred(fListaMenu.Count)]).Top +
+                TfrMenuItem(fListaMenu[Pred(fListaMenu.Count)]).Height 
   else
     TopoMenu := 0;
 
-  ItemMenu:= TfrItemMenu.Create(nil);
-  ItemMenu.Visible := False;
-  ItemMenu.Parent := fMenuContainer;
-  ItemMenu.Width := fMenuContainer.Width;
-  ItemMenu.Top := TopoMenu;
-  ItemMenu.lbPrincipal.Caption := Caption;
-  ItemMenu.Name := 'ItemMenu' + IntToStr(fListaMenu.Count + 1);
+  MenuItem:= TfrMenuItem.Create(nil);
+  MenuItem.Visible := False;
+  MenuItem.Parent := fMenuContainer;
+  MenuItem.Width := fMenuContainer.Width;
+  MenuItem.Top := TopoMenu;
+  MenuItem.lbPrincipal.Caption := Caption;
+  MenuItem.Name := 'MenuItem' + IntToStr(fListaMenu.Count + 1);
 
-  fListaMenu.Add(ItemMenu);
+  fListaMenu.Add(MenuItem);
 end;
 
 constructor TMenuController.Create(MenuContainer: TWinControl);
@@ -77,7 +77,7 @@ var
 begin
   for contador := 0 to Pred(fListaMenu.Count) do
   begin
-    TfrItemMenu(fListaMenu[contador]).Visible := True;
+    TfrMenuItem(fListaMenu[contador]).Visible := True;
   end;
 end;
 

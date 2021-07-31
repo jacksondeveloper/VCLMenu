@@ -1,4 +1,4 @@
-inherited frItemMenu: TfrItemMenu
+inherited frMenuItem: TfrMenuItem
   inherited pnContainer: TPanel
     object lbPrincipal: TLabel
       Left = 0

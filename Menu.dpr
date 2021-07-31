@@ -4,9 +4,9 @@ uses
   Forms,
   Principal in 'Principal.pas' {frPrincipal},
   MenuController in 'MenuController.pas',
-  ItemBase in 'ItemBase.pas' {frItemBase: TFrame},
-  ItemMenu in 'ItemMenu.pas' {frItemMenu: TFrame},
-  ItemSubMenu in 'ItemSubMenu.pas' {frItemSubMenu: TFrame},
+  MenuItemBase in 'MenuItemBase.pas' {frMenuItemBase: TFrame},
+  MenuItem in 'MenuItem.pas' {frMenuItem: TFrame},
+  MenuSubItem in 'MenuSubItem.pas' {frMenuSubItem: TFrame},
   MenuTipos in 'MenuTipos.pas';
 
 {$R *.res}

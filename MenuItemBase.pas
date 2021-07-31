@@ -1,4 +1,4 @@
-unit ItemBase;
+unit MenuItemBase;
 
 interface
 
@@ -7,7 +7,7 @@ uses
   ExtCtrls;
 
 type
-  TfrItemBase = class(TFrame)
+  TfrMenuItemBase = class(TFrame)
     pnContainer: TPanel;
   private
     { Private declarations }

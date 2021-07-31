@@ -1,4 +1,4 @@
-object frItemBase: TfrItemBase
+object frMenuItemBase: TfrMenuItemBase
   Left = 0
   Top = 0
   Width = 225
