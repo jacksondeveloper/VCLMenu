@@ -1,6 +1,6 @@
 object frPrincipal: TfrPrincipal
-  Left = 315
-  Top = 201
+  Left = 339
+  Top = 185
   Width = 1044
   Height = 556
   Caption = 'frPrincipal'
@@ -12,6 +12,7 @@ object frPrincipal: TfrPrincipal
   Font.Style = []
   OldCreateOrder = False
   WindowState = wsMaximized
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object pnContainer: TPanel

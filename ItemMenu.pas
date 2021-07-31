@@ -4,10 +4,11 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ItemBase, ExtCtrls;
+  Dialogs, ItemBase, ExtCtrls, StdCtrls;
 
 type
   TfrItemMenu = class(TfrItemBase)
+    lbPrincipal: TLabel;
   private
     { Private declarations }
   public
