@@ -2,10 +2,14 @@ unit MenuTipos;
 
 interface
 
+const
+  LarguraSubMenu = 200;
+  AlturaMaximaContainerSubmenu = 100;
+
 type
 
-  TEvMenuMouseEnter = procedure(ID: Integer) of object;
-  TEvMenuMouseLeave = procedure(ID: Integer) of object;
+  TEvMenuEnter = procedure(ID: Integer) of object;
+  TEvMenuExit = procedure(ID: Integer) of object;
 
 implementation
 

@@ -4,14 +4,17 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, MenuItemBase, ExtCtrls;
+  Dialogs, MenuItemBase, ExtCtrls, StdCtrls;
 
 type
   TfrMenuSubItem = class(TfrMenuItemBase)
+    lbPrincipal: TLabel;
   private
+    FIDMenuPai: Integer;
+    procedure SetIDMenuPai(const Value: Integer);
     { Private declarations }
   public
-    { Public declarations }
+    property IDMenuPai: Integer read FIDMenuPai write SetIDMenuPai;
   end;
 
 var
@@ -20,5 +23,12 @@ var
 implementation
 
 {$R *.dfm}
+
+{ TfrMenuSubItem }
+
+procedure TfrMenuSubItem.SetIDMenuPai(const Value: Integer);
+begin
+  FIDMenuPai := Value;
+end;
 
 end.

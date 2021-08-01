@@ -12,5 +12,7 @@ object frMenuItemBase: TfrMenuItemBase
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
+    OnEnter = pnContainerEnter
+    OnExit = pnContainerExit
   end
 end

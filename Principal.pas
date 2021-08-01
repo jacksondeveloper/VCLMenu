@@ -29,10 +29,13 @@ implementation
 
 procedure TfrPrincipal.FormCreate(Sender: TObject);
 begin
-  fMenuController := TMenuController.New(pnEsquerdo);
+  fMenuController := TMenuController.New(pnEsquerdo, pnPrincipal);
 
   fMenuController
     .AdicionarMenu('Animal')
+      .AdicionarSubMenu('Cadastro')
+      .AdicionarSubMenu('Leite')
+    .AdicionarMenu('Fazenda')
   .GerarMenu;
 end;
 
