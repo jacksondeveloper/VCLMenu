@@ -32,6 +32,7 @@ object frPrincipal: TfrPrincipal
       BevelOuter = bvNone
       Color = clActiveBorder
       TabOrder = 0
+      OnClick = pnTopoClick
     end
     object pnPrincipal: TPanel
       Left = 321
@@ -42,6 +43,7 @@ object frPrincipal: TfrPrincipal
       BevelOuter = bvNone
       Color = clSilver
       TabOrder = 1
+      OnClick = pnPrincipalClick
     end
     object pnEsquerdo: TPanel
       Left = 0
@@ -52,6 +54,7 @@ object frPrincipal: TfrPrincipal
       BevelOuter = bvNone
       Color = clGray
       TabOrder = 2
+      OnClick = pnEsquerdoClick
     end
   end
   object Panel1: TPanel
@@ -63,5 +66,6 @@ object frPrincipal: TfrPrincipal
     BevelOuter = bvNone
     Color = clActiveBorder
     TabOrder = 1
+    OnClick = Panel1Click
   end
 end

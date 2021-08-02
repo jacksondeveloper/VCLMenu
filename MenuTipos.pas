@@ -9,6 +9,7 @@ const
 type
 
   TEvClick = procedure(ID: Integer) of object;
+  TEvFecharSubMenus = procedure of object;
 
 implementation
 

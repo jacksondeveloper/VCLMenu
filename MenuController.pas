@@ -13,6 +13,7 @@ type
     procedure GerarMenu;
     function AdicionarMenu(Caption: string): iMenuController;
     function AdicionarSubMenu(Caption: string): iMenuController;
+    procedure EsconderSubMenus;
   end;
 
   TMenuController = class(TInterfacedObject, iMenuController)
@@ -32,7 +33,7 @@ type
     function AdicionarMenu(Caption: string): iMenuController;
     function AdicionarSubMenu(Caption: string): iMenuController;
     procedure MostrarSubMenu(ID: Integer);
-    procedure EsconderSubMenu(ID: Integer);
+    procedure EsconderSubMenus;
     procedure CriarNovoContainer(IDMenuItem, Topo, Largura: Integer);
     property ContainerSubMenu: TList read GetContainerSubMenu write SetContainerSubMenu;
   end;
@@ -94,6 +95,7 @@ begin
   ID := fListaSubMenu.Count + 1;
   SubMenuItem.Name := 'SubMenuItem' + IntToStr(ID);
   SubMenuItem.ID := ID;
+  SubMenuItem.EvFecharSubMenus := EsconderSubMenus;
   SubMenuItem.Parent := TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]);
   SubMenuItem.IDMenuPai := TfrMenuItem(fListaMenu[Pred(fListaMenu.Count)]).ID; // ultimo menu pai
   SubMenuItem.Visible := False;
@@ -126,7 +128,7 @@ begin
 
 end;
 
-procedure TMenuController.EsconderSubMenu(ID: Integer);
+procedure TMenuController.EsconderSubMenus;
 var
   Contador: integer;
 begin
