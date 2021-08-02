@@ -33,9 +33,9 @@ begin
 
   fMenuController
     .AdicionarMenu('Animal')
+    .AdicionarMenu('Fazenda')
       .AdicionarSubMenu('Cadastro')
       .AdicionarSubMenu('Leite')
-    .AdicionarMenu('Fazenda')
   .GerarMenu;
 end;
 
