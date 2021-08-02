@@ -9,20 +9,15 @@ uses
 type
   TfrMenuItemBase = class(TFrame)
     pnContainer: TPanel;
-    procedure pnContainerEnter(Sender: TObject);
-    procedure pnContainerExit(Sender: TObject);
+    procedure pnContainerClick(Sender: TObject);
   private
     FID: Integer;
-    FEvMenuEnter: TEvMenuEnter;
-    FEvMenuExit: TEvMenuExit;
+    FEvCLick: TEvClick;
     procedure SetID(const Value: Integer);
-    procedure SetEvMenuEnter(const Value: TEvMenuEnter);
-    procedure SetEvMenuExit(const Value: TEvMenuExit);
-    { Private declarations }
+    procedure SetEvCLick(const Value: TEvClick);
   public
     property ID: Integer read FID write SetID;
-    property EvMenuEnter: TEvMenuEnter read FEvMenuEnter write SetEvMenuEnter;
-    property EvMenuExit: TEvMenuExit read FEvMenuExit write SetEvMenuExit;
+    property EvCLick: TEvClick read FEvCLick write SetEvCLick;
   end;
 
 implementation
@@ -31,14 +26,9 @@ implementation
 
 { TfrMenuItemBase }
 
-procedure TfrMenuItemBase.SetEvMenuEnter(const Value: TEvMenuEnter);
+procedure TfrMenuItemBase.SetEvCLick(const Value: TEvClick);
 begin
-  FEvMenuEnter := Value;
-end;
-
-procedure TfrMenuItemBase.SetEvMenuExit(const Value: TEvMenuExit);
-begin
-  FEvMenuExit := Value;
+  FEvCLick := Value;
 end;
 
 procedure TfrMenuItemBase.SetID(const Value: Integer);
@@ -46,16 +36,10 @@ begin
   FID := Value;
 end;
 
-procedure TfrMenuItemBase.pnContainerEnter(Sender: TObject);
+procedure TfrMenuItemBase.pnContainerClick(Sender: TObject);
 begin
-  //if Assigned(EvMenuEnter) then
-  //  EvMenuEnter;
-end;
-
-procedure TfrMenuItemBase.pnContainerExit(Sender: TObject);
-begin
-  //if Assigned(EvMenuExit) then
-   // EvMenuExit;
+  if Assigned(EvCLick) then
+    EvCLick(Self.ID);
 end;
 
 end.

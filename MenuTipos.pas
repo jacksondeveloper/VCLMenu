@@ -8,8 +8,7 @@ const
 
 type
 
-  TEvMenuEnter = procedure(ID: Integer) of object;
-  TEvMenuExit = procedure(ID: Integer) of object;
+  TEvClick = procedure(ID: Integer) of object;
 
 implementation
 

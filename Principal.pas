@@ -33,9 +33,14 @@ begin
 
   fMenuController
     .AdicionarMenu('Animal')
+      .AdicionarSubMenu('Animal1')
+      .AdicionarSubMenu('Animal2')
+      .AdicionarSubMenu('Animal3')
+      .AdicionarSubMenu('Animal4')
+      .AdicionarSubMenu('Animal5')
     .AdicionarMenu('Fazenda')
-      .AdicionarSubMenu('Cadastro')
-      .AdicionarSubMenu('Leite')
+      .AdicionarSubMenu('Fazenda1')
+      .AdicionarSubMenu('Fazenda2')
   .GerarMenu;
 end;
 

@@ -9,6 +9,7 @@ uses
 type
   TfrMenuSubItem = class(TfrMenuItemBase)
     lbPrincipal: TLabel;
+    procedure lbPrincipalClick(Sender: TObject);
   private
     FIDMenuPai: Integer;
     procedure SetIDMenuPai(const Value: Integer);
@@ -29,6 +30,12 @@ implementation
 procedure TfrMenuSubItem.SetIDMenuPai(const Value: Integer);
 begin
   FIDMenuPai := Value;
+end;
+
+procedure TfrMenuSubItem.lbPrincipalClick(Sender: TObject);
+begin
+  inherited;
+  pnContainer.OnClick(lbPrincipal);
 end;
 
 end.

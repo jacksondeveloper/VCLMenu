@@ -14,6 +14,7 @@ inherited frMenuSubItem: TfrMenuSubItem
       Font.Name = 'MS Sans Serif'
       Font.Style = []
       ParentFont = False
+      OnClick = lbPrincipalClick
     end
   end
 end

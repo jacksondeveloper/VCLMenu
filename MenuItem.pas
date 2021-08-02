@@ -9,6 +9,7 @@ uses
 type
   TfrMenuItem = class(TfrMenuItemBase)
     lbPrincipal: TLabel;
+    procedure lbPrincipalClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -21,5 +22,11 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrMenuItem.lbPrincipalClick(Sender: TObject);
+begin
+  inherited;
+  pnContainer.OnClick(lbPrincipal);
+end;
 
 end.
