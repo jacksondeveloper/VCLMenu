@@ -122,13 +122,20 @@ begin
   if //(TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Top = 0) and
      ((SubMenuItem.Top + SubMenuItem.Height) > GetAlturaMaximaContainer) then
   begin
-    CriarNovoContainer(TfrMenuItem(fListaMenu[Pred(fListaMenu.Count)]).ID,
-                                   TfrMenuItem(fListaMenu[Pred(fListaMenu.Count)]).Top, LarguraSubMenu,
-                                   TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Left +
-                                   TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Width);
-    SubMenuItem.Parent := TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]);                               
-    SubMenuItem.Left := 0;
-    SubMenuItem.Top := 0;
+    if (TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Parent.Height - TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Height ) > SubMenuItem.Height then
+    begin
+      TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Top := TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Top - SubMenuItem.Height;
+    end
+    else
+    begin
+      CriarNovoContainer(TfrMenuItem(fListaMenu[Pred(fListaMenu.Count)]).ID,
+                                     TfrMenuItem(fListaMenu[Pred(fListaMenu.Count)]).Top, LarguraSubMenu,
+                                     TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Left +
+                                     TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Width);
+      SubMenuItem.Parent := TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]);
+      SubMenuItem.Left := 0;
+      SubMenuItem.Top := 0;
+    end;
   end;
   //else if TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Height < (SubMenuItem.Top + SubMenuItem.Height) then
     TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Height := SubMenuItem.Height +
@@ -136,7 +143,7 @@ begin
 
   fListaSubMenu.Add(SubMenuItem);
 
-  DOLog('->' + SubMenuItem.Name + ': Altura ' + IntToStr(SubMenuItem.Height) + ' Topo ' + IntToStr(SubMenuItem.Top));
+  DOLog('->' + SubMenuItem.lbPrincipal.Caption + ': Altura ' + IntToStr(SubMenuItem.Height) + ' Topo ' + IntToStr(SubMenuItem.Top));
   DOLog('---->' + TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Name + ': Altura ' + IntToStr(TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Height));
   DOLog('-> TamanhoMáximo: ' + IntToStr(GetAlturaMaximaContainer));
   DOLog('');
