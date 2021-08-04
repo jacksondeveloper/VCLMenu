@@ -4,7 +4,7 @@ interface
 
 uses
   Classes, SysUtils, MenuItem, MenuSubItem, Controls, MenuTipos, ExtCtrls, Forms,
-  Graphics;
+  Graphics, Windows;
 
 type
 
@@ -25,6 +25,7 @@ type
     FListaContainerSubMenu: TList;
     procedure SetContainerSubMenu(const Value: TList);
     function GetContainerSubMenu: TList;
+    function GetAlturaMaximaContainer: Integer;
   public
     constructor Create(MenuContainer, SubMenuParent: TWinControl);
     destructor Destroy; override;
@@ -104,10 +105,23 @@ begin
   SubMenuItem.pnContainer.Color := clGreen;
   SubMenuItem.lbPrincipal.Caption := Caption;
 
-  TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Height := SubMenuItem.Height +
-      TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Height;
+  if (TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Top <> 0) and
+     (TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Height >= (GetAlturaMaximaContainer)) then
+    TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Top := TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Top - SubMenuItem.Height;
 
-  fListaSubMenu.Add(SubMenuItem);    
+  if (TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Top = 0) and
+     (TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Height >= (GetAlturaMaximaContainer)) then
+  begin
+    TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Width := TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Width +
+                                                                                SubMenuItem.Width;
+  end
+  else
+  begin
+    TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Height := SubMenuItem.Height +
+        TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Height;
+  end;
+
+  fListaSubMenu.Add(SubMenuItem);
 end;
 
 procedure TMenuController.MostrarSubMenu(ID: Integer);
@@ -192,6 +206,11 @@ end;
 procedure TMenuController.SetContainerSubMenu(const Value: TList);
 begin
   FListaContainerSubMenu := Value;
+end;
+
+function TMenuController.GetAlturaMaximaContainer: Integer;
+begin
+  Result := fSubMenuParent.Height - 100;
 end;
 
 end.

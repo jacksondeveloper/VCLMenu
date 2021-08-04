@@ -12,7 +12,7 @@ object frPrincipal: TfrPrincipal
   Font.Style = []
   OldCreateOrder = False
   WindowState = wsMaximized
-  OnCreate = FormCreate
+  OnActivate = FormActivate
   PixelsPerInch = 96
   TextHeight = 13
   object pnContainer: TPanel

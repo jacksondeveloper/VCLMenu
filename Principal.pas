@@ -13,11 +13,11 @@ type
     pnPrincipal: TPanel;
     Panel1: TPanel;
     pnEsquerdo: TPanel;
-    procedure FormCreate(Sender: TObject);
     procedure pnEsquerdoClick(Sender: TObject);
     procedure pnPrincipalClick(Sender: TObject);
     procedure Panel1Click(Sender: TObject);
     procedure pnTopoClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
   private
     fMenuController: iMenuController;
   public
@@ -31,7 +31,27 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrPrincipal.FormCreate(Sender: TObject);
+procedure TfrPrincipal.pnEsquerdoClick(Sender: TObject);
+begin
+  fMenuController.EsconderSubMenus;
+end;
+
+procedure TfrPrincipal.pnPrincipalClick(Sender: TObject);
+begin
+  fMenuController.EsconderSubMenus;
+end;
+
+procedure TfrPrincipal.Panel1Click(Sender: TObject);
+begin
+  fMenuController.EsconderSubMenus;
+end;
+
+procedure TfrPrincipal.pnTopoClick(Sender: TObject);
+begin
+  fMenuController.EsconderSubMenus;
+end;
+
+procedure TfrPrincipal.FormActivate(Sender: TObject);
 begin
   fMenuController := TMenuController.New(pnEsquerdo, pnPrincipal);
 
@@ -57,27 +77,13 @@ begin
       .AdicionarSubMenu('Utilitários6')
       .AdicionarSubMenu('Utilitários7')
       .AdicionarSubMenu('Utilitários8')
+      .AdicionarSubMenu('Utilitários9')
+      .AdicionarSubMenu('Utilitários10')
+      .AdicionarSubMenu('Utilitários11')
+      .AdicionarSubMenu('Utilitários12')
+      .AdicionarSubMenu('Utilitários13')
+      .AdicionarSubMenu('Utilitários14')
   .GerarMenu;
-end;
-
-procedure TfrPrincipal.pnEsquerdoClick(Sender: TObject);
-begin
-  fMenuController.EsconderSubMenus;
-end;
-
-procedure TfrPrincipal.pnPrincipalClick(Sender: TObject);
-begin
-  fMenuController.EsconderSubMenus;
-end;
-
-procedure TfrPrincipal.Panel1Click(Sender: TObject);
-begin
-  fMenuController.EsconderSubMenus;
-end;
-
-procedure TfrPrincipal.pnTopoClick(Sender: TObject);
-begin
-  fMenuController.EsconderSubMenus;
 end;
 
 end.
