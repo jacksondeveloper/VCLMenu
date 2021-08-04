@@ -44,6 +44,25 @@ object frPrincipal: TfrPrincipal
       Color = clSilver
       TabOrder = 1
       OnClick = pnPrincipalClick
+      object Panel2: TPanel
+        Left = 432
+        Top = 0
+        Width = 275
+        Height = 387
+        Align = alRight
+        BevelOuter = bvNone
+        Color = clSilver
+        TabOrder = 0
+        OnClick = pnPrincipalClick
+        object Memo1: TMemo
+          Left = 0
+          Top = 0
+          Width = 275
+          Height = 387
+          Align = alClient
+          TabOrder = 0
+        end
+      end
     end
     object pnEsquerdo: TPanel
       Left = 0
