@@ -98,6 +98,7 @@ begin
   SubMenuItem.Visible := False;
   SubMenuItem.Width := LarguraSubMenu;
 
+  // Se forem submenus de outro menu então já volta o topo do submenu para 0 para fica em cima
   if (fListaSubMenu.Count <= 0) or
      (SubMenuItem.IDMenuPai <> TfrMenuSubItem(fListaSubMenu[Pred(fListaSubMenu.Count)]).IDMenuPai) then
   begin
@@ -113,21 +114,20 @@ begin
   SubMenuItem.pnContainer.Color := clGreen;
   SubMenuItem.lbPrincipal.Caption := Caption;
 
+  // Se o container chegar no na altura máxima, vai jogando ele pra cima até chegar no topo
   if (TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Top <> 0) and
      (TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Height >= (GetAlturaMaximaContainer)) then
     TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Top := TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Top - SubMenuItem.Height;
 
-
-
-  if //(TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Top = 0) and
-     ((SubMenuItem.Top + SubMenuItem.Height) > GetAlturaMaximaContainer) then
+  if ((SubMenuItem.Top + SubMenuItem.Height) > GetAlturaMaximaContainer) then
   begin
-    // Se é o segundo container do mesmo menu pai então coloca o próximo no mesmo topo dele
+    // Recalcula o topo do subcontainer caso já seja o segundo subcontainer do mesmo menu, evitar container quebrado no meio
     if (TPanel(FListaContainerSubMenu[Pred(Pred(FListaContainerSubMenu.Count))]).Tag = TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Tag) then
       NovoTopoContainer := TPanel(FListaContainerSubMenu[Pred(Pred(FListaContainerSubMenu.Count))]).Top
     else
       NovoTopoContainer := TfrMenuItem(fListaMenu[Pred(fListaMenu.Count)]).Top;
 
+    // Se encheu o container de submenus então cria um novo 
     if ((TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Parent.Height - TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Height ) > SubMenuItem.Height) then
     begin
       if TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Top <> 0 then
@@ -144,9 +144,9 @@ begin
       SubMenuItem.Top := 0;
     end;
   end;
-  //else if TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Height < (SubMenuItem.Top + SubMenuItem.Height) then
-    TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Height := SubMenuItem.Height +
-        TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Height;
+
+  // Aumenta altura do subcontainer para caber o item que vai ser adicionado
+  TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Height := SubMenuItem.Height + TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]).Height;
 
   fListaSubMenu.Add(SubMenuItem);
 
