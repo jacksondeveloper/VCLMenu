@@ -49,9 +49,12 @@ end;
 
 procedure TfrMenuSubItem.pnContainerClick(Sender: TObject);
 begin
-  inherited;
   if Assigned(EvFecharSubMenus) then
     EvFecharSubMenus;
+    
+  inherited;
+
+  ShowMessage('Clicou em: ' + IntToStr(Self.ID));
 end;
 
 end.

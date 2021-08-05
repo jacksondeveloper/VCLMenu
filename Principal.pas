@@ -66,7 +66,7 @@ begin
   fMenuController := TMenuController.New(pnEsquerdo, pnPrincipal);
 
   fMenuController
-    {.AdicionarMenu('Animal')
+    .AdicionarMenu('Animal')
       .AdicionarSubMenu('Animal1')
       .AdicionarSubMenu('Animal2')
       .AdicionarSubMenu('Animal3')
@@ -74,10 +74,10 @@ begin
       .AdicionarSubMenu('Animal5')
     .AdicionarMenu('Fazenda')
       .AdicionarSubMenu('Fazenda1')
-      .AdicionarSubMenu('Fazenda2') }
+      .AdicionarSubMenu('Fazenda2')  
     .AdicionarMenu('Mastite')
       .AdicionarSubMenu('Mastite1')
-      .AdicionarSubMenu('Mastite2')  
+      .AdicionarSubMenu('Mastite2')
     .AdicionarMenu('Utilitários')
       .AdicionarSubMenu('Utilitários1')
       .AdicionarSubMenu('Utilitários2')
@@ -116,7 +116,7 @@ begin
       .AdicionarSubMenu('Utilitários35')
       .AdicionarSubMenu('Utilitários36')
       .AdicionarSubMenu('Utilitários37')
-      .AdicionarSubMenu('Utilitários38')
+      .AdicionarSubMenu('Utilitários38') 
   .GerarMenu;
 end;
 
