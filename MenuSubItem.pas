@@ -16,8 +16,7 @@ type
     FEvFecharSubMenus: TEvFecharSubMenus;
     procedure SetIDMenuPai(const Value: Integer);
     procedure SetEvFecharSubMenus(const Value: TEvFecharSubMenus);
-    { Private declarations }
-  public
+   public
     property IDMenuPai: Integer read FIDMenuPai write SetIDMenuPai;
     property EvFecharSubMenus: TEvFecharSubMenus read FEvFecharSubMenus write SetEvFecharSubMenus;
   end;
@@ -53,8 +52,6 @@ begin
     EvFecharSubMenus;
     
   inherited;
-
-  ShowMessage('Clicou em: ' + IntToStr(Self.ID));
 end;
 
 end.

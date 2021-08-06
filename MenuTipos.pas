@@ -8,7 +8,7 @@ const
 
 type
 
-  TEvClick = procedure(ID: Integer) of object;
+  TEvMenuClick = procedure(Sender: TObject) of object;
   TEvFecharSubMenus = procedure of object;
 
 implementation

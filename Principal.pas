@@ -13,7 +13,7 @@ type
     pnPrincipal: TPanel;
     Panel1: TPanel;
     pnEsquerdo: TPanel;
-    Panel2: TPanel;
+    Panel3: TPanel;
     Memo1: TMemo;
     procedure pnEsquerdoClick(Sender: TObject);
     procedure pnPrincipalClick(Sender: TObject);
@@ -22,8 +22,10 @@ type
     procedure FormActivate(Sender: TObject);
   private
     fMenuController: iMenuController;
+    procedure AbrirCadastro(Sender: TObject);
+    procedure SetMenuController(const Value: iMenuController);
   public
-    { Public declarations }
+    property MenuController: iMenuController read FMenuController write SetMenuController;
   end;
 
 var
@@ -32,6 +34,9 @@ var
 procedure DOLog(Value: String);
 
 implementation
+
+uses
+  CadastroTeste;
 
 procedure DOLog(Value: String);
 begin
@@ -67,7 +72,7 @@ begin
 
   fMenuController
     .AdicionarMenu('Animal')
-      .AdicionarSubMenu('Animal1')
+      .AdicionarSubMenu('Animal1', AbrirCadastro)
       .AdicionarSubMenu('Animal2')
       .AdicionarSubMenu('Animal3')
       .AdicionarSubMenu('Animal4')
@@ -118,6 +123,18 @@ begin
       .AdicionarSubMenu('Utilitários37')
       .AdicionarSubMenu('Utilitários38') 
   .GerarMenu;
+end;
+
+procedure TfrPrincipal.AbrirCadastro(Sender: TObject);
+begin
+  Application.CreateForm(TfrCadastroTeste, frCadastroTeste);
+  frCadastroTeste.Parent := pnPrincipal;
+  frCadastroTeste.Show;
+end;
+
+procedure TfrPrincipal.SetMenuController(const Value: iMenuController);
+begin
+  FMenuController := Value;
 end;
 
 end.

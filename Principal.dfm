@@ -37,32 +37,13 @@ object frPrincipal: TfrPrincipal
     object pnPrincipal: TPanel
       Left = 321
       Top = 65
-      Width = 707
+      Width = 487
       Height = 387
       Align = alClient
       BevelOuter = bvNone
       Color = clSilver
       TabOrder = 1
       OnClick = pnPrincipalClick
-      object Panel2: TPanel
-        Left = 432
-        Top = 0
-        Width = 275
-        Height = 387
-        Align = alRight
-        BevelOuter = bvNone
-        Color = clSilver
-        TabOrder = 0
-        OnClick = pnPrincipalClick
-        object Memo1: TMemo
-          Left = 0
-          Top = 0
-          Width = 275
-          Height = 387
-          Align = alClient
-          TabOrder = 0
-        end
-      end
     end
     object pnEsquerdo: TPanel
       Left = 0
@@ -71,9 +52,28 @@ object frPrincipal: TfrPrincipal
       Height = 387
       Align = alLeft
       BevelOuter = bvNone
-      Color = clGray
+      Color = clMedGray
       TabOrder = 2
       OnClick = pnEsquerdoClick
+    end
+    object Panel3: TPanel
+      Left = 808
+      Top = 65
+      Width = 220
+      Height = 387
+      Align = alRight
+      BevelOuter = bvNone
+      Color = clSilver
+      TabOrder = 3
+      OnClick = pnPrincipalClick
+      object Memo1: TMemo
+        Left = 0
+        Top = 0
+        Width = 220
+        Height = 387
+        Align = alClient
+        TabOrder = 0
+      end
     end
   end
   object Panel1: TPanel

@@ -12,7 +12,7 @@ type
     ['{1C9623C4-8C0A-44A6-A1F6-9B1F4E279ECA}']
     procedure GerarMenu;
     function AdicionarMenu(Caption: string): iMenuController;
-    function AdicionarSubMenu(Caption: string): iMenuController;
+    function AdicionarSubMenu(Caption: string; EvSubMenuClick: TEvMenuClick = nil): iMenuController;
     procedure EsconderSubMenus;
   end;
 
@@ -26,14 +26,15 @@ type
     procedure SetContainerSubMenu(const Value: TList);
     function GetContainerSubMenu: TList;
     function GetAlturaMaximaContainer: Integer;
+    procedure MostrarEsconderSubMenusEspecificos(Sender: TObject);
   public
     constructor Create(MenuContainer, SubMenuParent: TWinControl);
     destructor Destroy; override;
     class function New(MenuContainer, SubMenuParent: TWinControl): iMenuController;
     procedure GerarMenu;
     function AdicionarMenu(Caption: string): iMenuController;
-    function AdicionarSubMenu(Caption: string): iMenuController;
-    procedure MostrarSubMenu(ID: Integer);
+    function AdicionarSubMenu(Caption: string; EvSubMenuClick: TEvMenuClick = nil): iMenuController;
+    procedure MostrarSubMenu(Sender: TObject);
     procedure EsconderSubMenus;
     procedure CriarNovoContainer(IDMenuItem, Topo, Largura, Left: Integer);
     property ContainerSubMenu: TList read GetContainerSubMenu write SetContainerSubMenu;
@@ -64,7 +65,7 @@ begin
   MenuItem.Name := 'MenuItem' + IntToStr(ID);
   MenuItem.ID := ID;
   MenuItem.Visible := False;
-  MenuItem.EvClick := MostrarSubMenu;
+  MenuItem.EvMenuCLick := MostrarEsconderSubMenusEspecificos;
   MenuItem.Parent := fMenuContainer;
   MenuItem.Width := fMenuContainer.Width;
   MenuItem.Top := TopoMenu;
@@ -73,7 +74,7 @@ begin
   fListaMenu.Add(MenuItem);
 end;
 
-function TMenuController.AdicionarSubMenu(Caption: string): iMenuController;
+function TMenuController.AdicionarSubMenu(Caption: string; EvSubMenuClick: TEvMenuClick = nil): iMenuController;
 var
   SubMenuItem: TfrMenuSubItem;
   ID, NovoTopoContainer: Integer;
@@ -89,13 +90,15 @@ begin
   end;
 
   SubMenuItem := TfrMenuSubItem.Create(nil);
+  SubMenuItem.pnContainer.Color := clGray;
+  SubMenuItem.EvMenuCLick := EvSubMenuClick;
+  SubMenuItem.EvFecharSubMenus := EsconderSubMenus;
   ID := fListaSubMenu.Count + 1;
   SubMenuItem.Name := 'SubMenuItem' + IntToStr(ID);
   SubMenuItem.ID := ID;
-  SubMenuItem.EvFecharSubMenus := EsconderSubMenus;
   SubMenuItem.Parent := TPanel(FListaContainerSubMenu[Pred(FListaContainerSubMenu.Count)]);
   SubMenuItem.IDMenuPai := TfrMenuItem(fListaMenu[Pred(fListaMenu.Count)]).ID; // ultimo menu pai
-  SubMenuItem.Visible := False;
+  SubMenuItem.Visible := True;
   SubMenuItem.Width := LarguraSubMenu;
 
   // Se forem submenus de outro menu então já volta o topo do submenu para 0 para fica em cima
@@ -111,7 +114,6 @@ begin
     SubMenuItem.Left := TfrMenuSubItem(fListaSubMenu[Pred(fListaSubMenu.Count)]).Left;
   end;
 
-  SubMenuItem.pnContainer.Color := clGreen;
   SubMenuItem.lbPrincipal.Caption := Caption;
 
   // Se o container chegar no na altura máxima, vai jogando ele pra cima até chegar no topo
@@ -156,22 +158,15 @@ begin
   DOLog('');
 end;
 
-procedure TMenuController.MostrarSubMenu(ID: Integer);
+procedure TMenuController.MostrarSubMenu(Sender: TObject);
 var
   contador: Integer;
 begin
-
-  for contador := 0 to Pred(fListaSubMenu.Count) do
-  begin
-    TfrMenuSubItem(fListaSubMenu[contador]).Visible := True;
-    TfrMenuSubItem(fListaSubMenu[contador]).BringToFront;
-  end;
-
   for contador := 0 to Pred(FListaContainerSubMenu.Count) do
   begin
-    TPanel(FListaContainerSubMenu[contador]).Visible := (TPanel(FListaContainerSubMenu[contador]).Tag = ID)
+    TPanel(FListaContainerSubMenu[contador]).Visible := (TPanel(FListaContainerSubMenu[contador]).Tag = TfrMenuItem(Sender).ID);
+    TPanel(FListaContainerSubMenu[contador]).BringToFront;
   end;
-
 end;
 
 procedure TMenuController.EsconderSubMenus;
@@ -244,6 +239,22 @@ end;
 function TMenuController.GetAlturaMaximaContainer: Integer;
 begin
   Result := fSubMenuParent.Height - 100;
+end;
+
+procedure TMenuController.MostrarEsconderSubMenusEspecificos(Sender: TObject);
+var
+  contador: Integer;
+begin
+  for contador := 0 to Pred(FListaContainerSubMenu.Count) do
+  begin
+    if (TPanel(FListaContainerSubMenu[contador]).Tag = TfrMenuItem(Sender).ID) then
+    begin
+      TPanel(FListaContainerSubMenu[contador]).BringToFront;
+      TPanel(FListaContainerSubMenu[contador]).Visible := not TPanel(FListaContainerSubMenu[contador]).Visible;
+    end
+    else
+      TPanel(FListaContainerSubMenu[contador]).Visible := False;
+  end;
 end;
 
 end.

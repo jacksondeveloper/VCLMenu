@@ -12,12 +12,13 @@ type
     procedure pnContainerClick(Sender: TObject);
   private
     FID: Integer;
-    FEvCLick: TEvClick;
+    FEvCLick: TEvMenuClick;
+    FEvMenuCLick: TEvMenuClick;
     procedure SetID(const Value: Integer);
-    procedure SetEvCLick(const Value: TEvClick);
+    procedure SetEvMenuCLick(const Value: TEvMenuClick);
   public
     property ID: Integer read FID write SetID;
-    property EvCLick: TEvClick read FEvCLick write SetEvCLick;
+    property EvMenuCLick: TEvMenuClick read FEvMenuCLick write SetEvMenuCLick;
   end;
 
 implementation
@@ -26,11 +27,6 @@ implementation
 
 { TfrMenuItemBase }
 
-procedure TfrMenuItemBase.SetEvCLick(const Value: TEvClick);
-begin
-  FEvCLick := Value;
-end;
-
 procedure TfrMenuItemBase.SetID(const Value: Integer);
 begin
   FID := Value;
@@ -38,8 +34,13 @@ end;
 
 procedure TfrMenuItemBase.pnContainerClick(Sender: TObject);
 begin
-  if Assigned(EvCLick) then
-    EvCLick(Self.ID);
+  if Assigned(EvMenuCLick) then
+    EvMenuCLick(Self);
+end;
+
+procedure TfrMenuItemBase.SetEvMenuCLick(const Value: TEvMenuClick);
+begin
+  FEvMenuCLick := Value;
 end;
 
 end.
