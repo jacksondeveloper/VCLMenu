@@ -4,7 +4,6 @@ interface
 
 const
   LarguraSubMenu = 200;
-  AlturaMaximaContainerSubmenu = 100;
 
 type
 

@@ -22,15 +22,16 @@ type
     fSubMenuParent: TWinControl;
     fListaMenu: TList;
     fListaSubMenu: TList;
-    FListaContainerSubMenu: TList;
+    fListaContainerSubMenu: TList;
+    fAlturaMenu: Integer;
     procedure SetContainerSubMenu(const Value: TList);
     function GetContainerSubMenu: TList;
     function GetAlturaMaximaContainer: Integer;
     procedure MostrarEsconderSubMenusEspecificos(Sender: TObject);
   public
-    constructor Create(MenuContainer, SubMenuParent: TWinControl);
+    constructor Create(MenuContainer, SubMenuParent: TWinControl; AlturaMenu: Integer = 0);
     destructor Destroy; override;
-    class function New(MenuContainer, SubMenuParent: TWinControl): iMenuController;
+    class function New(MenuContainer, SubMenuParent: TWinControl; AlturaMenu: Integer = 0): iMenuController;
     procedure GerarMenu;
     function AdicionarMenu(Caption: string): iMenuController;
     function AdicionarSubMenu(Caption: string; EvSubMenuClick: TEvMenuClick = nil): iMenuController;
@@ -67,9 +68,12 @@ begin
   MenuItem.Visible := False;
   MenuItem.EvMenuCLick := MostrarEsconderSubMenusEspecificos;
   MenuItem.Parent := fMenuContainer;
-  MenuItem.Width := fMenuContainer.Width;
+  MenuItem.Width := MenuItem.Parent.Width;
   MenuItem.Top := TopoMenu;
   MenuItem.lbPrincipal.Caption := Caption;
+
+  if fAlturaMenu > 0 then
+    MenuItem.Height := fAlturaMenu;
 
   fListaMenu.Add(MenuItem);
 end;
@@ -90,6 +94,10 @@ begin
   end;
 
   SubMenuItem := TfrMenuSubItem.Create(nil);
+
+  if fAlturaMenu > 0 then
+    SubMenuItem.Height := fAlturaMenu;
+
   SubMenuItem.pnContainer.Color := clGray;
   SubMenuItem.EvMenuCLick := EvSubMenuClick;
   SubMenuItem.EvFecharSubMenus := EsconderSubMenus;
@@ -177,10 +185,11 @@ begin
     TPanel(FListaContainerSubMenu[Contador]).Visible := False;
 end;
 
-constructor TMenuController.Create(MenuContainer, SubMenuParent: TWinControl);
+constructor TMenuController.Create(MenuContainer, SubMenuParent: TWinControl; AlturaMenu: Integer = 0);
 begin
   fMenuContainer := MenuContainer;
   fSubMenuParent := SubMenuParent;
+  fAlturaMenu := AlturaMenu;
   fListaMenu := TList.Create;
   fListaSubMenu := TList.Create;
   FListaContainerSubMenu := TList.Create;
@@ -226,9 +235,9 @@ begin
   Result := FListaContainerSubMenu;
 end;
 
-class function TMenuController.New(MenuContainer, SubMenuParent: TWinControl): iMenuController;
+class function TMenuController.New(MenuContainer, SubMenuParent: TWinControl; AlturaMenu: Integer = 0): iMenuController;
 begin
-  Result := Self.Create(MenuContainer, SubMenuParent);
+  Result := Self.Create(MenuContainer, SubMenuParent, AlturaMenu);
 end;
 
 procedure TMenuController.SetContainerSubMenu(const Value: TList);

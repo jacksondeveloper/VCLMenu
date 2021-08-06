@@ -68,7 +68,7 @@ end;
 
 procedure TfrPrincipal.FormActivate(Sender: TObject);
 begin
-  fMenuController := TMenuController.New(pnEsquerdo, pnPrincipal);
+  fMenuController := TMenuController.New(pnEsquerdo, pnPrincipal, 50);
 
   fMenuController
     .AdicionarMenu('Animal')
