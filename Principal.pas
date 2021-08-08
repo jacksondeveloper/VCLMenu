@@ -36,7 +36,7 @@ procedure DOLog(Value: String);
 implementation
 
 uses
-  CadastroTeste;
+  CadastroTeste, MenuSubItem;
 
 procedure DOLog(Value: String);
 begin
@@ -67,61 +67,66 @@ begin
 end;
 
 procedure TfrPrincipal.FormActivate(Sender: TObject);
+var
+  MenuParametros: iMenuParametros;
 begin
-  fMenuController := TMenuController.New(pnEsquerdo, pnPrincipal, 50);
+  MenuParametros := TMenuParametros.New
+                      .SetAlturaMenu(100);
+                      
+  fMenuController := TMenuController.New(pnEsquerdo, pnPrincipal, MenuParametros);
 
   fMenuController
     .AdicionarMenu('Animal')
       .AdicionarSubMenu('Animal1', AbrirCadastro)
-      .AdicionarSubMenu('Animal2')
-      .AdicionarSubMenu('Animal3')
-      .AdicionarSubMenu('Animal4')
-      .AdicionarSubMenu('Animal5')
+      .AdicionarSubMenu('Animal2', AbrirCadastro)
+      .AdicionarSubMenu('Animal3', AbrirCadastro)
+      .AdicionarSubMenu('Animal4', AbrirCadastro)
+      .AdicionarSubMenu('Animal5', AbrirCadastro)
     .AdicionarMenu('Fazenda')
-      .AdicionarSubMenu('Fazenda1')
-      .AdicionarSubMenu('Fazenda2')  
+      .AdicionarSubMenu('Fazenda1', AbrirCadastro)
+      .AdicionarSubMenu('Fazenda2', AbrirCadastro)
     .AdicionarMenu('Mastite')
-      .AdicionarSubMenu('Mastite1')
-      .AdicionarSubMenu('Mastite2')
+      .AdicionarSubMenu('Mastite1', AbrirCadastro)
+      .AdicionarSubMenu('Mastite2', AbrirCadastro)
     .AdicionarMenu('Utilitários')
-      .AdicionarSubMenu('Utilitários1')
-      .AdicionarSubMenu('Utilitários2')
-      .AdicionarSubMenu('Utilitários3')
-      .AdicionarSubMenu('Utilitários4')
-      .AdicionarSubMenu('Utilitários5')
-      .AdicionarSubMenu('Utilitários6')
-      .AdicionarSubMenu('Utilitários7')
-      .AdicionarSubMenu('Utilitários8')
-      .AdicionarSubMenu('Utilitários9')
-      .AdicionarSubMenu('Utilitários10')
-      .AdicionarSubMenu('Utilitários11')
-      .AdicionarSubMenu('Utilitários12')
-      .AdicionarSubMenu('Utilitários13')
-      .AdicionarSubMenu('Utilitários14')
-      .AdicionarSubMenu('Utilitários15')
-      .AdicionarSubMenu('Utilitários16')
-      .AdicionarSubMenu('Utilitários17')
-      .AdicionarSubMenu('Utilitários18')
-      .AdicionarSubMenu('Utilitários19')
-      .AdicionarSubMenu('Utilitários20')
-      .AdicionarSubMenu('Utilitários21')
-      .AdicionarSubMenu('Utilitários22')
-      .AdicionarSubMenu('Utilitários23')
-      .AdicionarSubMenu('Utilitários24')
-      .AdicionarSubMenu('Utilitários25')
-      .AdicionarSubMenu('Utilitários26')
-      .AdicionarSubMenu('Utilitários27')
-      .AdicionarSubMenu('Utilitários28')
-      .AdicionarSubMenu('Utilitários29')
-      .AdicionarSubMenu('Utilitários30')
-      .AdicionarSubMenu('Utilitários31')
-      .AdicionarSubMenu('Utilitários32')
-      .AdicionarSubMenu('Utilitários33')
-      .AdicionarSubMenu('Utilitários34')
-      .AdicionarSubMenu('Utilitários35')
-      .AdicionarSubMenu('Utilitários36')
-      .AdicionarSubMenu('Utilitários37')
-      .AdicionarSubMenu('Utilitários38')  
+      .AdicionarSubMenu('Utilitários1', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários2', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários3', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários4', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários5', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários6', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários7', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários8', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários9', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários10', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários11', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários12', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários13', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários14', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários15', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários16', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários17', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários18', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários19', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários20', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários21', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários22', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários23', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários24', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários25', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários26', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários27', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários28', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários29', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários30', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários31', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários32', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários33', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários34', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários35', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários36', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários37', AbrirCadastro)
+      .AdicionarSubMenu('Utilitários38', AbrirCadastro)  
   .GerarMenu;
 end;
 
@@ -129,6 +134,7 @@ procedure TfrPrincipal.AbrirCadastro(Sender: TObject);
 begin
   Application.CreateForm(TfrCadastroTeste, frCadastroTeste);
   frCadastroTeste.Parent := pnPrincipal;
+  frCadastroTeste.Label1.Caption := TfrMenuSubItem(Sender).lbPrincipal.Caption;
   frCadastroTeste.Show;
 end;
 
