@@ -114,6 +114,7 @@ var
   SubMenuAtual: TfrMenuSubItem;
   ContainerAtual: TPanel;
 begin
+  ContainerAtual := nil; // remove warning
 
   for Contador := 0 to Pred(fListaSubMenu.Count) do
   begin
