@@ -156,8 +156,12 @@ begin
       ContainerAtual.Height := ContainerAtual.Height + SubMenuAtual.Height;
     end;
 
-    DOLog('Container: ' + IntToStr(ContainerAtual.Tag) + ' Top: ' + IntToStr(ContainerAtual.Top) + ' Height: ' + IntToStr(ContainerAtual.Height));
+    SubMenuAtual.Parent := ContainerAtual;
+    SubMenuAtual.Top := ContainerAtual.Height - SubMenuAtual.Height;
 
+    DOLog('Container: ' + IntToStr(ContainerAtual.Tag) + ' Top: ' + IntToStr(ContainerAtual.Top) + ' Left: ' + IntToStr(ContainerAtual.Left));
+    DOLog('Submenu: ' + SubMenuAtual.lbPrincipal.Caption + ' Top: ' + IntToStr(SubMenuAtual.Top) + ' Left: ' + IntToStr(SubMenuAtual.Left));
+    DOLog('');
   end;
 
 end;

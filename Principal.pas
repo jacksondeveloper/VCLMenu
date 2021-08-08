@@ -95,7 +95,7 @@ begin
       .AdicionarSubMenu('Utilitários9')
       .AdicionarSubMenu('Utilitários10')
       .AdicionarSubMenu('Utilitários11')
-      {.AdicionarSubMenu('Utilitários12')
+      .AdicionarSubMenu('Utilitários12')
       .AdicionarSubMenu('Utilitários13')
       .AdicionarSubMenu('Utilitários14')
       .AdicionarSubMenu('Utilitários15')
@@ -121,7 +121,7 @@ begin
       .AdicionarSubMenu('Utilitários35')
       .AdicionarSubMenu('Utilitários36')
       .AdicionarSubMenu('Utilitários37')
-      .AdicionarSubMenu('Utilitários38')  }
+      .AdicionarSubMenu('Utilitários38')  
   .GerarMenu;
 end;
 
