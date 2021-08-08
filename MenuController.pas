@@ -12,17 +12,22 @@ type
     ['{49D1E290-05CE-4DC6-B4CD-AB7E90C06271}']
     function SetAlturaMenu(Value: Integer): iMenuParametros;
     function GetAlturaMenu: Integer;
+    function SetAlturaSubMenu(Value: Integer): iMenuParametros;
+    function GetAlturaSubMenu: Integer;
   end;
 
   TMenuParametros = class(TInterfacedObject, iMenuParametros)
   private
     fAlturaMenu: Integer;
+    fAlturaSubMenu: Integer;
   public
     constructor Create;
     destructor Destroy; override;
     class function New: iMenuParametros;
     function SetAlturaMenu(Value: Integer): iMenuParametros;
     function GetAlturaMenu: Integer;
+    function SetAlturaSubMenu(Value: Integer): iMenuParametros;
+    function GetAlturaSubMenu: Integer;
   end;
 
   iMenuController = interface
@@ -124,6 +129,8 @@ begin
 
   // Dimensões
   SubMenuItem.Width := LarguraSubMenu;
+  if fMenuParametros.GetAlturaSubMenu > 0 then
+    SubMenuItem.Height := fMenuParametros.GetAlturaSubMenu;
 
   // Visual
   SubMenuItem.lbPrincipal.Caption := Caption;
@@ -328,6 +335,11 @@ begin
   Result := fAlturaMenu;
 end;
 
+function TMenuParametros.GetAlturaSubMenu: Integer;
+begin
+  Result := fAlturaSubMenu;
+end;
+
 class function TMenuParametros.New: iMenuParametros;
 begin
   Result := Self.Create;
@@ -337,6 +349,12 @@ function TMenuParametros.SetAlturaMenu(Value: Integer): iMenuParametros;
 begin
   Result := Self;
   fAlturaMenu := Value;
+end;
+
+function TMenuParametros.SetAlturaSubMenu(Value: Integer): iMenuParametros;
+begin
+  Result := Self;
+  fAlturaSubMenu := Value;
 end;
 
 end.

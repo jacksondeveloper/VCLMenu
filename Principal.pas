@@ -22,6 +22,7 @@ type
     procedure FormActivate(Sender: TObject);
   private
     fMenuController: iMenuController;
+    fMenuParametros: iMenuParametros;
     procedure AbrirCadastro(Sender: TObject);
     procedure SetMenuController(const Value: iMenuController);
   public
@@ -67,13 +68,12 @@ begin
 end;
 
 procedure TfrPrincipal.FormActivate(Sender: TObject);
-var
-  MenuParametros: iMenuParametros;
 begin
-  MenuParametros := TMenuParametros.New
-                      .SetAlturaMenu(100);
+  fMenuParametros := TMenuParametros.New
+                      .SetAlturaMenu(50)
+                      .SetAlturaSubMenu(50);
                       
-  fMenuController := TMenuController.New(pnEsquerdo, pnPrincipal, MenuParametros);
+  fMenuController := TMenuController.New(pnEsquerdo, pnPrincipal, fMenuParametros);
 
   fMenuController
     .AdicionarMenu('Animal')
