@@ -8,7 +8,11 @@ uses
 
 type
   TfrMenuSubItem = class(TfrMenuItemBase)
+    pnEsquerdo: TPanel;
+    pnPrincipal: TPanel;
     lbPrincipal: TLabel;
+    PnSeparadorEsquerdo: TPanel;
+    imgPrincipal: TImage;
     procedure lbPrincipalClick(Sender: TObject);
     procedure pnContainerClick(Sender: TObject);
   private
@@ -19,6 +23,7 @@ type
    public
     property IDMenuPai: Integer read FIDMenuPai write SetIDMenuPai;
     property EvFecharSubMenus: TEvFecharSubMenus read FEvFecharSubMenus write SetEvFecharSubMenus;
+    procedure SetImagemPrincipal(const Value: TPicture);
   end;
 
 var
@@ -52,6 +57,11 @@ begin
     EvFecharSubMenus;
     
   inherited;
+end;
+
+procedure TfrMenuSubItem.SetImagemPrincipal(const Value: TPicture);
+begin
+  imgPrincipal.Picture := Value;
 end;
 
 end.

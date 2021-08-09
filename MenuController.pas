@@ -33,8 +33,8 @@ type
   iMenuController = interface
     ['{1C9623C4-8C0A-44A6-A1F6-9B1F4E279ECA}']
     procedure GerarMenu;
-    function AdicionarMenu(Caption: string): iMenuController;
-    function AdicionarSubMenu(Caption: string; EvSubMenuClick: TEvMenuClick = nil): iMenuController;
+    function AdicionarMenu(Caption: string; Imagem: TPicture = nil): iMenuController;
+    function AdicionarSubMenu(Caption: string; EvSubMenuClick: TEvMenuClick = nil; Imagem: TPicture = nil): iMenuController;
     procedure EsconderSubMenus;
   end;
 
@@ -57,9 +57,8 @@ type
     destructor Destroy; override;
     class function New(MenuContainer, SubMenuParent: TWinControl; MenuParametros: iMenuParametros): iMenuController;
     procedure GerarMenu;
-    function AdicionarMenu(Caption: string): iMenuController;
-    function AdicionarSubMenu(Caption: string; EvSubMenuClick: TEvMenuClick = nil): iMenuController;
-    procedure MostrarSubMenu(Sender: TObject);
+    function AdicionarMenu(Caption: string; Imagem: TPicture = nil): iMenuController;
+    function AdicionarSubMenu(Caption: string; EvSubMenuClick: TEvMenuClick = nil; Imagem: TPicture = nil): iMenuController;
     procedure EsconderSubMenus;
     procedure CriarNovoContainer(IDMenuItem, Topo, Largura, Left: Integer);
     property ContainerSubMenu: TList read GetContainerSubMenu write SetContainerSubMenu;
@@ -72,7 +71,7 @@ uses
 
 { TMenuController }
 
-function TMenuController.AdicionarMenu(Caption: string): iMenuController;
+function TMenuController.AdicionarMenu(Caption: string; Imagem: TPicture = nil): iMenuController;
 var
   MenuItem: TfrMenuItem;
   ID, TopoMenu: Integer;
@@ -89,7 +88,7 @@ begin
   ID := fListaMenu.Count + 1;
   MenuItem.Name := 'MenuItem' + IntToStr(ID);
   MenuItem.ID := ID;
-  MenuItem.Visible := False;
+  MenuItem.Visible := True;
   MenuItem.EvMenuCLick := MostrarEsconderSubMenusEspecificos;
   MenuItem.Parent := fMenuContainer;
 
@@ -99,12 +98,16 @@ begin
   if fMenuParametros.GetAlturaMenu > 0 then
     MenuItem.Height := fMenuParametros.GetAlturaMenu;
 
+  // Visual
+  MenuItem.DoubleBuffered := True;
   MenuItem.lbPrincipal.Caption := Caption;
+  if Assigned(Imagem) then
+    MenuItem.SetImagemPrincipal(Imagem);
 
   fListaMenu.Add(MenuItem);
 end;
 
-function TMenuController.AdicionarSubMenu(Caption: string; EvSubMenuClick: TEvMenuClick = nil): iMenuController;
+function TMenuController.AdicionarSubMenu(Caption: string; EvSubMenuClick: TEvMenuClick = nil; Imagem: TPicture = nil): iMenuController;
 var
   SubMenuItem: TfrMenuSubItem;
   ID: Integer;
@@ -133,7 +136,10 @@ begin
     SubMenuItem.Height := fMenuParametros.GetAlturaSubMenu;
 
   // Visual
+  SubMenuItem.DoubleBuffered := True;
   SubMenuItem.lbPrincipal.Caption := Caption;
+  if Assigned(Imagem) then
+    SubMenuItem.SetImagemPrincipal(Imagem);
 
   fListaSubMenu.Add(SubMenuItem);
 end;
@@ -197,17 +203,6 @@ begin
 
 end;
 
-procedure TMenuController.MostrarSubMenu(Sender: TObject);
-var
-  contador: Integer;
-begin
-  for contador := 0 to Pred(FListaContainerSubMenu.Count) do
-  begin
-    TPanel(FListaContainerSubMenu[contador]).Visible := (TPanel(FListaContainerSubMenu[contador]).Tag = TfrMenuItem(Sender).ID);
-    TPanel(FListaContainerSubMenu[contador]).BringToFront;
-  end;
-end;
-
 procedure TMenuController.EsconderSubMenus;
 var
   Contador: integer;
@@ -231,6 +226,7 @@ var
   Panel: TPanel;
 begin
   Panel := TPanel.Create(Application);
+  Panel.DoubleBuffered := True;
   Panel.Tag := IDMenuItem; // Vincula o menu com o container submenu
   Panel.Parent := fSubMenuParent;
   Panel.Name := 'ContainerSub' + IntToStr(FListaContainerSubMenu.Count + 1);
@@ -289,6 +285,7 @@ procedure TMenuController.MostrarEsconderSubMenusEspecificos(Sender: TObject);
 var
   contador: Integer;
 begin
+
   for contador := 0 to Pred(FListaContainerSubMenu.Count) do
   begin
     if (TPanel(FListaContainerSubMenu[contador]).Tag = TfrMenuItem(Sender).ID) then

@@ -8,12 +8,15 @@ uses
 
 type
   TfrMenuItem = class(TfrMenuItemBase)
+    pnEsquerdo: TPanel;
+    pnPrincipal: TPanel;
     lbPrincipal: TLabel;
+    imgPrincipal: TImage;
+    pnSeparadorEsquerdo: TPanel;
     procedure lbPrincipalClick(Sender: TObject);
   private
-    { Private declarations }
   public
-    { Public declarations }
+    procedure SetImagemPrincipal(const Value: TPicture);
   end;
 
 var
@@ -27,6 +30,11 @@ procedure TfrMenuItem.lbPrincipalClick(Sender: TObject);
 begin
   inherited;
   pnContainer.OnClick(lbPrincipal);
+end;
+
+procedure TfrMenuItem.SetImagemPrincipal(const Value: TPicture);
+begin
+  imgPrincipal.Picture := Value;
 end;
 
 end.
