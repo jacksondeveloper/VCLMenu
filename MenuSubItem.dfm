@@ -1,5 +1,7 @@
 inherited frMenuSubItem: TfrMenuSubItem
+  Width = 226
   inherited pnContainer: TPanel
+    Width = 226
     object pnEsquerdo: TPanel
       Left = 0
       Top = 0
@@ -16,13 +18,13 @@ inherited frMenuSubItem: TfrMenuSubItem
         Align = alClient
         Stretch = True
         Transparent = True
-        OnClick = lbPrincipalClick
+        OnClick = pnContainerClick
       end
     end
     object pnPrincipal: TPanel
       Left = 65
       Top = 0
-      Width = 160
+      Width = 161
       Height = 50
       Align = alClient
       BevelOuter = bvNone
@@ -30,7 +32,7 @@ inherited frMenuSubItem: TfrMenuSubItem
       object lbPrincipal: TLabel
         Left = 17
         Top = 0
-        Width = 143
+        Width = 144
         Height = 50
         Align = alClient
         AutoSize = False
@@ -42,7 +44,7 @@ inherited frMenuSubItem: TfrMenuSubItem
         Font.Style = []
         ParentFont = False
         Layout = tlCenter
-        OnClick = lbPrincipalClick
+        OnClick = pnContainerClick
       end
       object PnSeparadorEsquerdo: TPanel
         Left = 0
@@ -52,6 +54,7 @@ inherited frMenuSubItem: TfrMenuSubItem
         Align = alLeft
         BevelOuter = bvNone
         TabOrder = 0
+        OnClick = pnContainerClick
       end
     end
   end

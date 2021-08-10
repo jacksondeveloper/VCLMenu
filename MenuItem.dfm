@@ -17,7 +17,7 @@ inherited frMenuItem: TfrMenuItem
         Align = alClient
         Stretch = True
         Transparent = True
-        OnClick = lbPrincipalClick
+        OnClick = pnContainerClick
       end
     end
     object pnPrincipal: TPanel
@@ -44,7 +44,7 @@ inherited frMenuItem: TfrMenuItem
         Font.Style = []
         ParentFont = False
         Layout = tlCenter
-        OnClick = lbPrincipalClick
+        OnClick = pnContainerClick
       end
       object pnSeparadorEsquerdo: TPanel
         Left = 0
@@ -55,6 +55,7 @@ inherited frMenuItem: TfrMenuItem
         BevelOuter = bvNone
         ParentColor = True
         TabOrder = 0
+        OnClick = pnContainerClick
       end
     end
   end

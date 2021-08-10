@@ -13,7 +13,6 @@ type
     lbPrincipal: TLabel;
     imgPrincipal: TImage;
     pnSeparadorEsquerdo: TPanel;
-    procedure lbPrincipalClick(Sender: TObject);
   private
   public
     procedure SetImagemPrincipal(const Value: TPicture);
@@ -25,12 +24,6 @@ var
 implementation
 
 {$R *.dfm}
-
-procedure TfrMenuItem.lbPrincipalClick(Sender: TObject);
-begin
-  inherited;
-  pnContainer.OnClick(lbPrincipal);
-end;
 
 procedure TfrMenuItem.SetImagemPrincipal(const Value: TPicture);
 begin

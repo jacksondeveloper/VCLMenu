@@ -13,7 +13,6 @@ type
     lbPrincipal: TLabel;
     PnSeparadorEsquerdo: TPanel;
     imgPrincipal: TImage;
-    procedure lbPrincipalClick(Sender: TObject);
     procedure pnContainerClick(Sender: TObject);
   private
     FIDMenuPai: Integer;
@@ -38,12 +37,6 @@ implementation
 procedure TfrMenuSubItem.SetIDMenuPai(const Value: Integer);
 begin
   FIDMenuPai := Value;
-end;
-
-procedure TfrMenuSubItem.lbPrincipalClick(Sender: TObject);
-begin
-  inherited;
-  pnContainer.OnClick(lbPrincipal);
 end;
 
 procedure TfrMenuSubItem.SetEvFecharSubMenus(const Value: TEvFecharSubMenus);
