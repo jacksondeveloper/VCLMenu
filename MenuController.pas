@@ -41,6 +41,7 @@ type
     function AdicionarMenu(Caption: string; Imagem: TPicture = nil): iMenuController;
     function AdicionarSubMenu(Caption: string; EvSubMenuClick: TEvMenuClick = nil; Imagem: TPicture = nil): iMenuController;
     procedure EsconderSubMenus;
+    procedure SetEvClickSubmenuView(const Value: TEvClickSubmenuView);
   end;
 
   TMenuController = class(TInterfacedObject, iMenuController)
@@ -51,6 +52,7 @@ type
     fListaMenu: TList;
     fListaSubMenu: TList;
     fListaContainerSubMenu: TList;
+    FEvClickSubmenuView: TEvClickSubmenuView;
     procedure SetContainerSubMenu(const Value: TList);
     function GetContainerSubMenu: TList;
     function GetAlturaMaximaContainer: Integer;
@@ -58,6 +60,7 @@ type
     procedure OrganizarSubmenusNoContainer;
     function BuscarMenu(ID: Integer): TfrMenuItem;
     procedure MinimizarMenus;
+    procedure SetEvClickSubmenuView(const Value: TEvClickSubmenuView);
   public
     constructor Create(MenuContainer, SubMenuParent: TWinControl; MenuParametros: iMenuParametros);
     destructor Destroy; override;
@@ -68,6 +71,7 @@ type
     procedure EsconderSubMenus;
     procedure CriarNovoContainer(IDMenuItem, Topo, Largura, Left: Integer);
     property ContainerSubMenu: TList read GetContainerSubMenu write SetContainerSubMenu;
+    property EvClickSubmenuView: TEvClickSubmenuView read FEvClickSubmenuView write SetEvClickSubmenuView;
   end;
 
 implementation
@@ -127,12 +131,14 @@ begin
   ID := fListaSubMenu.Count + 1;
   SubMenuItem.Name := 'SubMenuItem' + IntToStr(ID);
   SubMenuItem.ID := ID;
+  SubMenuItem.CaminhoSubmenu := TfrMenuItem(fListaMenu[Pred(fListaMenu.Count)]).lbPrincipal.Caption;
 
   // Eventos
   SubMenuItem.pnContainer.Color := clGray;
   SubMenuItem.EvMenuCLick := EvSubMenuClick;
   SubMenuItem.EvFecharSubMenus := EsconderSubMenus;
   SubMenuItem.EvMinimizarMenus := MinimizarMenus;
+  SubMenuItem.EvClickSubmenuView := EvClickSubmenuView;
 
   // Controles
   SubMenuItem.IDMenuPai := TfrMenuItem(fListaMenu[Pred(fListaMenu.Count)]).ID; // ultimo menu pai
@@ -329,6 +335,11 @@ end;
 procedure TMenuController.MinimizarMenus;
 begin
   fMenuContainer.Width := LarguraMenuMinimizado;
+end;
+
+procedure TMenuController.SetEvClickSubmenuView(const Value: TEvClickSubmenuView);
+begin
+  FEvClickSubmenuView := Value;
 end;
 
 { TMenuParametros }

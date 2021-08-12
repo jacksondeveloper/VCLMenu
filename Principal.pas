@@ -16,6 +16,7 @@ type
     Panel3: TPanel;
     Memo1: TMemo;
     Image1: TImage;
+    Label1: TLabel;
     procedure pnEsquerdoClick(Sender: TObject);
     procedure pnPrincipalClick(Sender: TObject);
     procedure Panel1Click(Sender: TObject);
@@ -26,6 +27,7 @@ type
     fMenuParametros: iMenuParametros;
     procedure AbrirCadastro(Sender: TObject);
     procedure SetMenuController(const Value: iMenuController);
+    procedure ClickSubmenuView(Sender: TFrame);
   public
     property MenuController: iMenuController read FMenuController write SetMenuController;
   end;
@@ -76,6 +78,7 @@ begin
                       .SetAlturaSubMenu(50);
                       
   fMenuController := TMenuController.New(pnEsquerdo, pnPrincipal, fMenuParametros);
+  fMenuController.SetEvClickSubmenuView(ClickSubmenuView);
 
   fMenuController
     .AdicionarMenu('Animal', Image1.Picture)
@@ -144,6 +147,11 @@ end;
 procedure TfrPrincipal.SetMenuController(const Value: iMenuController);
 begin
   FMenuController := Value;
+end;
+
+procedure TfrPrincipal.ClickSubmenuView(Sender: TFrame);
+begin
+  Label1.Caption := TfrMenuSubItem(Sender).CaminhoSubmenu;
 end;
 
 end.

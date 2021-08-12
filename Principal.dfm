@@ -951,6 +951,19 @@ object frPrincipal: TfrPrincipal
         Transparent = True
         Visible = False
       end
+      object Label1: TLabel
+        Left = 24
+        Top = 24
+        Width = 96
+        Height = 29
+        Caption = 'Caminho'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -23
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        ParentFont = False
+      end
     end
     object pnPrincipal: TPanel
       Left = 145

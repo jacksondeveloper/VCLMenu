@@ -14,6 +14,9 @@ object frCadastroTeste: TfrCadastroTeste
   OldCreateOrder = False
   WindowState = wsMaximized
   OnClose = FormClose
+  DesignSize = (
+    1028
+    501)
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
@@ -28,5 +31,21 @@ object frCadastroTeste: TfrCadastroTeste
     Font.Name = 'MS Sans Serif'
     Font.Style = []
     ParentFont = False
+  end
+  object Button1: TButton
+    Left = 840
+    Top = 424
+    Width = 171
+    Height = 57
+    Anchors = [akRight, akBottom]
+    Caption = 'Fechar'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -24
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 0
+    OnClick = Button1Click
   end
 end

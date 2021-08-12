@@ -36,8 +36,7 @@ begin
   if Self.Parent.Width = LarguraMenuMinimizado then
     Self.Parent.Width := Self.Width
   else
-    inherited;
-
+    inherited;  
 end;
 
 end.

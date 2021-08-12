@@ -18,14 +18,21 @@ type
     FIDMenuPai: Integer;
     FEvFecharSubMenus: TEvFecharSubMenus;
     FEvMinimizarMenus: TEvMinimizarMenu;
+    FEvClickSubmenuView: TEvClickSubmenuView;
+    FCaminhoSubmenu: String;
     procedure SetIDMenuPai(const Value: Integer);
     procedure SetEvFecharSubMenus(const Value: TEvFecharSubMenus);
     procedure SetEvMinimizarMenus(const Value: TEvMinimizarMenu);
+    procedure SetEvClickSubmenuView(const Value: TEvClickSubmenuView);
+    procedure SetCaminhoSubmenu(const Value: String);
+    function GetCaminhoSubmenu: String;
    public
     procedure SetImagemPrincipal(const Value: TPicture);
     property IDMenuPai: Integer read FIDMenuPai write SetIDMenuPai;
     property EvFecharSubMenus: TEvFecharSubMenus read FEvFecharSubMenus write SetEvFecharSubMenus;
     property EvMinimizarMenus: TEvMinimizarMenu read FEvMinimizarMenus write SetEvMinimizarMenus;
+    property EvClickSubmenuView: TEvClickSubmenuView read FEvClickSubmenuView write SetEvClickSubmenuView;
+    property CaminhoSubmenu: String read GetCaminhoSubmenu write SetCaminhoSubmenu;
   end;
 
 var
@@ -56,6 +63,9 @@ begin
     EvMinimizarMenus;
 
   inherited;
+
+  if Assigned(EvClickSubmenuView) then
+    EvClickSubmenuView(Self);
 end;
 
 procedure TfrMenuSubItem.SetImagemPrincipal(const Value: TPicture);
@@ -66,6 +76,22 @@ end;
 procedure TfrMenuSubItem.SetEvMinimizarMenus(const Value: TEvMinimizarMenu);
 begin
   FEvMinimizarMenus := Value;
+end;
+
+procedure TfrMenuSubItem.SetEvClickSubmenuView(
+  const Value: TEvClickSubmenuView);
+begin
+  FEvClickSubmenuView := Value;
+end;
+
+procedure TfrMenuSubItem.SetCaminhoSubmenu(const Value: String);
+begin
+  FCaminhoSubmenu := Value;
+end;
+
+function TfrMenuSubItem.GetCaminhoSubmenu: String;
+begin
+  Result := FCaminhoSubmenu + ' - ' +  Self.lbPrincipal.Caption;
 end;
 
 end.
