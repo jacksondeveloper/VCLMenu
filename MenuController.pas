@@ -12,6 +12,8 @@ type
     ['{49D1E290-05CE-4DC6-B4CD-AB7E90C06271}']
     function SetAlturaMenu(Value: Integer): iMenuParametros;
     function GetAlturaMenu: Integer;
+    function SetLarguraMenu(Value: Integer): iMenuParametros;
+    function GetLarguraMenu: Integer;
     function SetAlturaSubMenu(Value: Integer): iMenuParametros;
     function GetAlturaSubMenu: Integer;
   end;
@@ -19,6 +21,7 @@ type
   TMenuParametros = class(TInterfacedObject, iMenuParametros)
   private
     fAlturaMenu: Integer;
+    fLarguraMenu: Integer;
     fAlturaSubMenu: Integer;
   public
     constructor Create;
@@ -26,6 +29,8 @@ type
     class function New: iMenuParametros;
     function SetAlturaMenu(Value: Integer): iMenuParametros;
     function GetAlturaMenu: Integer;
+    function SetLarguraMenu(Value: Integer): iMenuParametros;
+    function GetLarguraMenu: Integer;
     function SetAlturaSubMenu(Value: Integer): iMenuParametros;
     function GetAlturaSubMenu: Integer;
   end;
@@ -93,6 +98,7 @@ begin
   MenuItem.Parent := fMenuContainer;
 
   // Dimensões
+  MenuItem.Height :=  fMenuParametros.GetAlturaMenu;
   MenuItem.Width := MenuItem.Parent.Width;
   MenuItem.Top := TopoMenu;
   if fMenuParametros.GetAlturaMenu > 0 then
@@ -219,6 +225,9 @@ begin
   fListaMenu := TList.Create;
   fListaSubMenu := TList.Create;
   FListaContainerSubMenu := TList.Create;
+
+  if MenuParametros.GetLarguraMenu > 0 then
+    MenuContainer.Width := MenuParametros.GetLarguraMenu;
 end;
 
 procedure TMenuController.CriarNovoContainer(IDMenuItem, Topo, Largura, Left: Integer);
@@ -337,6 +346,11 @@ begin
   Result := fAlturaSubMenu;
 end;
 
+function TMenuParametros.GetLarguraMenu: Integer;
+begin
+  Result := fLarguraMenu;
+end;
+
 class function TMenuParametros.New: iMenuParametros;
 begin
   Result := Self.Create;
@@ -352,6 +366,12 @@ function TMenuParametros.SetAlturaSubMenu(Value: Integer): iMenuParametros;
 begin
   Result := Self;
   fAlturaSubMenu := Value;
+end;
+
+function TMenuParametros.SetLarguraMenu(Value: Integer): iMenuParametros;
+begin
+  Result := Self;
+  fLarguraMenu := Value;
 end;
 
 end.

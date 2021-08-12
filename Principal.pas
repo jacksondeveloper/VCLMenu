@@ -72,6 +72,7 @@ procedure TfrPrincipal.FormActivate(Sender: TObject);
 begin
   fMenuParametros := TMenuParametros.New
                       .SetAlturaMenu(50)
+                      .SetLarguraMenu(230)
                       .SetAlturaSubMenu(50);
                       
   fMenuController := TMenuController.New(pnEsquerdo, pnPrincipal, fMenuParametros);

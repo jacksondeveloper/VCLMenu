@@ -953,9 +953,9 @@ object frPrincipal: TfrPrincipal
       end
     end
     object pnPrincipal: TPanel
-      Left = 321
+      Left = 145
       Top = 65
-      Width = 487
+      Width = 663
       Height = 387
       Align = alClient
       BevelOuter = bvNone
@@ -966,7 +966,7 @@ object frPrincipal: TfrPrincipal
     object pnEsquerdo: TPanel
       Left = 0
       Top = 65
-      Width = 321
+      Width = 145
       Height = 387
       Align = alLeft
       BevelOuter = bvNone
