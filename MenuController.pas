@@ -57,6 +57,7 @@ type
     procedure MostrarEsconderSubMenusEspecificos(Sender: TObject);
     procedure OrganizarSubmenusNoContainer;
     function BuscarMenu(ID: Integer): TfrMenuItem;
+    procedure MinimizarMenus;
   public
     constructor Create(MenuContainer, SubMenuParent: TWinControl; MenuParametros: iMenuParametros);
     destructor Destroy; override;
@@ -131,6 +132,7 @@ begin
   SubMenuItem.pnContainer.Color := clGray;
   SubMenuItem.EvMenuCLick := EvSubMenuClick;
   SubMenuItem.EvFecharSubMenus := EsconderSubMenus;
+  SubMenuItem.EvMinimizarMenus := MinimizarMenus;
 
   // Controles
   SubMenuItem.IDMenuPai := TfrMenuItem(fListaMenu[Pred(fListaMenu.Count)]).ID; // ultimo menu pai
@@ -322,6 +324,11 @@ begin
     end;
   end;
 
+end;
+
+procedure TMenuController.MinimizarMenus;
+begin
+  fMenuContainer.Width := LarguraMenuMinimizado;
 end;
 
 { TMenuParametros }

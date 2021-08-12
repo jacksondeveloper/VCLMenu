@@ -36,8 +36,8 @@ object frPrincipal: TfrPrincipal
       object Image1: TImage
         Left = 488
         Top = 0
-        Width = 64
-        Height = 61
+        Width = 81
+        Height = 65
         Picture.Data = {
           0A544A504547496D61676570710000FFD8FFE000104A46494600010101012C01
           2C0000FFDB004300080606070605080707070909080A0C140D0C0B0B0C191213

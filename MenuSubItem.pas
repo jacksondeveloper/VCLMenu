@@ -17,12 +17,15 @@ type
   private
     FIDMenuPai: Integer;
     FEvFecharSubMenus: TEvFecharSubMenus;
+    FEvMinimizarMenus: TEvMinimizarMenu;
     procedure SetIDMenuPai(const Value: Integer);
     procedure SetEvFecharSubMenus(const Value: TEvFecharSubMenus);
+    procedure SetEvMinimizarMenus(const Value: TEvMinimizarMenu);
    public
+    procedure SetImagemPrincipal(const Value: TPicture);
     property IDMenuPai: Integer read FIDMenuPai write SetIDMenuPai;
     property EvFecharSubMenus: TEvFecharSubMenus read FEvFecharSubMenus write SetEvFecharSubMenus;
-    procedure SetImagemPrincipal(const Value: TPicture);
+    property EvMinimizarMenus: TEvMinimizarMenu read FEvMinimizarMenus write SetEvMinimizarMenus;
   end;
 
 var
@@ -48,13 +51,21 @@ procedure TfrMenuSubItem.pnContainerClick(Sender: TObject);
 begin
   if Assigned(EvFecharSubMenus) then
     EvFecharSubMenus;
-    
+
+  if Assigned(EvMinimizarMenus) then
+    EvMinimizarMenus;
+
   inherited;
 end;
 
 procedure TfrMenuSubItem.SetImagemPrincipal(const Value: TPicture);
 begin
   imgPrincipal.Picture := Value;
+end;
+
+procedure TfrMenuSubItem.SetEvMinimizarMenus(const Value: TEvMinimizarMenu);
+begin
+  FEvMinimizarMenus := Value;
 end;
 
 end.
