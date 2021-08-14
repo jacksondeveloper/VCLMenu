@@ -1,5 +1,6 @@
 inherited frMenuItem: TfrMenuItem
   inherited pnContainer: TPanel
+    ParentColor = True
     object pnEsquerdo: TPanel
       Left = 0
       Top = 0

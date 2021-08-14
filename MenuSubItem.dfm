@@ -28,6 +28,7 @@ inherited frMenuSubItem: TfrMenuSubItem
       Height = 50
       Align = alClient
       BevelOuter = bvNone
+      ParentColor = True
       TabOrder = 1
       object lbPrincipal: TLabel
         Left = 17
@@ -53,6 +54,7 @@ inherited frMenuSubItem: TfrMenuSubItem
         Height = 50
         Align = alLeft
         BevelOuter = bvNone
+        ParentColor = True
         TabOrder = 0
         OnClick = pnContainerClick
       end

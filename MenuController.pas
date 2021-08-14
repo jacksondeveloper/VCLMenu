@@ -134,7 +134,7 @@ begin
   SubMenuItem.CaminhoSubmenu := TfrMenuItem(fListaMenu[Pred(fListaMenu.Count)]).lbPrincipal.Caption;
 
   // Eventos
-  SubMenuItem.pnContainer.Color := clGray;
+  SubMenuItem.pnContainer.Color := clWhite;
   SubMenuItem.EvMenuCLick := EvSubMenuClick;
   SubMenuItem.EvFecharSubMenus := EsconderSubMenus;
   SubMenuItem.EvMinimizarMenus := MinimizarMenus;

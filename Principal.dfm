@@ -983,7 +983,7 @@ object frPrincipal: TfrPrincipal
       Height = 387
       Align = alLeft
       BevelOuter = bvNone
-      Color = clMedGray
+      Color = clWhite
       TabOrder = 2
       OnClick = pnEsquerdoClick
     end
