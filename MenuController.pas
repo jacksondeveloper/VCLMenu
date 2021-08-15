@@ -82,7 +82,7 @@ type
 implementation
 
 uses
-  Principal;
+  Principal, MenuContainerSubMenu;
 
 { TMenuController }
 
@@ -170,7 +170,7 @@ procedure TMenuController.OrganizarSubmenusNoContainer;
 var
   Contador: Integer;
   SubMenuAtual: TfrMenuSubItem;
-  ContainerAtual: TPanel;
+  ContainerAtual: TfrContainerSubMenu;
 begin
   ContainerAtual := nil; // remove warning
 
@@ -180,10 +180,10 @@ begin
     SubMenuAtual := TfrMenuSubItem(fListaSubMenu[Contador]);
 
     // Se for o primeiro item ou mudar o id do menu pai então deve criar um container novo para esse grupo de submenus
-    if (Contador = 0) or (TPanel(fListaContainerSubMenu[Pred(fListaContainerSubMenu.Count)]).Tag <> SubMenuAtual.IDMenuPai) then
+    if (Contador = 0) or (TfrContainerSubMenu(fListaContainerSubMenu[Pred(fListaContainerSubMenu.Count)]).Tag <> SubMenuAtual.IDMenuPai) then
     begin
       CriarNovoContainer(SubMenuAtual.IDMenuPai, BuscarMenu(SubMenuAtual.IDMenuPai).Top, SubMenuAtual.Width, 0);
-      ContainerAtual := TPanel(fListaContainerSubMenu[Pred(fListaContainerSubMenu.Count)]);
+      ContainerAtual := TfrContainerSubMenu(fListaContainerSubMenu[Pred(fListaContainerSubMenu.Count)]);
     end;
 
     // Se o container atingir o tamanho máximo permitido
@@ -204,7 +204,7 @@ begin
       begin
         // Cria novo subcontainer do lado direito pois já não cabe mais no atual
         CriarNovoContainer(SubMenuAtual.IDMenuPai, 0, SubMenuAtual.Width, ContainerAtual.Left + ContainerAtual.Width);
-        ContainerAtual := TPanel(fListaContainerSubMenu[Pred(fListaContainerSubMenu.Count)]);
+        ContainerAtual := TfrContainerSubMenu(fListaContainerSubMenu[Pred(fListaContainerSubMenu.Count)]);
         ContainerAtual.Height := ContainerAtual.Height + SubMenuAtual.Height;
       end;
 
@@ -215,7 +215,8 @@ begin
       ContainerAtual.Height := ContainerAtual.Height + SubMenuAtual.Height;
     end;
 
-    SubMenuAtual.Parent := ContainerAtual;
+    ContainerAtual.pnMargemSuperior.Visible := (ContainerAtual.Top >= 0);
+    SubMenuAtual.Parent := ContainerAtual.pnPrincipal;
     SubMenuAtual.Top := ContainerAtual.Height - SubMenuAtual.Height;
 
     DOLog('Container: ' + IntToStr(ContainerAtual.Tag) + ' Top: ' + IntToStr(ContainerAtual.Top) + ' Left: ' + IntToStr(ContainerAtual.Left));
@@ -230,7 +231,7 @@ var
   Contador: integer;
 begin
   for Contador := 0 to Pred(FListaContainerSubMenu.Count) do
-    TPanel(FListaContainerSubMenu[Contador]).Visible := False;
+    TfrContainerSubMenu(FListaContainerSubMenu[Contador]).Visible := False;
 end;
 
 constructor TMenuController.Create(MenuContainer, SubMenuParent: TWinControl; MenuParametros: iMenuParametros);
@@ -248,20 +249,22 @@ end;
 
 procedure TMenuController.CriarNovoContainer(IDMenuItem, Topo, Largura, Left: Integer);
 var
-  Panel: TPanel;
+  Container: TfrContainerSubMenu;
 begin
-  Panel := TPanel.Create(Application);
-  Panel.DoubleBuffered := True;
-  Panel.Tag := IDMenuItem; // Vincula o menu com o container submenu
-  Panel.Parent := fSubMenuParent;
-  Panel.Name := 'ContainerSub' + IntToStr(FListaContainerSubMenu.Count + 1);
-  Panel.Color := clRed;
-  Panel.Visible := False;
-  Panel.Top := Topo;
-  Panel.Left := Left;
-  Panel.Height := 0;
-  Panel.Width := Largura;
-  FListaContainerSubMenu.Add(Panel);
+  Container := TfrContainerSubMenu.Create(Application);
+  Container.DoubleBuffered := True;
+  Container.Tag := IDMenuItem; // Vincula o menu com o container submenu
+  Container.Parent := fSubMenuParent;
+  Container.Name := 'ContainerSub' + IntToStr(FListaContainerSubMenu.Count + 1);
+  Container.Color := clRed;
+  Container.Visible := False;
+  Container.Top := Topo;
+  Container.Left := Left;
+  Container.Height := 0;
+  Container.Width := Largura;
+  Container.pnMargemInferior.Visible := True;
+  Container.pnMargemDireita.Visible := True;
+  FListaContainerSubMenu.Add(Container);
 end;
 
 destructor TMenuController.Destroy;
@@ -313,13 +316,13 @@ begin
 
   for contador := 0 to Pred(FListaContainerSubMenu.Count) do
   begin
-    if (TPanel(FListaContainerSubMenu[contador]).Tag = TfrMenuItem(Sender).ID) then
+    if (TfrContainerSubMenu(FListaContainerSubMenu[contador]).Tag = TfrMenuItem(Sender).ID) then
     begin
-      TPanel(FListaContainerSubMenu[contador]).BringToFront;
-      TPanel(FListaContainerSubMenu[contador]).Visible := not TPanel(FListaContainerSubMenu[contador]).Visible;
+      TfrContainerSubMenu(FListaContainerSubMenu[contador]).BringToFront;
+      TfrContainerSubMenu(FListaContainerSubMenu[contador]).Visible := not TfrContainerSubMenu(FListaContainerSubMenu[contador]).Visible;
     end
     else
-      TPanel(FListaContainerSubMenu[contador]).Visible := False;
+      TfrContainerSubMenu(FListaContainerSubMenu[contador]).Visible := False;
   end;
 end;
 

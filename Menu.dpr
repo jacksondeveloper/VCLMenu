@@ -8,7 +8,8 @@ uses
   MenuItem in 'MenuItem.pas' {frMenuItem: TFrame},
   MenuSubItem in 'MenuSubItem.pas' {frMenuSubItem: TFrame},
   MenuTipos in 'MenuTipos.pas',
-  CadastroTeste in 'CadastroTeste.pas' {frCadastroTeste};
+  CadastroTeste in 'CadastroTeste.pas' {frCadastroTeste},
+  MenuContainerSubMenu in 'MenuContainerSubMenu.pas' {frContainerSubMenu: TFrame};
 
 {$R *.res}
 
