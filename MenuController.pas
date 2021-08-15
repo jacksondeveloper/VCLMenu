@@ -16,6 +16,8 @@ type
     function GetLarguraMenu: Integer;
     function SetAlturaSubMenu(Value: Integer): iMenuParametros;
     function GetAlturaSubMenu: Integer;
+    function SetMenuMargemDireita(Value: Boolean): iMenuParametros;
+    function GetMenuMargemDireita: Boolean;
   end;
 
   TMenuParametros = class(TInterfacedObject, iMenuParametros)
@@ -23,6 +25,7 @@ type
     fAlturaMenu: Integer;
     fLarguraMenu: Integer;
     fAlturaSubMenu: Integer;
+    fMenuMargemDireita: Boolean;
   public
     constructor Create;
     destructor Destroy; override;
@@ -33,6 +36,8 @@ type
     function GetLarguraMenu: Integer;
     function SetAlturaSubMenu(Value: Integer): iMenuParametros;
     function GetAlturaSubMenu: Integer;
+    function SetMenuMargemDireita(Value: Boolean): iMenuParametros;
+    function GetMenuMargemDireita: Boolean;
   end;
 
   iMenuController = interface
@@ -111,6 +116,7 @@ begin
 
   // Visual
   MenuItem.DoubleBuffered := True;
+  MenuItem.pnMargemDireita.Visible := fMenuParametros.GetMenuMargemDireita;
   MenuItem.lbPrincipal.Caption := Caption;
   if Assigned(Imagem) then
     MenuItem.SetImagemPrincipal(Imagem);
@@ -153,7 +159,9 @@ begin
   SubMenuItem.DoubleBuffered := True;
   SubMenuItem.lbPrincipal.Caption := Caption;
   if Assigned(Imagem) then
-    SubMenuItem.SetImagemPrincipal(Imagem);
+    SubMenuItem.SetImagemPrincipal(Imagem)
+  else
+    SubMenuItem.pnEsquerdo.Visible := False;
 
   fListaSubMenu.Add(SubMenuItem);
 end;
@@ -182,7 +190,7 @@ begin
     if (ContainerAtual.Height + SubMenuAtual.Height) >= GetAlturaMaximaContainer then
     begin
 
-      // Se alcançou o tamanho máximo então já joga o menu para cima para não ficar em baixo e os outros em cima
+      // Se alcançou o tamanho máximo então já joga o container para cima para não ficar em baixo e os outros em cima
       if ((ContainerAtual.Height + SubMenuAtual.Height) > GetAlturaMaximaContainer) then
         ContainerAtual.Top := 0;
 
@@ -369,6 +377,11 @@ begin
   Result := fLarguraMenu;
 end;
 
+function TMenuParametros.GetMenuMargemDireita: Boolean;
+begin
+  Result := fMenuMargemDireita;
+end;
+
 class function TMenuParametros.New: iMenuParametros;
 begin
   Result := Self.Create;
@@ -390,6 +403,12 @@ function TMenuParametros.SetLarguraMenu(Value: Integer): iMenuParametros;
 begin
   Result := Self;
   fLarguraMenu := Value;
+end;
+
+function TMenuParametros.SetMenuMargemDireita(Value: Boolean): iMenuParametros;
+begin
+  Result := Self;
+  fMenuMargemDireita := Value;
 end;
 
 end.

@@ -9,6 +9,10 @@ uses
 type
   TfrMenuItemBase = class(TFrame)
     pnContainer: TPanel;
+    pnMargemEsquerda: TPanel;
+    pnMargemDireita: TPanel;
+    pnMargemSuperior: TPanel;
+    pnMargemInferior: TPanel;
     procedure pnContainerClick(Sender: TObject);
   private
     FID: Integer;

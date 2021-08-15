@@ -19,7 +19,7 @@ object frPrincipal: TfrPrincipal
     Left = 0
     Top = 0
     Width = 1028
-    Height = 452
+    Height = 488
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
@@ -30,11 +30,11 @@ object frPrincipal: TfrPrincipal
       Height = 65
       Align = alTop
       BevelOuter = bvNone
-      Color = clActiveBorder
+      Color = clWhite
       TabOrder = 0
       OnClick = pnTopoClick
       object Image1: TImage
-        Left = 488
+        Left = 784
         Top = 0
         Width = 81
         Height = 65
@@ -966,32 +966,86 @@ object frPrincipal: TfrPrincipal
       end
     end
     object pnPrincipal: TPanel
-      Left = 145
+      Left = 171
       Top = 65
-      Width = 663
-      Height = 387
+      Width = 637
+      Height = 423
       Align = alClient
       BevelOuter = bvNone
-      Color = clSilver
+      Color = clWhite
       TabOrder = 1
       OnClick = pnPrincipalClick
+      object Panel2: TPanel
+        Left = 0
+        Top = 2
+        Width = 2
+        Height = 421
+        Align = alLeft
+        BevelOuter = bvNone
+        Color = clSilver
+        TabOrder = 0
+        OnClick = pnPrincipalClick
+      end
+      object Panel4: TPanel
+        Left = 0
+        Top = 0
+        Width = 637
+        Height = 2
+        Align = alTop
+        BevelOuter = bvNone
+        Color = clSilver
+        TabOrder = 1
+        OnClick = pnPrincipalClick
+      end
+      object PnPrincipalInterno: TPanel
+        Left = 2
+        Top = 2
+        Width = 635
+        Height = 421
+        Align = alClient
+        BevelOuter = bvNone
+        Color = clWhite
+        TabOrder = 2
+      end
     end
     object pnEsquerdo: TPanel
       Left = 0
       Top = 65
-      Width = 145
-      Height = 387
+      Width = 171
+      Height = 423
       Align = alLeft
       BevelOuter = bvNone
       Color = clWhite
       TabOrder = 2
       OnClick = pnEsquerdoClick
+      object pnEsquerdoInterno: TPanel
+        Left = 0
+        Top = 2
+        Width = 171
+        Height = 421
+        Align = alClient
+        BevelOuter = bvNone
+        Color = clWhite
+        TabOrder = 0
+        OnClick = pnEsquerdoClick
+      end
+      object Panel5: TPanel
+        Left = 0
+        Top = 0
+        Width = 171
+        Height = 2
+        Align = alTop
+        BevelOuter = bvNone
+        Color = clWhite
+        TabOrder = 1
+        OnClick = pnPrincipalClick
+      end
     end
     object Panel3: TPanel
       Left = 808
       Top = 65
       Width = 220
-      Height = 387
+      Height = 423
       Align = alRight
       BevelOuter = bvNone
       Color = clSilver
@@ -1001,7 +1055,7 @@ object frPrincipal: TfrPrincipal
         Left = 0
         Top = 0
         Width = 220
-        Height = 387
+        Height = 423
         Align = alClient
         TabOrder = 0
       end
@@ -1009,9 +1063,9 @@ object frPrincipal: TfrPrincipal
   end
   object Panel1: TPanel
     Left = 0
-    Top = 452
+    Top = 488
     Width = 1028
-    Height = 65
+    Height = 29
     Align = alBottom
     BevelOuter = bvNone
     Color = clActiveBorder
