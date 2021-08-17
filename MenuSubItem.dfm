@@ -1,12 +1,12 @@
 inherited frMenuSubItem: TfrMenuSubItem
   Width = 226
   inherited pnContainer: TPanel
-    Width = 226
+    Width = 222
     object pnEsquerdo: TPanel
       Left = 0
       Top = 0
       Width = 65
-      Height = 50
+      Height = 46
       Align = alLeft
       BevelOuter = bvNone
       TabOrder = 0
@@ -14,7 +14,7 @@ inherited frMenuSubItem: TfrMenuSubItem
         Left = 0
         Top = 0
         Width = 65
-        Height = 50
+        Height = 46
         Align = alClient
         Stretch = True
         Transparent = True
@@ -24,8 +24,8 @@ inherited frMenuSubItem: TfrMenuSubItem
     object pnPrincipal: TPanel
       Left = 65
       Top = 0
-      Width = 161
-      Height = 50
+      Width = 157
+      Height = 46
       Align = alClient
       BevelOuter = bvNone
       ParentColor = True
@@ -33,9 +33,10 @@ inherited frMenuSubItem: TfrMenuSubItem
       object lbPrincipal: TLabel
         Left = 17
         Top = 0
-        Width = 144
-        Height = 50
+        Width = 140
+        Height = 46
         Align = alClient
+        Alignment = taCenter
         AutoSize = False
         Caption = 'lbPrincipal'
         Font.Charset = DEFAULT_CHARSET
@@ -51,7 +52,7 @@ inherited frMenuSubItem: TfrMenuSubItem
         Left = 0
         Top = 0
         Width = 17
-        Height = 50
+        Height = 46
         Align = alLeft
         BevelOuter = bvNone
         ParentColor = True
@@ -59,5 +60,14 @@ inherited frMenuSubItem: TfrMenuSubItem
         OnClick = pnContainerClick
       end
     end
+  end
+  inherited pnMargemDireita: TPanel
+    Left = 224
+  end
+  inherited pnMargemSuperior: TPanel
+    Width = 226
+  end
+  inherited pnMargemInferior: TPanel
+    Width = 226
   end
 end
