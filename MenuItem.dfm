@@ -5,7 +5,7 @@ inherited frMenuItem: TfrMenuItem
       Left = 0
       Top = 0
       Width = 65
-      Height = 46
+      Height = 60
       Align = alLeft
       BevelOuter = bvNone
       ParentColor = True
@@ -14,7 +14,7 @@ inherited frMenuItem: TfrMenuItem
         Left = 0
         Top = 0
         Width = 65
-        Height = 46
+        Height = 60
         Align = alClient
         Stretch = True
         Transparent = True
@@ -25,7 +25,7 @@ inherited frMenuItem: TfrMenuItem
       Left = 65
       Top = 0
       Width = 140
-      Height = 46
+      Height = 60
       Align = alClient
       BevelOuter = bvNone
       ParentColor = True
@@ -34,7 +34,7 @@ inherited frMenuItem: TfrMenuItem
         Left = 12
         Top = 0
         Width = 128
-        Height = 46
+        Height = 60
         Align = alClient
         AutoSize = False
         Caption = 'lbPrincipal'
@@ -51,7 +51,7 @@ inherited frMenuItem: TfrMenuItem
         Left = 0
         Top = 0
         Width = 12
-        Height = 46
+        Height = 60
         Align = alLeft
         BevelOuter = bvNone
         ParentColor = True

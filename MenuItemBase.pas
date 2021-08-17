@@ -51,7 +51,7 @@ end;
 
 procedure TfrMenuItemBase.MouseEnter(var Msg: TMessage);
 begin
-  pnContainer.Color := clGray;
+  pnContainer.Color := $E8E8E8;
 end;
 
 procedure TfrMenuItemBase.MouseLeave(var MSG: TMessage);

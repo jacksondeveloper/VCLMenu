@@ -14,6 +14,8 @@ type
     function GetAlturaMenu: Integer;
     function SetLarguraMenu(Value: Integer): iMenuParametros;
     function GetLarguraMenu: Integer;
+    function SetLarguraSubMenu(Value: Integer): iMenuParametros;
+    function GetLarguraSubMenu: Integer;
     function SetAlturaSubMenu(Value: Integer): iMenuParametros;
     function GetAlturaSubMenu: Integer;
     function SetMenuMargemDireita(Value: Boolean): iMenuParametros;
@@ -24,6 +26,7 @@ type
   private
     fAlturaMenu: Integer;
     fLarguraMenu: Integer;
+    fLarguraSubMenu: Integer;
     fAlturaSubMenu: Integer;
     fMenuMargemDireita: Boolean;
   public
@@ -34,6 +37,8 @@ type
     function GetAlturaMenu: Integer;
     function SetLarguraMenu(Value: Integer): iMenuParametros;
     function GetLarguraMenu: Integer;
+    function SetLarguraSubMenu(Value: Integer): iMenuParametros;
+    function GetLarguraSubMenu: Integer;
     function SetAlturaSubMenu(Value: Integer): iMenuParametros;
     function GetAlturaSubMenu: Integer;
     function SetMenuMargemDireita(Value: Boolean): iMenuParametros;
@@ -154,6 +159,8 @@ begin
   SubMenuItem.Width := LarguraSubMenu;
   if fMenuParametros.GetAlturaSubMenu > 0 then
     SubMenuItem.Height := fMenuParametros.GetAlturaSubMenu;
+  if fMenuParametros.GetLarguraSubMenu > 0 then
+    SubMenuItem.Width := fMenuParametros.GetLarguraSubMenu;
 
   // Visual
   SubMenuItem.DoubleBuffered := True;
@@ -187,37 +194,37 @@ begin
     end;
 
     // Se o container atingir o tamanho máximo permitido
-    if (ContainerAtual.Height + SubMenuAtual.Height) >= GetAlturaMaximaContainer then
+    if (ContainerAtual.GetAltura + SubMenuAtual.Height) >= GetAlturaMaximaContainer then
     begin
 
       // Se alcançou o tamanho máximo então já joga o container para cima para não ficar em baixo e os outros em cima
-      if ((ContainerAtual.Height + SubMenuAtual.Height) > GetAlturaMaximaContainer) then
+      if ((ContainerAtual.GetAltura + SubMenuAtual.Height) > GetAlturaMaximaContainer) then
         ContainerAtual.Top := 0;
 
       // Se alcançou o tamanho máximo e tiver espaço pra cima, vai subindo o menu
-      if (ContainerAtual.Top > 0) and (ContainerAtual.Height < GetAlturaMaximaContainer) then
+      if (ContainerAtual.Top > 0) and (ContainerAtual.GetAltura < GetAlturaMaximaContainer) then
       begin
         ContainerAtual.Top := ContainerAtual.Top - SubMenuAtual.Height;
-        ContainerAtual.Height := ContainerAtual.Height + SubMenuAtual.Height;
+        ContainerAtual.SetAltura(ContainerAtual.GetAltura + SubMenuAtual.Height);
       end
       else
       begin
         // Cria novo subcontainer do lado direito pois já não cabe mais no atual
         CriarNovoContainer(SubMenuAtual.IDMenuPai, 0, SubMenuAtual.Width, ContainerAtual.Left + ContainerAtual.Width);
         ContainerAtual := TfrContainerSubMenu(fListaContainerSubMenu[Pred(fListaContainerSubMenu.Count)]);
-        ContainerAtual.Height := ContainerAtual.Height + SubMenuAtual.Height;
+        ContainerAtual.SetAltura(ContainerAtual.GetAltura + SubMenuAtual.Height);
       end;
 
     end
     else
     begin
       // Aumenta o tamanho do container para colocar o menu dentro, caminho feliz
-      ContainerAtual.Height := ContainerAtual.Height + SubMenuAtual.Height;
+      ContainerAtual.SetAltura(ContainerAtual.GetAltura + SubMenuAtual.Height);
     end;
 
     ContainerAtual.pnMargemSuperior.Visible := (ContainerAtual.Top >= 0);
     SubMenuAtual.Parent := ContainerAtual.pnPrincipal;
-    SubMenuAtual.Top := ContainerAtual.Height - SubMenuAtual.Height;
+    SubMenuAtual.Top := ContainerAtual.GetAltura - SubMenuAtual.Height;
 
     DOLog('Container: ' + IntToStr(ContainerAtual.Tag) + ' Top: ' + IntToStr(ContainerAtual.Top) + ' Left: ' + IntToStr(ContainerAtual.Left));
     DOLog('Submenu: ' + SubMenuAtual.lbPrincipal.Caption + ' Top: ' + IntToStr(SubMenuAtual.Top) + ' Left: ' + IntToStr(SubMenuAtual.Left));
@@ -244,7 +251,7 @@ begin
   FListaContainerSubMenu := TList.Create;
 
   if MenuParametros.GetLarguraMenu > 0 then
-    MenuContainer.Width := MenuParametros.GetLarguraMenu;
+    MenuContainer.Parent.Width := MenuParametros.GetLarguraMenu;
 end;
 
 procedure TMenuController.CriarNovoContainer(IDMenuItem, Topo, Largura, Left: Integer);
@@ -380,6 +387,11 @@ begin
   Result := fLarguraMenu;
 end;
 
+function TMenuParametros.GetLarguraSubMenu: Integer;
+begin
+  Result := fLarguraSubMenu;
+end;
+
 function TMenuParametros.GetMenuMargemDireita: Boolean;
 begin
   Result := fMenuMargemDireita;
@@ -406,6 +418,12 @@ function TMenuParametros.SetLarguraMenu(Value: Integer): iMenuParametros;
 begin
   Result := Self;
   fLarguraMenu := Value;
+end;
+
+function TMenuParametros.SetLarguraSubMenu(Value: Integer): iMenuParametros;
+begin
+  Result := Self;
+  fLarguraSubMenu := Value;
 end;
 
 function TMenuParametros.SetMenuMargemDireita(Value: Boolean): iMenuParametros;
