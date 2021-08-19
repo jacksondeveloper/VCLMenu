@@ -49,7 +49,7 @@ type
     ['{1C9623C4-8C0A-44A6-A1F6-9B1F4E279ECA}']
     procedure GerarMenu;
     function AdicionarMenu(Caption: string; Imagem: TPicture = nil): iMenuController;
-    function AdicionarSubMenu(Caption: string; EvSubMenuClick: TEvMenuClick = nil; Imagem: TPicture = nil): iMenuController;
+    function AdicionarSubMenu(Caption: string; EvSubMenuClick: TEvMenuClick = nil; FormRegistrado: String = ''; Imagem: TPicture = nil): iMenuController;
     procedure EsconderSubMenus;
     procedure SetEvClickSubmenuView(const Value: TEvClickSubmenuView);
   end;
@@ -77,7 +77,7 @@ type
     class function New(MenuContainer, SubMenuParent: TWinControl; MenuParametros: iMenuParametros): iMenuController;
     procedure GerarMenu;
     function AdicionarMenu(Caption: string; Imagem: TPicture = nil): iMenuController;
-    function AdicionarSubMenu(Caption: string; EvSubMenuClick: TEvMenuClick = nil; Imagem: TPicture = nil): iMenuController;
+    function AdicionarSubMenu(Caption: string; EvSubMenuClick: TEvMenuClick = nil; FormRegistrado: String = ''; Imagem: TPicture = nil): iMenuController;
     procedure EsconderSubMenus;
     procedure CriarNovoContainer(IDMenuItem, Topo, Largura, Left: Integer);
     property ContainerSubMenu: TList read GetContainerSubMenu write SetContainerSubMenu;
@@ -129,7 +129,7 @@ begin
   fListaMenu.Add(MenuItem);
 end;
 
-function TMenuController.AdicionarSubMenu(Caption: string; EvSubMenuClick: TEvMenuClick = nil; Imagem: TPicture = nil): iMenuController;
+function TMenuController.AdicionarSubMenu(Caption: string; EvSubMenuClick: TEvMenuClick = nil; FormRegistrado: String = ''; Imagem: TPicture = nil): iMenuController;
 var
   SubMenuItem: TfrMenuSubItem;
   ID: Integer;
@@ -169,6 +169,9 @@ begin
     SubMenuItem.SetImagemPrincipal(Imagem)
   else
     SubMenuItem.pnEsquerdo.Visible := False;
+
+  // Nome da classe que vai abrir o form registrado usado pela view
+  SubMenuItem.FormRegistrado := FormRegistrado;
 
   fListaSubMenu.Add(SubMenuItem);
 end;

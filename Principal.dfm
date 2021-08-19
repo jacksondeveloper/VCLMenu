@@ -33,6 +33,9 @@ object frPrincipal: TfrPrincipal
       Color = clWhite
       TabOrder = 0
       OnClick = pnTopoClick
+      DesignSize = (
+        1028
+        65)
       object Label1: TLabel
         Left = 24
         Top = 24
@@ -47,10 +50,11 @@ object frPrincipal: TfrPrincipal
         ParentFont = False
       end
       object Image1: TImage
-        Left = 488
+        Left = 952
         Top = 0
         Width = 64
         Height = 64
+        Anchors = [akTop, akRight]
         Picture.Data = {
           0A54504E474F626A65637489504E470D0A1A0A0000000D494844520000004000
           0000400806000000AA6971DE0000000473424954080808087C08648800000009

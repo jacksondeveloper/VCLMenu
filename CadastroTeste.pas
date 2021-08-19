@@ -10,6 +10,7 @@ type
   TfrCadastroTeste = class(TForm)
     Label1: TLabel;
     Button1: TButton;
+    Button2: TButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Button1Click(Sender: TObject);
   private
@@ -41,3 +42,6 @@ begin
 end;
 
 end.
+
+
+
