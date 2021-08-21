@@ -16,7 +16,6 @@ type
     procedure pnContainerClick(Sender: TObject);
   private
     FID: Integer;
-    FEvCLick: TEvMenuClick;
     FEvMenuCLick: TEvMenuClick;
     procedure SetID(const Value: Integer);
     procedure SetEvMenuCLick(const Value: TEvMenuClick);
