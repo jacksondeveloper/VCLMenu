@@ -9,7 +9,8 @@ uses
   MenuSubItem in 'MenuSubItem.pas' {frMenuSubItem: TFrame},
   MenuTipos in 'MenuTipos.pas',
   CadastroTeste in 'CadastroTeste.pas' {frCadastroTeste},
-  MenuContainerSubMenu in 'MenuContainerSubMenu.pas' {frContainerSubMenu: TFrame};
+  MenuContainerSubMenu in 'MenuContainerSubMenu.pas' {frContainerSubMenu: TFrame},
+  MenuParametros in 'MenuParametros.pas';
 
 {$R *.res}
 

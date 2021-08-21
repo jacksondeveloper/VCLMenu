@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, MenuController, StdCtrls, ImgList, jpeg, pngimage,
-  CadastroTeste, MenuSubItem;
+  CadastroTeste, MenuSubItem, MenuParametros;
 
 type
   TfrPrincipal = class(TForm)
@@ -34,7 +34,7 @@ type
     procedure AbrirCadastro(Sender: TObject);
     procedure SetMenuController(const Value: iMenuController);
     procedure ClickSubmenuView(Sender: TFrame);
-    procedure AbrirForm(Sender: TObject);
+    procedure AbrirFormRegistrado(Sender: TObject);
   public
     property MenuController: iMenuController read FMenuController write SetMenuController;
   end;
@@ -76,25 +76,27 @@ end;
 
 procedure TfrPrincipal.FormActivate(Sender: TObject);
 begin
+  // Parâmetros
   fMenuParametros := TMenuParametros.New
                       .SetAlturaMenu(55)
                       .SetLarguraMenu(260)
                       //.SetMenuMargemDireita(True)
                       .SetAlturaSubMenu(50);
-
   fMenuController := TMenuController.New(pnEsquerdoInterno, PnPrincipalInterno, fMenuParametros);
   fMenuController.SetEvClickSubmenuView(ClickSubmenuView);
+
+  // Criação do menu
   fMenuController
     .AdicionarMenu('Animal', Image1.Picture)
-      .AdicionarSubMenu('Animal1', AbrirForm, 'TfrCadastroTeste', Image1.Picture)
+      .AdicionarSubMenu('Animal1', AbrirFormRegistrado, 'TfrCadastroTeste', Image1.Picture)
       .AdicionarSubMenu('Animal2', AbrirCadastro, '', Image1.Picture)
       .AdicionarSubMenu('Animal3', AbrirCadastro, '', Image1.Picture)
       .AdicionarSubMenu('Animal4', AbrirCadastro, '', Image1.Picture)
       .AdicionarSubMenu('Animal5', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Bezerra', AbrirCadastro, '', Image1.Picture)
     .AdicionarMenu('Fazenda', Image1.Picture)
       .AdicionarSubMenu('Fazenda1', AbrirCadastro, '', Image1.Picture)
       .AdicionarSubMenu('Fazenda2', AbrirCadastro, '', Image1.Picture)
+      .AdicionarSubMenu('Animal5', AbrirCadastro, '', Image1.Picture)
     .AdicionarMenu('Mastite', Image1.Picture)
       .AdicionarSubMenu('Mastite1', AbrirCadastro, '', Image1.Picture)
       .AdicionarSubMenu('Mastite2', AbrirCadastro, '', Image1.Picture)
@@ -150,11 +152,12 @@ begin
   Label1.Caption := TfrMenuSubItem(Sender).CaminhoSubmenu;
 end;
 
-procedure TfrPrincipal.AbrirForm(Sender: TObject);
+procedure TfrPrincipal.AbrirFormRegistrado(Sender: TObject);
 var
   Form : TForm;
   TClasse : TPersistentClass;
 begin
+  Form := nil;
   TClasse := GetClass(TfrMenuSubItem(Sender).FormRegistrado);
   if (TClasse <> nil) and TClasse.InheritsFrom(TForm) then
     Form := TFormClass(TClasse).Create(nil);

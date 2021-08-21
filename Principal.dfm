@@ -1,6 +1,6 @@
 object frPrincipal: TfrPrincipal
-  Left = 339
-  Top = 185
+  Left = 358
+  Top = 210
   Width = 1044
   Height = 556
   Caption = 'frPrincipal'

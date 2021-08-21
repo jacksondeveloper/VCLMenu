@@ -17,6 +17,8 @@ type
   private
   public
     procedure SetImagemPrincipal(const Value: TPicture);
+    procedure MouseEnter(var Msg : TMessage);  Message cm_mouseEnter;
+    Procedure MouseLeave (Var MSG: TMessage);  Message cm_mouseLeave;
   end;
 
 var
@@ -37,6 +39,18 @@ begin
     Self.Parent.Width := Self.Width
   else
     inherited;  
+end;
+
+procedure TfrMenuItem.MouseEnter(var Msg: TMessage);
+begin
+  //if Assigned(EvMenuCLick) then
+  //  EvMenuCLick(Self);
+end;
+
+procedure TfrMenuItem.MouseLeave(var MSG: TMessage);
+begin
+  //if Assigned(EvMenuCLick) then
+  //  EvMenuCLick(Self);
 end;
 
 end.
