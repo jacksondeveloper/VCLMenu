@@ -98,7 +98,7 @@ object frPrincipal: TfrPrincipal
     object pnPrincipal: TPanel
       Left = 171
       Top = 65
-      Width = 637
+      Width = 685
       Height = 423
       Align = alClient
       BevelOuter = bvNone
@@ -119,7 +119,7 @@ object frPrincipal: TfrPrincipal
       object Panel4: TPanel
         Left = 0
         Top = 0
-        Width = 637
+        Width = 685
         Height = 2
         Align = alTop
         BevelOuter = bvNone
@@ -130,7 +130,7 @@ object frPrincipal: TfrPrincipal
       object PnPrincipalInterno: TPanel
         Left = 2
         Top = 2
-        Width = 635
+        Width = 683
         Height = 421
         Align = alClient
         BevelOuter = bvNone
@@ -172,22 +172,49 @@ object frPrincipal: TfrPrincipal
       end
     end
     object Panel3: TPanel
-      Left = 808
+      Left = 856
       Top = 65
-      Width = 220
+      Width = 172
       Height = 423
       Align = alRight
       BevelOuter = bvNone
-      Color = clSilver
+      Color = clWhite
       TabOrder = 3
       OnClick = pnPrincipalClick
-      object Memo1: TMemo
+      object Label2: TLabel
+        Left = 56
+        Top = 8
+        Width = 55
+        Height = 24
+        Caption = 'Avisos'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        ParentFont = False
+      end
+      object pnMargimLeft: TPanel
+        Left = 0
+        Top = 1
+        Width = 1
+        Height = 422
+        Align = alLeft
+        BevelOuter = bvNone
+        Caption = 'pnMargimLeft'
+        Color = clSilver
+        TabOrder = 0
+      end
+      object pnMargimTop: TPanel
         Left = 0
         Top = 0
-        Width = 220
-        Height = 423
-        Align = alClient
-        TabOrder = 0
+        Width = 172
+        Height = 1
+        Align = alTop
+        BevelOuter = bvNone
+        Caption = 'pnMargimLeft'
+        Color = clSilver
+        TabOrder = 1
       end
     end
   end

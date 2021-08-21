@@ -4,7 +4,7 @@ interface
 
 uses
   Classes, SysUtils, MenuItem, MenuSubItem, Controls, MenuTipos, ExtCtrls, Forms,
-  Graphics, Windows, MenuParametros;
+  Graphics, Windows, MenuParametros, MenuContainerSubMenu;
 
 type
 
@@ -48,9 +48,6 @@ type
   end;
 
 implementation
-
-uses
-  Principal, MenuContainerSubMenu;
 
 { TMenuController }
 
@@ -191,10 +188,6 @@ begin
     ContainerAtual.pnMargemSuperior.Visible := (ContainerAtual.Top >= 0);
     SubMenuAtual.Parent := ContainerAtual.pnPrincipal;
     SubMenuAtual.Top := ContainerAtual.GetAltura - SubMenuAtual.Height;
-
-    DOLog('Container: ' + IntToStr(ContainerAtual.Tag) + ' Top: ' + IntToStr(ContainerAtual.Top) + ' Left: ' + IntToStr(ContainerAtual.Left));
-    DOLog('Submenu: ' + SubMenuAtual.lbPrincipal.Caption + ' Top: ' + IntToStr(SubMenuAtual.Top) + ' Left: ' + IntToStr(SubMenuAtual.Left));
-    DOLog('');
   end;
 
 end;

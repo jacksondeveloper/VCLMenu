@@ -15,7 +15,6 @@ type
     Panel1: TPanel;
     pnEsquerdo: TPanel;
     Panel3: TPanel;
-    Memo1: TMemo;
     Label1: TLabel;
     Panel2: TPanel;
     Panel4: TPanel;
@@ -23,6 +22,9 @@ type
     pnEsquerdoInterno: TPanel;
     Panel5: TPanel;
     Image1: TImage;
+    Label2: TLabel;
+    pnMargimLeft: TPanel;
+    pnMargimTop: TPanel;
     procedure pnEsquerdoClick(Sender: TObject);
     procedure pnPrincipalClick(Sender: TObject);
     procedure Panel1Click(Sender: TObject);
@@ -42,15 +44,7 @@ type
 var
   frPrincipal: TfrPrincipal;
 
-procedure DOLog(Value: String);
-
 implementation
-
-procedure DOLog(Value: String);
-begin
-  // Para teste
-  frPrincipal.Memo1.Lines.Add(Value);
-end;
 
 {$R *.dfm}
 
@@ -89,56 +83,68 @@ begin
   fMenuController
     .AdicionarMenu('Animal', Image1.Picture)
       .AdicionarSubMenu('Animal1', AbrirFormRegistrado, 'TfrCadastroTeste', Image1.Picture)
-      .AdicionarSubMenu('Animal2', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Animal3', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Animal4', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Animal5', AbrirCadastro, '', Image1.Picture)
+      .AdicionarSubMenu('Animal2', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Animal3', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Animal4', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Animal5', AbrirCadastro, EmptyStr, Image1.Picture)
     .AdicionarMenu('Fazenda', Image1.Picture)
-      .AdicionarSubMenu('Fazenda1', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Fazenda2', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Animal5', AbrirCadastro, '', Image1.Picture)
+      .AdicionarSubMenu('Fazenda1', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Fazenda2', AbrirCadastro, EmptyStr, Image1.Picture)
     .AdicionarMenu('Mastite', Image1.Picture)
-      .AdicionarSubMenu('Mastite1', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Mastite2', AbrirCadastro, '', Image1.Picture)
+      .AdicionarSubMenu('Mastite1', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Mastite2', AbrirCadastro, EmptyStr, Image1.Picture)
     .AdicionarMenu('Utilitários', Image1.Picture)
-      .AdicionarSubMenu('Utilitários1', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários2', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários3', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários4', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários5', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários6', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários7', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários8', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários9', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários10', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários11', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários12', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários13', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários14', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários15', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários16', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários17', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários18', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários19', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários20', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários21', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários22', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários23', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários24', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários25', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários26', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários27', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários28', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários29', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários30', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários31', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários32', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários33', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários34', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários35', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários36', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários37', AbrirCadastro, '', Image1.Picture)
-      .AdicionarSubMenu('Utilitários38', AbrirCadastro, '', Image1.Picture)
+      .AdicionarSubMenu('Utilitários1', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários2', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários3', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários4', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários5', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários6', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários7', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários8', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários9', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários10', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários11', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários12', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários13', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários14', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários15', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários16', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários17', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários18', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários19', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários20', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários21', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários22', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários23', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários24', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários25', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários26', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários27', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários28', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários29', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários30', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários31', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários32', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários33', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários34', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários35', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários36', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários37', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários39', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários40', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários41', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários42', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários43', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários44', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários45', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários46', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários47', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários48', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários49', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários50', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários51', AbrirCadastro, EmptyStr, Image1.Picture)
+      .AdicionarSubMenu('Utilitários52', AbrirCadastro, EmptyStr, Image1.Picture)
   .GerarMenu;
 end;
 
