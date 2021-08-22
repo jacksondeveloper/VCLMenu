@@ -7,13 +7,13 @@ uses
 
 const
   LarguraSubMenu = 200;
-  LarguraMenuMinimizado = 70;
 
 type
 
-  TEvMenuClick = procedure(Sender: TObject) of object;
+  TEvMenuClick = procedure(Sender: TFrame) of object;
   TEvFecharSubMenus = procedure of object;
-  TEvMinimizarMenu = procedure of object;
+  TEvMinimizarMenu = procedure(Sender: TFrame) of object;
+  TEvMaximizarMenu = procedure(Sender: TFrame) of object;
   TEvClickSubmenuView = procedure(Sender: TFrame) of object;
 
 implementation

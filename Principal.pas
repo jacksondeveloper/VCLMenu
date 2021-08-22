@@ -33,10 +33,12 @@ type
   private
     fMenuController: iMenuController;
     fMenuParametros: iMenuParametros;
-    procedure AbrirCadastro(Sender: TObject);
+    procedure AbrirCadastro(Sender: TFrame);
     procedure SetMenuController(const Value: iMenuController);
     procedure ClickSubmenuView(Sender: TFrame);
-    procedure AbrirFormRegistrado(Sender: TObject);
+    procedure AbrirFormRegistrado(Sender: TFrame);
+    procedure MinimizarMenu(Sender: TFrame);
+    procedure MaximizarMenu(Sender: TFrame);
   public
     property MenuController: iMenuController read FMenuController write SetMenuController;
   end;
@@ -75,7 +77,10 @@ begin
                       .SetAlturaMenu(55)
                       .SetLarguraMenu(260)
                       //.SetMenuMargemDireita(True)
-                      .SetAlturaSubMenu(50);
+                      .SetAlturaSubMenu(50)
+                      .SetEvMinimizarMenu(MinimizarMenu)
+                      .SetEvMaximizarMenu(MaximizarMenu)
+                      ;
   fMenuController := TMenuController.New(pnEsquerdoInterno, PnPrincipalInterno, fMenuParametros);
   fMenuController.SetEvClickSubmenuView(ClickSubmenuView);
 
@@ -158,7 +163,7 @@ begin
   Label1.Caption := TfrMenuSubItem(Sender).CaminhoSubmenu;
 end;
 
-procedure TfrPrincipal.AbrirFormRegistrado(Sender: TObject);
+procedure TfrPrincipal.AbrirFormRegistrado(Sender: TFrame);
 var
   Form : TForm;
   TClasse : TPersistentClass;
@@ -176,13 +181,25 @@ begin
   end;
 end;
 
-procedure TfrPrincipal.AbrirCadastro(Sender: TObject);
+procedure TfrPrincipal.AbrirCadastro(Sender: TFrame);
 begin
   if not Assigned(frCadastroTeste) then FreeAndNil(frCadastroTeste);
   Application.CreateForm(TfrCadastroTeste, frCadastroTeste);
   frCadastroTeste.Parent := PnPrincipalInterno;
+
   frCadastroTeste.Label1.Caption := TfrMenuSubItem(Sender).lbPrincipal.Caption;
+
   frCadastroTeste.Show;
+end;
+
+procedure TfrPrincipal.MinimizarMenu(Sender: TFrame);
+begin
+  pnEsquerdo.Width := TfrMenuSubItem(Sender).imgPrincipal.Width;
+end;
+
+procedure TfrPrincipal.MaximizarMenu(Sender: TFrame);
+begin
+  pnEsquerdo.Width := TfrMenuSubItem(Sender).Width;
 end;
 
 initialization

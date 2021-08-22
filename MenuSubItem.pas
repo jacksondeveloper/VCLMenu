@@ -17,23 +17,23 @@ type
   private
     FIDMenuPai: Integer;
     FEvFecharSubMenus: TEvFecharSubMenus;
-    FEvMinimizarMenus: TEvMinimizarMenu;
     FEvClickSubmenuView: TEvClickSubmenuView;
     FCaminhoSubmenu: String;
     FFormRegistrado: String;
+    FEvMinimizarMenu: TEvMinimizarMenu;
     procedure SetIDMenuPai(const Value: Integer);
     procedure SetEvFecharSubMenus(const Value: TEvFecharSubMenus);
-    procedure SetEvMinimizarMenus(const Value: TEvMinimizarMenu);
     procedure SetEvClickSubmenuView(const Value: TEvClickSubmenuView);
     procedure SetCaminhoSubmenu(const Value: String);
     function GetCaminhoSubmenu: String;
     procedure SetFormRegistrado(const Value: String);
+    procedure SetEvMinimizarMenu(const Value: TEvMinimizarMenu);
    public
     procedure SetImagemPrincipal(const Value: TPicture);
     property IDMenuPai: Integer read FIDMenuPai write SetIDMenuPai;
     property EvFecharSubMenus: TEvFecharSubMenus read FEvFecharSubMenus write SetEvFecharSubMenus;
-    property EvMinimizarMenus: TEvMinimizarMenu read FEvMinimizarMenus write SetEvMinimizarMenus;
     property EvClickSubmenuView: TEvClickSubmenuView read FEvClickSubmenuView write SetEvClickSubmenuView;
+    property EvMinimizarMenu: TEvMinimizarMenu read FEvMinimizarMenu write SetEvMinimizarMenu;
     property CaminhoSubmenu: String read GetCaminhoSubmenu write SetCaminhoSubmenu;
     property FormRegistrado: String read FFormRegistrado write SetFormRegistrado;
   end;
@@ -62,8 +62,8 @@ begin
   if Assigned(EvFecharSubMenus) then
     EvFecharSubMenus;
 
-  if Assigned(EvMinimizarMenus) then
-    EvMinimizarMenus;
+  if Assigned(EvMinimizarMenu) then
+    EvMinimizarMenu(Self);
 
   inherited;
 
@@ -74,11 +74,6 @@ end;
 procedure TfrMenuSubItem.SetImagemPrincipal(const Value: TPicture);
 begin
   imgPrincipal.Picture := Value;
-end;
-
-procedure TfrMenuSubItem.SetEvMinimizarMenus(const Value: TEvMinimizarMenu);
-begin
-  FEvMinimizarMenus := Value;
 end;
 
 procedure TfrMenuSubItem.SetEvClickSubmenuView(
@@ -97,11 +92,14 @@ begin
   Result := FCaminhoSubmenu + ' - ' +  Self.lbPrincipal.Caption;
 end;
 
-
-
 procedure TfrMenuSubItem.SetFormRegistrado(const Value: String);
 begin
   FFormRegistrado := Value;
+end;
+
+procedure TfrMenuSubItem.SetEvMinimizarMenu(const Value: TEvMinimizarMenu);
+begin
+  FEvMinimizarMenu := Value;
 end;
 
 end.

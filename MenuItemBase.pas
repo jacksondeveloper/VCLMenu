@@ -56,7 +56,6 @@ end;
 procedure TfrMenuItemBase.MouseLeave(var MSG: TMessage);
 begin
   pnContainer.Color := clWhite;
-  OutputDebugString('passou no mouseleave');
 end;
 
 end.
