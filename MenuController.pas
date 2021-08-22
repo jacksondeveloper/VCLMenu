@@ -11,13 +11,18 @@ type
   iMenuController = interface
     ['{1C9623C4-8C0A-44A6-A1F6-9B1F4E279ECA}']
     procedure GerarMenu;
-    function AdicionarMenu(Caption: string; Imagem: TPicture = nil): iMenuController;
-    function AdicionarSubMenu(Caption: string; EvSubMenuClick: TEvMenuClick = nil; FormRegistrado: String = ''; Imagem: TPicture = nil): iMenuController;
+    function AdicionarMenu(Caption: string; Imagem: TPicture = nil; VisibilidadeMenu: Boolean = True): iMenuController;
+    function AdicionarSubMenu(Caption: string;
+                              EvSubMenuClick: TEvMenuClick = nil;
+                              FormRegistrado: String = '';
+                              Imagem: TPicture = nil;
+                              Visibilidade: Boolean = True): iMenuController;
     procedure EsconderSubMenus;
   end;
 
   TMenuController = class(TInterfacedObject, iMenuController)
   private
+    fVisibilidadeUltimoMenu: Boolean;
     fMenuParametros: iMenuParametros;
     fMenuContainer: TWinControl;
     fSubMenuParent: TWinControl;
@@ -35,8 +40,12 @@ type
     destructor Destroy; override;
     class function New(MenuContainer, SubMenuParent: TWinControl; MenuParametros: iMenuParametros): iMenuController;
     procedure GerarMenu;
-    function AdicionarMenu(Caption: string; Imagem: TPicture = nil): iMenuController;
-    function AdicionarSubMenu(Caption: string; EvSubMenuClick: TEvMenuClick = nil; FormRegistrado: String = ''; Imagem: TPicture = nil): iMenuController;
+    function AdicionarMenu(Caption: string; Imagem: TPicture = nil; VisibilidadeMenu: Boolean = True): iMenuController;
+    function AdicionarSubMenu(Caption: string;
+                              EvSubMenuClick: TEvMenuClick = nil;
+                              FormRegistrado: String = '';
+                              Imagem: TPicture = nil;
+                              Visibilidade: Boolean = True): iMenuController;
     procedure EsconderSubMenus;
     procedure CriarNovoContainer(IDMenuItem, Topo, Largura, Left: Integer);
     property ContainerSubMenu: TList read GetContainerSubMenu write SetContainerSubMenu;
@@ -46,12 +55,16 @@ implementation
 
 { TMenuController }
 
-function TMenuController.AdicionarMenu(Caption: string; Imagem: TPicture = nil): iMenuController;
+function TMenuController.AdicionarMenu(Caption: string; Imagem: TPicture = nil; VisibilidadeMenu: Boolean = True): iMenuController;
 var
   MenuItem: TfrMenuItem;
   ID, TopoMenu: Integer;
 begin
   Result := Self;
+  Self.fVisibilidadeUltimoMenu := VisibilidadeMenu;
+
+  if not VisibilidadeMenu then // Permissão de acesso
+    Exit;
 
   if fListaMenu.Count > 0 then
     TopoMenu := TfrMenuItem(fListaMenu[Pred(fListaMenu.Count)]).Top +
@@ -86,14 +99,22 @@ begin
     MenuItem.SetImagemPrincipal(Imagem);
 
   fListaMenu.Add(MenuItem);
+
 end;
 
-function TMenuController.AdicionarSubMenu(Caption: string; EvSubMenuClick: TEvMenuClick = nil; FormRegistrado: String = ''; Imagem: TPicture = nil): iMenuController;
+function TMenuController.AdicionarSubMenu(Caption: string;
+                                          EvSubMenuClick: TEvMenuClick = nil;
+                                          FormRegistrado: String = '';
+                                          Imagem: TPicture = nil;
+                                          Visibilidade: Boolean = True): iMenuController;
 var
   SubMenuItem: TfrMenuSubItem;
   ID: Integer;
 begin
   Result := Self;
+
+  if (not Self.fVisibilidadeUltimoMenu) or (not Visibilidade) then // Permissão de acesso
+    Exit;
 
   SubMenuItem := TfrMenuSubItem.Create(nil);
 
@@ -201,6 +222,7 @@ end;
 
 constructor TMenuController.Create(MenuContainer, SubMenuParent: TWinControl; MenuParametros: iMenuParametros);
 begin
+  fVisibilidadeUltimoMenu := True;
   fMenuParametros := MenuParametros;
   fMenuContainer := MenuContainer;
   fSubMenuParent := SubMenuParent;
