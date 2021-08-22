@@ -23,6 +23,8 @@ type
     function GetEvMinimizarMenu: TEvMinimizarMenu;
     function SetEvMaximizarMenu(Value: TEvMaximizarMenu): iMenuParametros;
     function GetEvMaximizarMenu: TEvMaximizarMenu;
+    function SetEvClickSubmenuView(Value: TEvClickSubmenuView): iMenuParametros;
+    function GetEvClickSubmenuView: TEvClickSubmenuView;
   end;
 
   TMenuParametros = class(TInterfacedObject, iMenuParametros)
@@ -34,6 +36,7 @@ type
     fMenuMargemDireita: Boolean;
     FEvMinimizarMenu: TEvMinimizarMenu;
     FEvMaximizarMenu: TEvMaximizarMenu;
+    FEvClickSubmenuView: TEvClickSubmenuView;
     function SetAlturaMenu(Value: Integer): iMenuParametros;
     function GetAlturaMenu: Integer;
     function SetLarguraMenu(Value: Integer): iMenuParametros;
@@ -48,6 +51,8 @@ type
     function GetEvMinimizarMenu: TEvMinimizarMenu;
     function SetEvMaximizarMenu(Value: TEvMaximizarMenu): iMenuParametros;
     function GetEvMaximizarMenu: TEvMaximizarMenu;
+    function SetEvClickSubmenuView(Value: TEvClickSubmenuView): iMenuParametros;
+    function GetEvClickSubmenuView: TEvClickSubmenuView;
   public
     constructor Create;
     destructor Destroy; override;
@@ -76,6 +81,11 @@ end;
 function TMenuParametros.GetAlturaSubMenu: Integer;
 begin
   Result := fAlturaSubMenu;
+end;
+
+function TMenuParametros.GetEvClickSubmenuView: TEvClickSubmenuView;
+begin
+  Result := FEvClickSubmenuView;
 end;
 
 function TMenuParametros.GetEvMaximizarMenu: TEvMaximizarMenu;
@@ -118,6 +128,12 @@ function TMenuParametros.SetAlturaSubMenu(Value: Integer): iMenuParametros;
 begin
   Result := Self;
   fAlturaSubMenu := Value;
+end;
+
+function TMenuParametros.SetEvClickSubmenuView(Value: TEvClickSubmenuView): iMenuParametros;
+begin
+  Result := Self;
+  FEvClickSubmenuView := Value;
 end;
 
 function TMenuParametros.SetEvMaximizarMenu(Value: TEvMaximizarMenu): iMenuParametros;

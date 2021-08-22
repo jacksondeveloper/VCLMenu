@@ -81,13 +81,14 @@ begin
                       .SetAlturaMenu(55)
                       .SetLarguraMenu(260)
                       .SetAlturaSubMenu(50)
+                      .SetEvClickSubmenuView(ClickSubmenuView)
                       .SetEvMinimizarMenu(MinimizarMenu)
-                      .SetEvMaximizarMenu(MaximizarMenu)
-                      ;
-  fMenuController := TMenuController.New(pnEsquerdoInterno, PnPrincipalInterno, fMenuParametros);
-  fMenuController.SetEvClickSubmenuView(ClickSubmenuView);
+                      .SetEvMaximizarMenu(MaximizarMenu);
 
-  // Criação do menu
+  // Criando classe de menu                    
+  fMenuController := TMenuController.New(pnEsquerdoInterno, PnPrincipalInterno, fMenuParametros);
+
+  // Criação do menu e submenus
   fMenuController
     .AdicionarMenu('Animal', Image1.Picture)
       .AdicionarSubMenu('Animal1', AbrirFormRegistrado, 'TfrCadastroTeste', Image1.Picture)

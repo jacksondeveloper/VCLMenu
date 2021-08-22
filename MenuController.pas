@@ -14,7 +14,6 @@ type
     function AdicionarMenu(Caption: string; Imagem: TPicture = nil): iMenuController;
     function AdicionarSubMenu(Caption: string; EvSubMenuClick: TEvMenuClick = nil; FormRegistrado: String = ''; Imagem: TPicture = nil): iMenuController;
     procedure EsconderSubMenus;
-    procedure SetEvClickSubmenuView(const Value: TEvClickSubmenuView);
   end;
 
   TMenuController = class(TInterfacedObject, iMenuController)
@@ -25,14 +24,12 @@ type
     fListaMenu: TList;
     fListaSubMenu: TList;
     fListaContainerSubMenu: TList;
-    FEvClickSubmenuView: TEvClickSubmenuView;
     procedure SetContainerSubMenu(const Value: TList);
     function GetContainerSubMenu: TList;
     function GetAlturaMaximaContainer: Integer;
     procedure MostrarEsconderSubMenusEspecificos(Sender: TFrame);
     procedure OrganizarSubmenusNoContainer;
     function BuscarMenu(ID: Integer): TfrMenuItem;
-    procedure SetEvClickSubmenuView(const Value: TEvClickSubmenuView);
   public
     constructor Create(MenuContainer, SubMenuParent: TWinControl; MenuParametros: iMenuParametros);
     destructor Destroy; override;
@@ -43,7 +40,6 @@ type
     procedure EsconderSubMenus;
     procedure CriarNovoContainer(IDMenuItem, Topo, Largura, Left: Integer);
     property ContainerSubMenu: TList read GetContainerSubMenu write SetContainerSubMenu;
-    property EvClickSubmenuView: TEvClickSubmenuView read FEvClickSubmenuView write SetEvClickSubmenuView;
   end;
 
 implementation
@@ -112,7 +108,7 @@ begin
   SubMenuItem.EvMenuCLick := EvSubMenuClick;
   SubMenuItem.EvFecharSubMenus := EsconderSubMenus;
   SubMenuItem.EvMinimizarMenu := fMenuParametros.GetEvMinimizarMenu;
-  SubMenuItem.EvClickSubmenuView := EvClickSubmenuView;
+  SubMenuItem.EvClickSubmenuView := fMenuParametros.GetEvClickSubmenuView;
 
   // Controles
   SubMenuItem.IDMenuPai := TfrMenuItem(fListaMenu[Pred(fListaMenu.Count)]).ID; // ultimo menu pai
@@ -310,11 +306,6 @@ begin
     end;
   end;
 
-end;
-
-procedure TMenuController.SetEvClickSubmenuView(const Value: TEvClickSubmenuView);
-begin
-  FEvClickSubmenuView := Value;
 end;
 
 end.
