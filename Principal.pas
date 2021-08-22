@@ -33,14 +33,18 @@ type
   private
     fMenuController: iMenuController;
     fMenuParametros: iMenuParametros;
+    FFormAtivo: TForm;
     procedure AbrirCadastro(Sender: TFrame);
     procedure SetMenuController(const Value: iMenuController);
     procedure ClickSubmenuView(Sender: TFrame);
     procedure AbrirFormRegistrado(Sender: TFrame);
     procedure MinimizarMenu(Sender: TFrame);
     procedure MaximizarMenu(Sender: TFrame);
+    procedure SetFormAtivo(const Value: TForm);
+    function GetFormAtivo: TForm;
   public
     property MenuController: iMenuController read FMenuController write SetMenuController;
+    property FormAtivo: TForm read GetFormAtivo write SetFormAtivo;
   end;
 
 var
@@ -76,7 +80,6 @@ begin
   fMenuParametros := TMenuParametros.New
                       .SetAlturaMenu(55)
                       .SetLarguraMenu(260)
-                      //.SetMenuMargemDireita(True)
                       .SetAlturaSubMenu(50)
                       .SetEvMinimizarMenu(MinimizarMenu)
                       .SetEvMaximizarMenu(MaximizarMenu)
@@ -176,7 +179,7 @@ begin
     MessageDlg('Form não registrado!', mtError, [mbOK], 0)
   else
   begin
-    Form.Parent := PnPrincipalInterno;
+    frPrincipal.SetFormAtivo(Form);
     Form.Show;
   end;
 end;
@@ -185,7 +188,8 @@ procedure TfrPrincipal.AbrirCadastro(Sender: TFrame);
 begin
   if not Assigned(frCadastroTeste) then FreeAndNil(frCadastroTeste);
   Application.CreateForm(TfrCadastroTeste, frCadastroTeste);
-  frCadastroTeste.Parent := PnPrincipalInterno;
+
+  frPrincipal.SetFormAtivo(frCadastroTeste);
 
   frCadastroTeste.Label1.Caption := TfrMenuSubItem(Sender).lbPrincipal.Caption;
 
@@ -200,6 +204,18 @@ end;
 procedure TfrPrincipal.MaximizarMenu(Sender: TFrame);
 begin
   pnEsquerdo.Width := TfrMenuSubItem(Sender).Width;
+end;
+
+procedure TfrPrincipal.SetFormAtivo(const Value: TForm);
+begin
+  FFormAtivo := Value;
+  if Assigned(FFormAtivo) then
+    FFormAtivo.Parent := PnPrincipalInterno; 
+end;
+
+function TfrPrincipal.GetFormAtivo: TForm;
+begin
+  Result := FFormAtivo;
 end;
 
 initialization
