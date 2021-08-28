@@ -10,12 +10,15 @@ inherited frMenuItem: TfrMenuItem
       BevelOuter = bvNone
       ParentColor = True
       TabOrder = 0
+      DesignSize = (
+        65
+        60)
       object imgPrincipal: TImage
-        Left = 0
-        Top = 0
-        Width = 65
-        Height = 60
-        Align = alClient
+        Left = 8
+        Top = 8
+        Width = 48
+        Height = 43
+        Anchors = [akLeft, akTop, akRight, akBottom]
         Stretch = True
         Transparent = True
         OnClick = pnContainerClick

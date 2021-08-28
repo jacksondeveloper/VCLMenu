@@ -80,7 +80,7 @@ begin
   // Parâmetros
   fMenuParametros := TMenuParametros.New
                       .SetAlturaMenu(55)
-                      .SetLarguraMenu(260)
+                      .SetLarguraMenu(200)
                       .SetAlturaSubMenu(50)
                       .SetEvClickSubmenuView(ClickSubmenuView)
                       .SetEvMinimizarMenu(MinimizarMenu)
