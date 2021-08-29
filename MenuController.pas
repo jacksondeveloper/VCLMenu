@@ -94,7 +94,6 @@ begin
 
   // Visual
   MenuItem.DoubleBuffered := True;
-  MenuItem.pnMargemDireita.Visible := fMenuParametros.GetMenuMargemDireita;
   MenuItem.lbPrincipal.Caption := Caption;
   if Assigned(Imagem) then
     MenuItem.SetImagemPrincipal(Imagem);

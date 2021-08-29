@@ -136,6 +136,7 @@ object frPrincipal: TfrPrincipal
         BevelOuter = bvNone
         Color = clWhite
         TabOrder = 2
+        OnClick = PnPrincipalInternoClick
       end
     end
     object pnEsquerdo: TPanel

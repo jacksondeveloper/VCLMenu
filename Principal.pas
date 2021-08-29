@@ -30,6 +30,7 @@ type
     procedure Panel1Click(Sender: TObject);
     procedure pnTopoClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
+    procedure PnPrincipalInternoClick(Sender: TObject);
   private
     fMenuController: iMenuController;
     fMenuParametros: iMenuParametros;
@@ -230,6 +231,11 @@ begin
     if Menu = 'Fazenda2' then
       Result := False;
   end;
+end;
+
+procedure TfrPrincipal.PnPrincipalInternoClick(Sender: TObject);
+begin
+  fMenuController.EsconderSubMenus;
 end;
 
 initialization

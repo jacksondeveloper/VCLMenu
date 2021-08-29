@@ -17,8 +17,6 @@ type
     function GetLarguraSubMenu: Integer;
     function SetAlturaSubMenu(Value: Integer): iMenuParametros;
     function GetAlturaSubMenu: Integer;
-    function SetMenuMargemDireita(Value: Boolean): iMenuParametros;
-    function GetMenuMargemDireita: Boolean;
     function SetEvMinimizarMenu(Value: TEvMinimizarMenu): iMenuParametros;
     function GetEvMinimizarMenu: TEvMinimizarMenu;
     function SetEvMaximizarMenu(Value: TEvMaximizarMenu): iMenuParametros;
@@ -35,7 +33,6 @@ type
     FLarguraMenu: Integer;
     FLarguraSubMenu: Integer;
     FAlturaSubMenu: Integer;
-    FMenuMargemDireita: Boolean;
     FEvMinimizarMenu: TEvMinimizarMenu;
     FEvMaximizarMenu: TEvMaximizarMenu;
     FEvClickSubmenuView: TEvClickSubmenuView;
@@ -48,8 +45,6 @@ type
     function GetLarguraSubMenu: Integer;
     function SetAlturaSubMenu(Value: Integer): iMenuParametros;
     function GetAlturaSubMenu: Integer;
-    function SetMenuMargemDireita(Value: Boolean): iMenuParametros;
-    function GetMenuMargemDireita: Boolean;
     function SetEvMinimizarMenu(Value: TEvMinimizarMenu): iMenuParametros;
     function GetEvMinimizarMenu: TEvMinimizarMenu;
     function SetEvMaximizarMenu(Value: TEvMaximizarMenu): iMenuParametros;
@@ -118,11 +113,6 @@ begin
   Result := fLarguraSubMenu;
 end;
 
-function TMenuParametros.GetMenuMargemDireita: Boolean;
-begin
-  Result := fMenuMargemDireita;
-end;
-
 class function TMenuParametros.New: iMenuParametros;
 begin
   Result := Self.Create;
@@ -174,12 +164,6 @@ function TMenuParametros.SetLarguraSubMenu(Value: Integer): iMenuParametros;
 begin
   Result := Self;
   fLarguraSubMenu := Value;
-end;
-
-function TMenuParametros.SetMenuMargemDireita(Value: Boolean): iMenuParametros;
-begin
-  Result := Self;
-  fMenuMargemDireita := Value;
 end;
 
 end.
