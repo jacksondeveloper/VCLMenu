@@ -16,11 +16,14 @@ type
     procedure pnContainerClick(Sender: TObject);
   private
     FEvMaximizarMenu: TEvMaximizarMenu;
+    FAbrirMouseEnter: Boolean;
     procedure SetEvMaximizarMenu(const Value: TEvMaximizarMenu);
+    procedure SetAbrirMouseEnter(const Value: Boolean);
   public
     procedure SetImagemPrincipal(const Value: TPicture);
     procedure MouseEnter(var Msg : TMessage);  Message cm_mouseEnter;
     Procedure MouseLeave (Var MSG: TMessage);  Message cm_mouseLeave;
+    property AbrirMouseEnter: Boolean read FAbrirMouseEnter write SetAbrirMouseEnter;
     property EvMaximizarMenu: TEvMaximizarMenu read FEvMaximizarMenu write SetEvMaximizarMenu;
   end;
 
@@ -38,14 +41,20 @@ end;
 
 procedure TfrMenuItem.MouseEnter(var Msg: TMessage);
 begin
-  //if Assigned(EvMenuCLick) then
-  //  EvMenuCLick(Self);
+  inherited;
+  if AbrirMouseEnter then
+    if Assigned(EvMenuCLick) then
+    begin
+      if Assigned(EvMaximizarMenu) then
+        EvMaximizarMenu(Self);
+        
+      EvMenuCLick(Self);
+    end;
 end;
 
 procedure TfrMenuItem.MouseLeave(var MSG: TMessage);
 begin
-  //if Assigned(EvMenuCLick) then
-  //  EvMenuCLick(Self);
+  inherited;
 end;
 
 procedure TfrMenuItem.SetEvMaximizarMenu(const Value: TEvMaximizarMenu);
@@ -59,6 +68,11 @@ begin
     EvMaximizarMenu(Self);
     
   inherited;
+end;
+
+procedure TfrMenuItem.SetAbrirMouseEnter(const Value: Boolean);
+begin
+  FAbrirMouseEnter := Value;
 end;
 
 end.

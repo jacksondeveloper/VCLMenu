@@ -25,18 +25,21 @@ type
     function GetEvMaximizarMenu: TEvMaximizarMenu;
     function SetEvClickSubmenuView(Value: TEvClickSubmenuView): iMenuParametros;
     function GetEvClickSubmenuView: TEvClickSubmenuView;
+    function SetAbrirMouseEnter(Value: Boolean): iMenuParametros;
+    function GetAbrirMouseEnter: Boolean;
   end;
 
   TMenuParametros = class(TInterfacedObject, iMenuParametros)
   private
-    fAlturaMenu: Integer;
-    fLarguraMenu: Integer;
-    fLarguraSubMenu: Integer;
-    fAlturaSubMenu: Integer;
-    fMenuMargemDireita: Boolean;
+    FAlturaMenu: Integer;
+    FLarguraMenu: Integer;
+    FLarguraSubMenu: Integer;
+    FAlturaSubMenu: Integer;
+    FMenuMargemDireita: Boolean;
     FEvMinimizarMenu: TEvMinimizarMenu;
     FEvMaximizarMenu: TEvMaximizarMenu;
     FEvClickSubmenuView: TEvClickSubmenuView;
+    FAbrirMouseEnter: Boolean;
     function SetAlturaMenu(Value: Integer): iMenuParametros;
     function GetAlturaMenu: Integer;
     function SetLarguraMenu(Value: Integer): iMenuParametros;
@@ -53,6 +56,8 @@ type
     function GetEvMaximizarMenu: TEvMaximizarMenu;
     function SetEvClickSubmenuView(Value: TEvClickSubmenuView): iMenuParametros;
     function GetEvClickSubmenuView: TEvClickSubmenuView;
+    function SetAbrirMouseEnter(Value: Boolean): iMenuParametros;
+    function GetAbrirMouseEnter: Boolean;
   public
     constructor Create;
     destructor Destroy; override;
@@ -71,6 +76,11 @@ destructor TMenuParametros.Destroy;
 begin
 
   inherited;
+end;
+
+function TMenuParametros.GetAbrirMouseEnter: Boolean;
+begin
+  Result := FAbrirMouseEnter;
 end;
 
 function TMenuParametros.GetAlturaMenu: Integer;
@@ -116,6 +126,12 @@ end;
 class function TMenuParametros.New: iMenuParametros;
 begin
   Result := Self.Create;
+end;
+
+function TMenuParametros.SetAbrirMouseEnter(Value: Boolean): iMenuParametros;
+begin
+  Result := Self;
+  FAbrirMouseEnter := Value;
 end;
 
 function TMenuParametros.SetAlturaMenu(Value: Integer): iMenuParametros;

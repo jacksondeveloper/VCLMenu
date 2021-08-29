@@ -50,12 +50,14 @@ end;
 
 procedure TfrMenuItemBase.MouseEnter(var Msg: TMessage);
 begin
-  pnContainer.Color := $E8E8E8;
+  if pnContainer.Color <> $E8E8E8 then
+    pnContainer.Color := $E8E8E8;
 end;
 
 procedure TfrMenuItemBase.MouseLeave(var MSG: TMessage);
 begin
-  pnContainer.Color := clWhite;
+  if pnContainer.Color <> clWhite then
+    pnContainer.Color := clWhite;
 end;
 
 end.

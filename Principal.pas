@@ -82,6 +82,7 @@ begin
                       .SetAlturaMenu(55)
                       .SetLarguraMenu(200)
                       .SetAlturaSubMenu(50)
+                      .SetAbrirMouseEnter(True)
                       .SetEvClickSubmenuView(ClickSubmenuView)
                       .SetEvMinimizarMenu(MinimizarMenu)
                       .SetEvMaximizarMenu(MaximizarMenu);
@@ -226,16 +227,15 @@ begin
 
   if Menu <> EmptyStr then
   begin
-    if Menu = 'Animal' then
-      Result := False
-    else if Menu = 'Animal1' then
-      Result := False
-    else if Menu = 'Fazenda2' then
+    if Menu = 'Fazenda2' then
       Result := False;
   end;
 end;
 
 initialization
   RegisterClass(TfrCadastroTeste);
+
+finalization
+  UnRegisterClass(TfrCadastroTeste);
 
 end.

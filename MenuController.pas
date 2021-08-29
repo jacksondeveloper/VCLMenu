@@ -80,6 +80,7 @@ begin
   MenuItem.Parent := fMenuContainer;
 
   // Eventos
+  MenuItem.AbrirMouseEnter := fMenuParametros.GetAbrirMouseEnter;
   MenuItem.EvMenuCLick := MostrarEsconderSubMenusEspecificos;
   MenuItem.EvMaximizarMenu := fMenuParametros.GetEvMaximizarMenu;
 
@@ -305,11 +306,17 @@ begin
   begin
     if (TfrContainerSubMenu(FListaContainerSubMenu[contador]).Tag = TfrMenuItem(Sender).ID) then
     begin
-      TfrContainerSubMenu(FListaContainerSubMenu[contador]).BringToFront;
-      TfrContainerSubMenu(FListaContainerSubMenu[contador]).Visible := not TfrContainerSubMenu(FListaContainerSubMenu[contador]).Visible;
+      if not TfrContainerSubMenu(FListaContainerSubMenu[contador]).Visible then
+      begin
+        TfrContainerSubMenu(FListaContainerSubMenu[contador]).BringToFront;
+        TfrContainerSubMenu(FListaContainerSubMenu[contador]).Visible := not TfrContainerSubMenu(FListaContainerSubMenu[contador]).Visible;
+      end;
     end
     else
-      TfrContainerSubMenu(FListaContainerSubMenu[contador]).Visible := False;
+    begin
+      if TfrContainerSubMenu(FListaContainerSubMenu[contador]).Visible then
+        TfrContainerSubMenu(FListaContainerSubMenu[contador]).Visible := False;
+    end;
   end;
 end;
 
