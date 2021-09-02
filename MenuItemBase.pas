@@ -17,11 +17,17 @@ type
   private
     FID: Integer;
     FEvMenuCLick: TEvMenuClick;
+    FCorPadrao: TColor;
+    FCorSelecionado: TColor;
     procedure SetID(const Value: Integer);
     procedure SetEvMenuCLick(const Value: TEvMenuClick);
+    procedure SetCorPadrao(const Value: TColor);
+    procedure SetCorSelecionado(const Value: TColor);
   public
     property ID: Integer read FID write SetID;
     property EvMenuCLick: TEvMenuClick read FEvMenuCLick write SetEvMenuCLick;
+    property CorPadrao: TColor read FCorPadrao write SetCorPadrao;
+    property CorSelecionado: TColor read FCorSelecionado write SetCorSelecionado;
     procedure MouseEnter(var Msg : TMessage);  Message cm_mouseEnter;
     Procedure MouseLeave (Var MSG: TMessage);  Message cm_mouseLeave;
   end;
@@ -50,14 +56,26 @@ end;
 
 procedure TfrMenuItemBase.MouseEnter(var Msg: TMessage);
 begin
-  if pnContainer.Color <> $E8E8E8 then
-    pnContainer.Color := $E8E8E8;
+  if CorSelecionado <> 0 then
+    if pnContainer.Color <> CorSelecionado then
+      pnContainer.Color := CorSelecionado;
 end;
 
 procedure TfrMenuItemBase.MouseLeave(var MSG: TMessage);
 begin
-  if pnContainer.Color <> clWhite then
-    pnContainer.Color := clWhite;
+  if CorPadrao <> 0 then 
+    if pnContainer.Color <> CorPadrao then
+      pnContainer.Color := CorPadrao;
+end;
+
+procedure TfrMenuItemBase.SetCorPadrao(const Value: TColor);
+begin
+  FCorPadrao := Value;
+end;
+
+procedure TfrMenuItemBase.SetCorSelecionado(const Value: TColor);
+begin
+  FCorSelecionado := Value;
 end;
 
 end.

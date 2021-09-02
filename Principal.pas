@@ -90,7 +90,9 @@ begin
                       .SetFonteNome('Tahoma')
                       .SetFonteTamanho(14)
                       .SetFonteEstilo([])
-                      .SetFonteCor(clBlack);
+                      .SetFonteCor(clBlack)
+                      .SetCorPadrao(clWhite)
+                      .SetCorSelecionado($E8E8E8);
 
   // Criando classe de menu                    
   fMenuController := TMenuController.New(pnEsquerdoInterno, PnPrincipalInterno, fMenuParametros);

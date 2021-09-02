@@ -107,6 +107,10 @@ begin
   if fMenuParametros.GetFonteCor > 0 then
   MenuItem.lbPrincipal.Font.Color := fMenuParametros.GetFonteCor;
 
+  // Cores
+  MenuItem.CorPadrao := fMenuParametros.getCorPadrao;
+  MenuItem.CorSelecionado := fMenuParametros.GetCorSelecionado;
+
   fListaMenu.Add(MenuItem);
 
 end;
@@ -170,6 +174,10 @@ begin
     SubMenuItem.lbPrincipal.Font.Style := fMenuParametros.GetFonteEstilo;
   if fMenuParametros.GetFonteCor > 0 then
   SubMenuItem.lbPrincipal.Font.Color := fMenuParametros.GetFonteCor;
+
+  // Cores
+  SubMenuItem.CorPadrao := fMenuParametros.getCorPadrao;
+  SubMenuItem.CorSelecionado := fMenuParametros.GetCorSelecionado;
 
   fListaSubMenu.Add(SubMenuItem);
 end;

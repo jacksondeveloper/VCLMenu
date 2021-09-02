@@ -33,6 +33,10 @@ type
     function GetFonteNome: String;
     function SetFonteTamanho(const Value: Integer): iMenuParametros;
     function GetFonteTamanho: Integer;
+    function SetCorPadrao(const Value: TColor): iMenuParametros;
+    function GetCorPadrao: TColor;
+    function SetCorSelecionado(const Value: TColor): iMenuParametros;
+    function GetCorSelecionado: TColor;
   end;
 
   TMenuParametros = class(TInterfacedObject, iMenuParametros)
@@ -48,6 +52,8 @@ type
     FFonteNome: String;
     FFonteTamanho: Integer;
     FFonteCor: TColor;
+    FCorPadrao: TColor;
+    FCorSelecionado: TColor;
     FFonteEstilo: TFontStyles;
     function SetAlturaMenu(Value: Integer): iMenuParametros;
     function GetAlturaMenu: Integer;
@@ -73,6 +79,10 @@ type
     function GetFonteNome: String;
     function SetFonteTamanho(const Value: Integer): iMenuParametros;
     function GetFonteTamanho: Integer;
+    function SetCorPadrao(const Value: TColor): iMenuParametros;
+    function GetCorPadrao: TColor;
+    function SetCorSelecionado(const Value: TColor): iMenuParametros;
+    function GetCorSelecionado: TColor;
   public
     constructor Create;
     destructor Destroy; override;
@@ -106,6 +116,16 @@ end;
 function TMenuParametros.GetAlturaSubMenu: Integer;
 begin
   Result := fAlturaSubMenu;
+end;
+
+function TMenuParametros.GetCorPadrao: TColor;
+begin
+  Result := FCorPadrao;
+end;
+
+function TMenuParametros.GetCorSelecionado: TColor;
+begin
+  Result := FCorSelecionado;
 end;
 
 function TMenuParametros.GetEvClickSubmenuView: TEvClickSubmenuView;
@@ -174,6 +194,18 @@ function TMenuParametros.SetAlturaSubMenu(Value: Integer): iMenuParametros;
 begin
   Result := Self;
   fAlturaSubMenu := Value;
+end;
+
+function TMenuParametros.SetCorPadrao(const Value: TColor): iMenuParametros;
+begin
+  Result := Self;
+  FCorPadrao := Value;
+end;
+
+function TMenuParametros.SetCorSelecionado(const Value: TColor): iMenuParametros;
+begin
+  Result := Self;
+  FCorSelecionado := Value;
 end;
 
 function TMenuParametros.SetEvClickSubmenuView(Value: TEvClickSubmenuView): iMenuParametros;
