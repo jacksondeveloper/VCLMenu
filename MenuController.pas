@@ -98,6 +98,15 @@ begin
   if Assigned(Imagem) then
     MenuItem.SetImagemPrincipal(Imagem);
 
+  // Fonte
+  MenuItem.lbPrincipal.Font.Name := fMenuparametros.GetFonteNome;
+  if fMenuParametros.GetFonteTamanho > 0 then
+    MenuItem.lbPrincipal.Font.Size := fMenuParametros.GetFonteTamanho;
+  if fMenuParametros.GetFonteEstilo <> [] then
+    MenuItem.lbPrincipal.Font.Style := fMenuParametros.GetFonteEstilo;
+  if fMenuParametros.GetFonteCor > 0 then
+  MenuItem.lbPrincipal.Font.Color := fMenuParametros.GetFonteCor;
+
   fListaMenu.Add(MenuItem);
 
 end;
@@ -152,6 +161,15 @@ begin
 
   // Nome da classe que vai abrir o form registrado usado pela view
   SubMenuItem.FormRegistrado := FormRegistrado;
+
+  // Fonte
+  SubMenuItem.lbPrincipal.Font.Name := fMenuparametros.GetFonteNome;
+  if fMenuParametros.GetFonteTamanho > 0 then
+    SubMenuItem.lbPrincipal.Font.Size := fMenuParametros.GetFonteTamanho;
+  if fMenuParametros.GetFonteEstilo <> [] then
+    SubMenuItem.lbPrincipal.Font.Style := fMenuParametros.GetFonteEstilo;
+  if fMenuParametros.GetFonteCor > 0 then
+  SubMenuItem.lbPrincipal.Font.Color := fMenuParametros.GetFonteCor;
 
   fListaSubMenu.Add(SubMenuItem);
 end;

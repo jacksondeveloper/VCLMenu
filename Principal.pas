@@ -86,7 +86,11 @@ begin
                       .SetAbrirMouseEnter(True)
                       .SetEvClickSubmenuView(ClickSubmenuView)
                       .SetEvMinimizarMenu(MinimizarMenu)
-                      .SetEvMaximizarMenu(MaximizarMenu);
+                      .SetEvMaximizarMenu(MaximizarMenu)
+                      .SetFonteNome('Tahoma')
+                      .SetFonteTamanho(14)
+                      .SetFonteEstilo([])
+                      .SetFonteCor(clBlack);
 
   // Criando classe de menu                    
   fMenuController := TMenuController.New(pnEsquerdoInterno, PnPrincipalInterno, fMenuParametros);

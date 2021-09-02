@@ -3,7 +3,7 @@ unit MenuParametros;
 interface
 
 uses
-  MenuTipos;
+  MenuTipos, Graphics;
 
 type
 
@@ -25,6 +25,14 @@ type
     function GetEvClickSubmenuView: TEvClickSubmenuView;
     function SetAbrirMouseEnter(Value: Boolean): iMenuParametros;
     function GetAbrirMouseEnter: Boolean;
+    function SetFonteCor(const Value: TColor): iMenuParametros;
+    function GetFonteCor: TColor;
+    function SetFonteEstilo(const Value: TFontStyles): iMenuParametros;
+    function GetFonteEstilo: TFontStyles;
+    function SetFonteNome(const Value: String): iMenuParametros;
+    function GetFonteNome: String;
+    function SetFonteTamanho(const Value: Integer): iMenuParametros;
+    function GetFonteTamanho: Integer;
   end;
 
   TMenuParametros = class(TInterfacedObject, iMenuParametros)
@@ -37,6 +45,10 @@ type
     FEvMaximizarMenu: TEvMaximizarMenu;
     FEvClickSubmenuView: TEvClickSubmenuView;
     FAbrirMouseEnter: Boolean;
+    FFonteNome: String;
+    FFonteTamanho: Integer;
+    FFonteCor: TColor;
+    FFonteEstilo: TFontStyles;
     function SetAlturaMenu(Value: Integer): iMenuParametros;
     function GetAlturaMenu: Integer;
     function SetLarguraMenu(Value: Integer): iMenuParametros;
@@ -53,6 +65,14 @@ type
     function GetEvClickSubmenuView: TEvClickSubmenuView;
     function SetAbrirMouseEnter(Value: Boolean): iMenuParametros;
     function GetAbrirMouseEnter: Boolean;
+    function SetFonteCor(const Value: TColor): iMenuParametros;
+    function GetFonteCor: TColor;
+    function SetFonteEstilo(const Value: TFontStyles): iMenuParametros;
+    function GetFonteEstilo: TFontStyles;
+    function SetFonteNome(const Value: String): iMenuParametros;
+    function GetFonteNome: String;
+    function SetFonteTamanho(const Value: Integer): iMenuParametros;
+    function GetFonteTamanho: Integer;
   public
     constructor Create;
     destructor Destroy; override;
@@ -101,6 +121,26 @@ end;
 function TMenuParametros.GetEvMinimizarMenu: TEvMinimizarMenu;
 begin
   Result := FEvMinimizarMenu;
+end;
+
+function TMenuParametros.GetFonteCor: TColor;
+begin
+  Result := FFonteCor;
+end;
+
+function TMenuParametros.GetFonteEstilo: TFontStyles;
+begin
+  Result := FFonteEstilo;
+end;
+
+function TMenuParametros.GetFonteNome: String;
+begin
+  Result := FFonteNome;
+end;
+
+function TMenuParametros.GetFonteTamanho: Integer;
+begin
+  Result := FFonteTamanho;
 end;
 
 function TMenuParametros.GetLarguraMenu: Integer;
@@ -152,6 +192,30 @@ function TMenuParametros.SetEvMinimizarMenu(Value: TEvMinimizarMenu): iMenuParam
 begin
   Result := Self;
   FEvMinimizarMenu := Value;
+end;
+
+function TMenuParametros.SetFonteCor(const Value: TColor): iMenuParametros;
+begin
+  Result := Self;
+  FFonteCor := Value;
+end;
+
+function TMenuParametros.SetFonteEstilo(const Value: TFontStyles): iMenuParametros;
+begin
+  Result := Self;
+  FFonteEstilo := Value;
+end;
+
+function TMenuParametros.SetFonteNome(const Value: String): iMenuParametros;
+begin
+  Result := Self;
+  FFonteNome := Value;
+end;
+
+function TMenuParametros.SetFonteTamanho(const Value: Integer): iMenuParametros;
+begin
+  Result := Self;
+  FFonteTamanho := Value;
 end;
 
 function TMenuParametros.SetLarguraMenu(Value: Integer): iMenuParametros;
