@@ -37,6 +37,8 @@ type
     function GetCorPadrao: TColor;
     function SetCorSelecionado(const Value: TColor): iMenuParametros;
     function GetCorSelecionado: TColor;
+    function SetAbrirSubmenuTopoZero(Value: Boolean): iMenuParametros;
+    function GetAbrirSubmenuTopoZero: Boolean;
   end;
 
   TMenuParametros = class(TInterfacedObject, iMenuParametros)
@@ -55,6 +57,7 @@ type
     FCorPadrao: TColor;
     FCorSelecionado: TColor;
     FFonteEstilo: TFontStyles;
+    FAbrirSubmenuTopoZero: Boolean;
     function SetAlturaMenu(Value: Integer): iMenuParametros;
     function GetAlturaMenu: Integer;
     function SetLarguraMenu(Value: Integer): iMenuParametros;
@@ -83,6 +86,8 @@ type
     function GetCorPadrao: TColor;
     function SetCorSelecionado(const Value: TColor): iMenuParametros;
     function GetCorSelecionado: TColor;
+    function SetAbrirSubmenuTopoZero(Value: Boolean): iMenuParametros;
+    function GetAbrirSubmenuTopoZero: Boolean;
   public
     constructor Create;
     destructor Destroy; override;
@@ -106,6 +111,11 @@ end;
 function TMenuParametros.GetAbrirMouseEnter: Boolean;
 begin
   Result := FAbrirMouseEnter;
+end;
+
+function TMenuParametros.GetAbrirSubmenuTopoZero: Boolean;
+begin
+  Result := FAbrirSubmenuTopoZero;
 end;
 
 function TMenuParametros.GetAlturaMenu: Integer;
@@ -182,6 +192,12 @@ function TMenuParametros.SetAbrirMouseEnter(Value: Boolean): iMenuParametros;
 begin
   Result := Self;
   FAbrirMouseEnter := Value;
+end;
+
+function TMenuParametros.SetAbrirSubmenuTopoZero(Value: Boolean): iMenuParametros;
+begin
+  Result := Self;
+  FAbrirSubmenuTopoZero := Value;
 end;
 
 function TMenuParametros.SetAlturaMenu(Value: Integer): iMenuParametros;

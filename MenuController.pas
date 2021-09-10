@@ -18,6 +18,7 @@ type
                               Imagem: TPicture = nil;
                               Visibilidade: Boolean = True): iMenuController;
     procedure EsconderSubMenus;
+    procedure Reorganizar;
   end;
 
   TMenuController = class(TInterfacedObject, iMenuController)
@@ -47,6 +48,7 @@ type
                               Imagem: TPicture = nil;
                               Visibilidade: Boolean = True): iMenuController;
     procedure EsconderSubMenus;
+    procedure Reorganizar;
     procedure CriarNovoContainer(IDMenuItem, Topo, Largura, Left: Integer);
     property ContainerSubMenu: TList read GetContainerSubMenu write SetContainerSubMenu;
   end;
@@ -187,6 +189,7 @@ var
   Contador: Integer;
   SubMenuAtual: TfrMenuSubItem;
   ContainerAtual: TfrContainerSubMenu;
+  TopoInicialContainer: Integer;
 begin
   ContainerAtual := nil; // remove warning
 
@@ -198,7 +201,12 @@ begin
     // Se for o primeiro item ou mudar o id do menu pai então deve criar um container novo para esse grupo de submenus
     if (Contador = 0) or (TfrContainerSubMenu(fListaContainerSubMenu[Pred(fListaContainerSubMenu.Count)]).Tag <> SubMenuAtual.IDMenuPai) then
     begin
-      CriarNovoContainer(SubMenuAtual.IDMenuPai, BuscarMenu(SubMenuAtual.IDMenuPai).Top, SubMenuAtual.Width, 0);
+      if fMenuParametros.GetAbrirSubmenuTopoZero then
+        TopoInicialContainer := 0
+      else
+        TopoInicialContainer := BuscarMenu(SubMenuAtual.IDMenuPai).Top;
+
+      CriarNovoContainer(SubMenuAtual.IDMenuPai, TopoInicialContainer, SubMenuAtual.Width, 0);
       ContainerAtual := TfrContainerSubMenu(fListaContainerSubMenu[Pred(fListaContainerSubMenu.Count)]);
     end;
 
@@ -331,9 +339,9 @@ begin
   begin
     if (TfrContainerSubMenu(FListaContainerSubMenu[contador]).Tag = TfrMenuItem(Sender).ID) then
     begin
+      TfrContainerSubMenu(FListaContainerSubMenu[contador]).BringToFront;
       if not TfrContainerSubMenu(FListaContainerSubMenu[contador]).Visible then
       begin
-        TfrContainerSubMenu(FListaContainerSubMenu[contador]).BringToFront;
         TfrContainerSubMenu(FListaContainerSubMenu[contador]).Visible := not TfrContainerSubMenu(FListaContainerSubMenu[contador]).Visible;
       end;
     end
@@ -360,6 +368,26 @@ begin
     end;
   end;
 
+end;
+
+procedure TMenuController.Reorganizar;
+var
+  MenuItem: TfrMenuItem;
+  Contador, TopoMenu: Integer;
+begin
+  TopoMenu := 0;
+
+  for Contador := 0 to Pred(fListaMenu.Count) do
+  begin
+    MenuItem := TfrMenuItem(fListaMenu[Contador]);
+
+    if not MenuItem.Visible then
+      Continue;
+
+    MenuItem.Top := TopoMenu;
+    TopoMenu := TopoMenu + MenuItem.Height;
+
+  end; 
 end;
 
 end.
