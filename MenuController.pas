@@ -11,14 +11,14 @@ type
   iMenuController = interface
     ['{1C9623C4-8C0A-44A6-A1F6-9B1F4E279ECA}']
     procedure GerarMenu;
-    function AdicionarMenu(Caption: string; Imagem: TPicture = nil; VisibilidadeMenu: Boolean = True): iMenuController;
+    function AdicionarMenu(Caption: string; Imagem: TPicture = nil; VisibilidadeMenu: Boolean = True; EvMenuClick: TEvMenuClick = nil): iMenuController;
     function AdicionarSubMenu(Caption: string;
                               EvSubMenuClick: TEvMenuClick = nil;
                               FormRegistrado: String = '';
                               Imagem: TPicture = nil;
                               Visibilidade: Boolean = True): iMenuController;
     procedure EsconderSubMenus;
-    procedure Reorganizar;
+    procedure ReorganizarMenus;
   end;
 
   TMenuController = class(TInterfacedObject, iMenuController)
@@ -35,20 +35,22 @@ type
     function GetAlturaMaximaContainer: Integer;
     procedure MostrarEsconderSubMenusEspecificos(Sender: TFrame);
     procedure OrganizarSubmenusNoContainer;
-    function BuscarMenu(ID: Integer): TfrMenuItem;
+    function BuscarMenu(ID: Integer): TfrMenuItem; overload;
+    function BuscarMenu(Caption: String): TFrame; overload;
+    function BuscarSubMenu(Caption: String): TFrame;
   public
     constructor Create(MenuContainer, SubMenuParent: TWinControl; MenuParametros: iMenuParametros);
     destructor Destroy; override;
     class function New(MenuContainer, SubMenuParent: TWinControl; MenuParametros: iMenuParametros): iMenuController;
     procedure GerarMenu;
-    function AdicionarMenu(Caption: string; Imagem: TPicture = nil; VisibilidadeMenu: Boolean = True): iMenuController;
+    function AdicionarMenu(Caption: string; Imagem: TPicture = nil; VisibilidadeMenu: Boolean = True; EvMenuClick: TEvMenuClick = nil): iMenuController;
     function AdicionarSubMenu(Caption: string;
                               EvSubMenuClick: TEvMenuClick = nil;
                               FormRegistrado: String = '';
                               Imagem: TPicture = nil;
                               Visibilidade: Boolean = True): iMenuController;
     procedure EsconderSubMenus;
-    procedure Reorganizar;
+    procedure ReorganizarMenus;
     procedure CriarNovoContainer(IDMenuItem, Topo, Largura, Left: Integer);
     property ContainerSubMenu: TList read GetContainerSubMenu write SetContainerSubMenu;
   end;
@@ -57,7 +59,7 @@ implementation
 
 { TMenuController }
 
-function TMenuController.AdicionarMenu(Caption: string; Imagem: TPicture = nil; VisibilidadeMenu: Boolean = True): iMenuController;
+function TMenuController.AdicionarMenu(Caption: string; Imagem: TPicture = nil; VisibilidadeMenu: Boolean = True; EvMenuClick: TEvMenuClick = nil): iMenuController;
 var
   MenuItem: TfrMenuItem;
   ID, TopoMenu: Integer;
@@ -78,13 +80,17 @@ begin
   ID := fListaMenu.Count + 1;
   MenuItem.Name := 'MenuItem' + IntToStr(ID);
   MenuItem.ID := ID;
-  MenuItem.Visible := True;
   MenuItem.Parent := fMenuContainer;
+  MenuItem.PossuiSubmenu := False;
 
   // Eventos
+  if Assigned(EvMenuClick) then
+    MenuItem.EvMenuCLick := EvMenuClick
+  else
+    MenuItem.EvMenuCLick := MostrarEsconderSubMenusEspecificos;
   MenuItem.AbrirMouseEnter := fMenuParametros.GetAbrirMouseEnter;
-  MenuItem.EvMenuCLick := MostrarEsconderSubMenusEspecificos;
   MenuItem.EvMaximizarMenu := fMenuParametros.GetEvMaximizarMenu;
+  MenuItem.EvAfterClick := fMenuParametros.GetEvAfterClickMenu;
 
   // Dimensões
   if fMenuParametros.GetAlturaMenu > 0 then
@@ -93,6 +99,8 @@ begin
   MenuItem.Top := TopoMenu;
   if fMenuParametros.GetAlturaMenu > 0 then
     MenuItem.Height := fMenuParametros.GetAlturaMenu;
+  if fMenuParametros.GetLarguraMenu > 0 then
+    MenuItem.Width := fMenuParametros.GetLarguraMenu;
 
   // Visual
   MenuItem.DoubleBuffered := True;
@@ -113,6 +121,7 @@ begin
   MenuItem.CorPadrao := fMenuParametros.getCorPadrao;
   MenuItem.CorSelecionado := fMenuParametros.GetCorSelecionado;
 
+  MenuItem.Visible := True;
   fListaMenu.Add(MenuItem);
 
 end;
@@ -132,6 +141,7 @@ begin
     Exit;
 
   SubMenuItem := TfrMenuSubItem.Create(nil);
+  TfrMenuItem(fListaMenu[Pred(fListaMenu.Count)]).PossuiSubmenu := True;
 
   // Identificador
   ID := fListaSubMenu.Count + 1;
@@ -144,14 +154,13 @@ begin
   SubMenuItem.EvMenuCLick := EvSubMenuClick;
   SubMenuItem.EvFecharSubMenus := EsconderSubMenus;
   SubMenuItem.EvMinimizarMenu := fMenuParametros.GetEvMinimizarMenu;
-  SubMenuItem.EvClickSubmenuView := fMenuParametros.GetEvClickSubmenuView;
+  SubMenuItem.EvAfterClick := fMenuParametros.GetEvAfterClickSubmenu;
 
   // Controles
   SubMenuItem.IDMenuPai := TfrMenuItem(fListaMenu[Pred(fListaMenu.Count)]).ID; // ultimo menu pai
   SubMenuItem.Visible := True;
 
   // Dimensões
-  SubMenuItem.Width := LarguraSubMenu;
   if fMenuParametros.GetAlturaSubMenu > 0 then
     SubMenuItem.Height := fMenuParametros.GetAlturaSubMenu;
   if fMenuParametros.GetLarguraSubMenu > 0 then
@@ -197,6 +206,9 @@ begin
   begin
 
     SubMenuAtual := TfrMenuSubItem(fListaSubMenu[Contador]);
+
+    if not SubMenuAtual.Visible then
+      Continue;
 
     // Se for o primeiro item ou mudar o id do menu pai então deve criar um container novo para esse grupo de submenus
     if (Contador = 0) or (TfrContainerSubMenu(fListaContainerSubMenu[Pred(fListaContainerSubMenu.Count)]).Tag <> SubMenuAtual.IDMenuPai) then
@@ -263,9 +275,6 @@ begin
   fListaMenu := TList.Create;
   fListaSubMenu := TList.Create;
   FListaContainerSubMenu := TList.Create;
-
-  if MenuParametros.GetLarguraMenu > 0 then
-    MenuContainer.Parent.Width := MenuParametros.GetLarguraMenu;
 end;
 
 procedure TMenuController.CriarNovoContainer(IDMenuItem, Topo, Largura, Left: Integer);
@@ -273,13 +282,13 @@ var
   Container: TfrContainerSubMenu;
 begin
   Container := TfrContainerSubMenu.Create(Application);
+  Container.Top := -500; // Evita lag ao setar parent
+  Container.Parent := fSubMenuParent;
+  Container.Visible := False;
+  Container.Top := Topo; // Evita lag ao setar parent
   Container.DoubleBuffered := True;
   Container.Tag := IDMenuItem; // Vincula o menu com o container submenu
-  Container.Parent := fSubMenuParent;
   Container.Name := 'ContainerSub' + IntToStr(FListaContainerSubMenu.Count + 1);
-  Container.Color := clRed;
-  Container.Visible := False;
-  Container.Top := Topo;
   Container.Left := Left;
   Container.Height := 0;
   Container.Width := Largura;
@@ -370,7 +379,7 @@ begin
 
 end;
 
-procedure TMenuController.Reorganizar;
+procedure TMenuController.ReorganizarMenus;
 var
   MenuItem: TfrMenuItem;
   Contador, TopoMenu: Integer;
@@ -388,6 +397,38 @@ begin
     TopoMenu := TopoMenu + MenuItem.Height;
 
   end; 
+end;
+
+function TMenuController.BuscarMenu(Caption: String): TFrame;
+var
+  contador: Integer;
+begin
+  Result := nil;
+
+  for contador := 0 to Pred(fListaMenu.Count) do
+  begin
+    if TfrMenuSubItem(fListaMenu[contador]).lbPrincipal.Caption = Caption then
+    begin
+      Result := TfrMenuSubItem(fListaMenu[contador]);
+      Break;
+    end;
+  end;
+end;
+
+function TMenuController.BuscarSubMenu(Caption: String): TFrame;
+var
+  contador: Integer;
+begin
+  Result := nil;
+  
+  for contador := 0 to Pred(fListaSubMenu.Count) do
+  begin
+    if TfrMenuSubItem(fListaSubMenu[contador]).lbPrincipal.Caption = Caption then
+    begin
+      Result := TfrMenuSubItem(fListaSubMenu[contador]);
+      Break;
+    end;
+  end;
 end;
 
 end.

@@ -70,6 +70,7 @@ end;
 
 procedure TfrMenuItemBase.SetCorPadrao(const Value: TColor);
 begin
+  pnContainer.Color := Value;
   FCorPadrao := Value;
 end;
 

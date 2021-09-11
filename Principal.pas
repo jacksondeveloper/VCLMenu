@@ -8,6 +8,8 @@ TODO
  - Remover o larguramenu do create e jogar para o adicionarmenu
  - Abrir form registrado para o ultimo parametro e colocar a função dentro do controller
  - Criar parametrro para colocar menus em ordem alfabetica
+ - Adicionar opção de executar evento no menu pois tem menus que não possuem submenus
+ - Criar um after click no menu e substituir esse after no submeno no lugar do menuclickview
 }
 
 unit Principal;
@@ -17,7 +19,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, MenuController, StdCtrls, ImgList, jpeg, pngimage,
-  CadastroTeste, MenuSubItem, MenuParametros;
+  CadastroTeste, MenuSubItem, MenuParametros, MenuTipos;
 
 type
   TfrPrincipal = class(TForm)
@@ -51,8 +53,8 @@ type
     procedure SetMenuController(const Value: iMenuController);
     procedure ClickSubmenuView(Sender: TFrame);
     procedure AbrirFormRegistrado(Sender: TFrame);
-    procedure MinimizarMenu(Sender: TFrame);
-    procedure MaximizarMenu(Sender: TFrame);
+    procedure MinimizarMenu;
+    procedure MaximizarMenu;
     procedure SetFormAtivo(const Value: TForm);
     function GetFormAtivo: TForm;
     function GetPermissaoAcesso(Menu: String = ''): Boolean;
@@ -96,7 +98,7 @@ begin
                       .SetLarguraMenu(200)
                       .SetAlturaSubMenu(50)
                       .SetAbrirMouseEnter(True)
-                      .SetEvClickSubmenuView(ClickSubmenuView)
+                      .SetEvAfterClickSubmenu(ClickSubmenuView)
                       .SetEvMinimizarMenu(MinimizarMenu)
                       .SetEvMaximizarMenu(MaximizarMenu)
                       .SetFonteNome('Tahoma')
@@ -214,19 +216,17 @@ begin
 
   frPrincipal.SetFormAtivo(frCadastroTeste);
 
-  frCadastroTeste.Label1.Caption := TfrMenuSubItem(Sender).lbPrincipal.Caption;
-
   frCadastroTeste.Show;
 end;
 
-procedure TfrPrincipal.MinimizarMenu(Sender: TFrame);
+procedure TfrPrincipal.MinimizarMenu;
 begin
-  pnEsquerdo.Width := TfrMenuSubItem(Sender).imgPrincipal.Width;
+  pnEsquerdo.Width := MenuMinimizado;
 end;
 
-procedure TfrPrincipal.MaximizarMenu(Sender: TFrame);
+procedure TfrPrincipal.MaximizarMenu;
 begin
-  pnEsquerdo.Width := TfrMenuSubItem(Sender).Width;
+  pnEsquerdo.Width := MenuMaximizado;
 end;
 
 procedure TfrPrincipal.SetFormAtivo(const Value: TForm);

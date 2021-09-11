@@ -17,13 +17,13 @@ type
   private
     FIDMenuPai: Integer;
     FEvFecharSubMenus: TEvFecharSubMenus;
-    FEvClickSubmenuView: TEvClickSubmenuView;
+    FEvAfterClick: TEvAfterClick;
     FCaminhoSubmenu: String;
     FFormRegistrado: String;
     FEvMinimizarMenu: TEvMinimizarMenu;
     procedure SetIDMenuPai(const Value: Integer);
     procedure SetEvFecharSubMenus(const Value: TEvFecharSubMenus);
-    procedure SetEvClickSubmenuView(const Value: TEvClickSubmenuView);
+    procedure SetEvAfterClick(const Value: TEvAfterClick);
     procedure SetCaminhoSubmenu(const Value: String);
     function GetCaminhoSubmenu: String;
     procedure SetFormRegistrado(const Value: String);
@@ -32,7 +32,7 @@ type
     procedure SetImagemPrincipal(const Value: TPicture);
     property IDMenuPai: Integer read FIDMenuPai write SetIDMenuPai;
     property EvFecharSubMenus: TEvFecharSubMenus read FEvFecharSubMenus write SetEvFecharSubMenus;
-    property EvClickSubmenuView: TEvClickSubmenuView read FEvClickSubmenuView write SetEvClickSubmenuView;
+    property EvAfterClick: TEvAfterClick read FEvAfterClick write SetEvAfterClick;
     property EvMinimizarMenu: TEvMinimizarMenu read FEvMinimizarMenu write SetEvMinimizarMenu;
     property CaminhoSubmenu: String read GetCaminhoSubmenu write SetCaminhoSubmenu;
     property FormRegistrado: String read FFormRegistrado write SetFormRegistrado;
@@ -63,12 +63,12 @@ begin
     EvFecharSubMenus;
 
   if Assigned(EvMinimizarMenu) then
-    EvMinimizarMenu(Self);
+    EvMinimizarMenu;
 
   inherited;
 
-  if Assigned(EvClickSubmenuView) then
-    EvClickSubmenuView(Self);
+  if Assigned(EvAfterClick) then
+    EvAfterClick(Self);
 end;
 
 procedure TfrMenuSubItem.SetImagemPrincipal(const Value: TPicture);
@@ -76,10 +76,9 @@ begin
   imgPrincipal.Picture := Value;
 end;
 
-procedure TfrMenuSubItem.SetEvClickSubmenuView(
-  const Value: TEvClickSubmenuView);
+procedure TfrMenuSubItem.SetEvAfterClick(const Value: TEvAfterClick);
 begin
-  FEvClickSubmenuView := Value;
+  FEvAfterClick := Value;
 end;
 
 procedure TfrMenuSubItem.SetCaminhoSubmenu(const Value: String);

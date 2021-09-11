@@ -21,8 +21,10 @@ type
     function GetEvMinimizarMenu: TEvMinimizarMenu;
     function SetEvMaximizarMenu(Value: TEvMaximizarMenu): iMenuParametros;
     function GetEvMaximizarMenu: TEvMaximizarMenu;
-    function SetEvClickSubmenuView(Value: TEvClickSubmenuView): iMenuParametros;
-    function GetEvClickSubmenuView: TEvClickSubmenuView;
+    function SetEvAfterClickMenu(Value: TEvAfterClick): iMenuParametros;
+    function GetEvAfterClickMenu: TEvAfterClick;
+    function SetEvAfterClickSubmenu(Value: TEvAfterClick): iMenuParametros;
+    function GetEvAfterClickSubmenu: TEvAfterClick;
     function SetAbrirMouseEnter(Value: Boolean): iMenuParametros;
     function GetAbrirMouseEnter: Boolean;
     function SetFonteCor(const Value: TColor): iMenuParametros;
@@ -49,7 +51,8 @@ type
     FAlturaSubMenu: Integer;
     FEvMinimizarMenu: TEvMinimizarMenu;
     FEvMaximizarMenu: TEvMaximizarMenu;
-    FEvClickSubmenuView: TEvClickSubmenuView;
+    FEvAfterClickMenu: TEvAfterClick;
+    FEvAfterClickSubmenu: TEvAfterClick;
     FAbrirMouseEnter: Boolean;
     FFonteNome: String;
     FFonteTamanho: Integer;
@@ -70,8 +73,10 @@ type
     function GetEvMinimizarMenu: TEvMinimizarMenu;
     function SetEvMaximizarMenu(Value: TEvMaximizarMenu): iMenuParametros;
     function GetEvMaximizarMenu: TEvMaximizarMenu;
-    function SetEvClickSubmenuView(Value: TEvClickSubmenuView): iMenuParametros;
-    function GetEvClickSubmenuView: TEvClickSubmenuView;
+    function SetEvAfterClickMenu(Value: TEvAfterClick): iMenuParametros;
+    function GetEvAfterClickMenu: TEvAfterClick;
+    function SetEvAfterClickSubmenu(Value: TEvAfterClick): iMenuParametros;
+    function GetEvAfterClickSubmenu: TEvAfterClick;
     function SetAbrirMouseEnter(Value: Boolean): iMenuParametros;
     function GetAbrirMouseEnter: Boolean;
     function SetFonteCor(const Value: TColor): iMenuParametros;
@@ -138,9 +143,14 @@ begin
   Result := FCorSelecionado;
 end;
 
-function TMenuParametros.GetEvClickSubmenuView: TEvClickSubmenuView;
+function TMenuParametros.GetEvAfterClickMenu: TEvAfterClick;
 begin
-  Result := FEvClickSubmenuView;
+  Result := FEvAfterClickMenu;
+end;
+
+function TMenuParametros.GetEvAfterClickSubmenu: TEvAfterClick;
+begin
+  Result := FEvAfterClickSubmenu;
 end;
 
 function TMenuParametros.GetEvMaximizarMenu: TEvMaximizarMenu;
@@ -224,10 +234,16 @@ begin
   FCorSelecionado := Value;
 end;
 
-function TMenuParametros.SetEvClickSubmenuView(Value: TEvClickSubmenuView): iMenuParametros;
+function TMenuParametros.SetEvAfterClickMenu(Value: TEvAfterClick): iMenuParametros;
 begin
   Result := Self;
-  FEvClickSubmenuView := Value;
+  FEvAfterClickMenu := Value;
+end;
+
+function TMenuParametros.SetEvAfterClickSubmenu(Value: TEvAfterClick): iMenuParametros;
+begin
+  Result := Self;
+  FEvAfterClickSubmenu := Value;
 end;
 
 function TMenuParametros.SetEvMaximizarMenu(Value: TEvMaximizarMenu): iMenuParametros;

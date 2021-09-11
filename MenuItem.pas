@@ -15,16 +15,23 @@ type
     pnSeparadorEsquerdo: TPanel;
     procedure pnContainerClick(Sender: TObject);
   private
+    FEvAfterClick: TEvAfterClick;
     FEvMaximizarMenu: TEvMaximizarMenu;
     FAbrirMouseEnter: Boolean;
+    FLarguraMenu: Integer;
+    FPossuiSubmenu: Boolean;
     procedure SetEvMaximizarMenu(const Value: TEvMaximizarMenu);
     procedure SetAbrirMouseEnter(const Value: Boolean);
+    procedure SetEvAfterClick(const Value: TEvAfterClick);
+    procedure SetPossuiSubmenu(const Value: Boolean);
   public
     procedure SetImagemPrincipal(const Value: TPicture);
     procedure MouseEnter(var Msg : TMessage);  Message cm_mouseEnter;
     Procedure MouseLeave (Var MSG: TMessage);  Message cm_mouseLeave;
+    property EvAfterClick: TEvAfterClick read FEvAfterClick write SetEvAfterClick;
     property AbrirMouseEnter: Boolean read FAbrirMouseEnter write SetAbrirMouseEnter;
     property EvMaximizarMenu: TEvMaximizarMenu read FEvMaximizarMenu write SetEvMaximizarMenu;
+    property PossuiSubmenu: Boolean read FPossuiSubmenu write SetPossuiSubmenu;
   end;
 
 var
@@ -46,7 +53,7 @@ begin
     if Assigned(EvMenuCLick) then
     begin
       if Assigned(EvMaximizarMenu) then
-        EvMaximizarMenu(Self);
+        EvMaximizarMenu;
         
       EvMenuCLick(Self);
     end;
@@ -65,14 +72,27 @@ end;
 procedure TfrMenuItem.pnContainerClick(Sender: TObject);
 begin
   if Assigned(EvMaximizarMenu) then
-    EvMaximizarMenu(Self);
+    EvMaximizarMenu;
     
   inherited;
+
+  if Assigned(EvAfterClick) then
+    EvAfterClick(Self);
 end;
 
 procedure TfrMenuItem.SetAbrirMouseEnter(const Value: Boolean);
 begin
   FAbrirMouseEnter := Value;
+end;
+
+procedure TfrMenuItem.SetEvAfterClick(const Value: TEvAfterClick);
+begin
+  FEvAfterClick := Value;
+end;
+
+procedure TfrMenuItem.SetPossuiSubmenu(const Value: Boolean);
+begin
+  FPossuiSubmenu := Value;
 end;
 
 end.
