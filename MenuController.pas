@@ -18,7 +18,10 @@ type
                               Imagem: TPicture = nil;
                               Visibilidade: Boolean = True): iMenuController;
     procedure EsconderSubMenus;
+    procedure EsconderMenus;
+    procedure MostrarEsconderMenu(Caption: String; Mostrar: Boolean);
     procedure ReorganizarMenus;
+    procedure LimparMenu;
   end;
 
   TMenuController = class(TInterfacedObject, iMenuController)
@@ -38,6 +41,7 @@ type
     function BuscarMenu(ID: Integer): TfrMenuItem; overload;
     function BuscarMenu(Caption: String): TFrame; overload;
     function BuscarSubMenu(Caption: String): TFrame;
+    procedure ReorganizarSubmenus;
   public
     constructor Create(MenuContainer, SubMenuParent: TWinControl; MenuParametros: iMenuParametros);
     destructor Destroy; override;
@@ -50,7 +54,10 @@ type
                               Imagem: TPicture = nil;
                               Visibilidade: Boolean = True): iMenuController;
     procedure EsconderSubMenus;
+    procedure EsconderMenus;
+    procedure MostrarEsconderMenu(Caption: String; Mostrar: Boolean);
     procedure ReorganizarMenus;
+    procedure LimparMenu;
     procedure CriarNovoContainer(IDMenuItem, Topo, Largura, Left: Integer);
     property ContainerSubMenu: TList read GetContainerSubMenu write SetContainerSubMenu;
   end;
@@ -76,7 +83,7 @@ begin
   else
     TopoMenu := 0;
 
-  MenuItem:= TfrMenuItem.Create(nil);
+  MenuItem:= TfrMenuItem.Create(Nil);
   ID := fListaMenu.Count + 1;
   MenuItem.Name := 'MenuItem' + IntToStr(ID);
   MenuItem.ID := ID;
@@ -140,7 +147,7 @@ begin
   if (not Self.fVisibilidadeUltimoMenu) or (not Visibilidade) then // Permissão de acesso
     Exit;
 
-  SubMenuItem := TfrMenuSubItem.Create(nil);
+  SubMenuItem := TfrMenuSubItem.Create(Nil);
   TfrMenuItem(fListaMenu[Pred(fListaMenu.Count)]).PossuiSubmenu := True;
 
   // Identificador
@@ -207,6 +214,8 @@ begin
 
     SubMenuAtual := TfrMenuSubItem(fListaSubMenu[Contador]);
 
+    if not BuscarMenu(SubMenuAtual.IDMenuPai).Visible then
+      Continue;
     if not SubMenuAtual.Visible then
       Continue;
 
@@ -281,7 +290,7 @@ procedure TMenuController.CriarNovoContainer(IDMenuItem, Topo, Largura, Left: In
 var
   Container: TfrContainerSubMenu;
 begin
-  Container := TfrContainerSubMenu.Create(Application);
+  Container := TfrContainerSubMenu.Create(Nil);
   Container.Top := -500; // Evita lag ao setar parent
   Container.Parent := fSubMenuParent;
   Container.Visible := False;
@@ -299,9 +308,14 @@ end;
 
 destructor TMenuController.Destroy;
 begin
-  FreeAndNil(fListaMenu);
-  FreeAndNil(fListaSubMenu);
-  FreeAndNil(FListaContainerSubMenu);
+
+  if Assigned(fListaMenu) then
+    FreeAndNil(fListaMenu);
+  if Assigned(fListaSubMenu) then
+    FreeAndNil(fListaSubMenu);
+  if Assigned(FListaContainerSubMenu) then
+    FreeAndNil(FListaContainerSubMenu);
+
   inherited;
 end;
 
@@ -420,7 +434,7 @@ var
   contador: Integer;
 begin
   Result := nil;
-  
+
   for contador := 0 to Pred(fListaSubMenu.Count) do
   begin
     if TfrMenuSubItem(fListaSubMenu[contador]).lbPrincipal.Caption = Caption then
@@ -429,6 +443,108 @@ begin
       Break;
     end;
   end;
+end;
+
+procedure TMenuController.EsconderMenus;
+var
+  contador: Integer;
+begin
+  if Assigned(fListaMenu) and (fListaMenu.Count > 0) then
+    for contador := 0 to Pred(fListaMenu.Count) do
+      TfrMenuItem(fListaMenu[contador]).Visible := False;
+end;
+
+procedure TMenuController.MostrarEsconderMenu(Caption: String; Mostrar: Boolean);
+var
+  contador: Integer;
+begin
+  if Assigned(fListaMenu) and (fListaMenu.Count > 0) then
+  begin
+    for contador := 0 to Pred(fListaMenu.Count) do
+    begin
+      if TfrMenuItem(fListaMenu[contador]).lbPrincipal.Caption = Caption then
+      begin
+        TfrMenuItem(fListaMenu[contador]).Visible := Mostrar;
+        Break;
+      end;
+    end;
+    ReorganizarMenus;
+    ReorganizarSubmenus;
+  end;
+end;
+
+procedure TMenuController.ReorganizarSubmenus;
+var
+  Contador1, Contador2: Integer;
+  MenuAtual: TfrMenuItem;
+  ContainerAtual: TfrContainerSubMenu;
+  TopoInicialContainer: Integer;
+begin
+  if fMenuParametros.GetAbrirSubmenuTopoZero then
+    Exit;
+
+  ContainerAtual := nil; // remove warning
+
+  for Contador1 := 0 to Pred(fListaMenu.Count) do
+  begin
+
+    MenuAtual := TfrMenuItem(fListaMenu[Contador1]);
+
+    if not MenuAtual.Visible then
+      Continue;
+
+    for Contador2 := 0 to Pred(fListaContainerSubMenu.Count) do
+    begin
+      if TfrContainerSubMenu(fListaContainerSubMenu[Contador2]).Tag = MenuAtual.ID then
+      begin
+        TfrContainerSubMenu(fListaContainerSubMenu[Contador2]).Top := MenuAtual.Top;
+      end;
+    end;
+
+  end;
+
+end;
+
+procedure TMenuController.LimparMenu;
+var
+  Contador: Integer;
+begin
+  if Assigned(fListaMenu) then
+  begin
+    for Contador := 0 to Pred(fListaMenu.Count) do
+    begin
+      TfrMenuItem(fListaMenu[Contador]).Free;
+    end;
+
+    fListaMenu.Clear;
+    FreeAndNil(fListaMenu);
+  end;
+
+  if Assigned(fListaSubMenu) then
+  begin
+    for Contador := 0 to Pred(fListaSubMenu.Count) do
+    begin
+      if Assigned(TfrMenuItem(fListaSubMenu[Contador])) then
+        TfrMenuItem(fListaSubMenu[Contador]).Free;
+    end;
+
+    fListaSubMenu.Clear;
+    FreeAndNil(fListaSubMenu);
+  end;
+
+  if Assigned(fListaSubMenu) then
+  begin
+    for Contador := 0 to Pred(fListaContainerSubMenu.Count) do
+    begin
+      if Assigned(TfrMenuItem(fListaContainerSubMenu[Contador])) then
+        TfrMenuItem(fListaContainerSubMenu[Contador]).Free;
+    end;
+
+    fListaContainerSubMenu.Clear;
+    FreeAndNil(fListaSubMenu);
+  end;
+
+  fMenuContainer := nil;
 end;
 
 end.

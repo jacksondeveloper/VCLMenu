@@ -32,12 +32,18 @@ type
     Label2: TLabel;
     pnMargimLeft: TPanel;
     pnMargimTop: TPanel;
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
     procedure pnEsquerdoClick(Sender: TObject);
     procedure pnPrincipalClick(Sender: TObject);
     procedure Panel1Click(Sender: TObject);
     procedure pnTopoClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure PnPrincipalInternoClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
   private
     fMenuController: iMenuController;
     fMenuParametros: iMenuParametros;
@@ -51,6 +57,7 @@ type
     procedure SetFormAtivo(const Value: TForm);
     function GetFormAtivo: TForm;
     function GetPermissaoAcesso(Menu: String = ''): Boolean;
+    procedure GerarMenu;
   public
     property MenuController: iMenuController read FMenuController write SetMenuController;
     property FormAtivo: TForm read GetFormAtivo write SetFormAtivo;
@@ -85,6 +92,11 @@ end;
 
 procedure TfrPrincipal.FormActivate(Sender: TObject);
 begin
+  GerarMenu;
+end;
+
+procedure TfrPrincipal.GerarMenu;
+begin
   // Parâmetros
   fMenuParametros := TMenuParametros.New
                       .SetAlturaMenu(55)
@@ -100,7 +112,7 @@ begin
                       .SetFonteCor(clBlack)
                       .SetCorPadrao(clWhite)
                       .SetCorSelecionado($E8E8E8)
-                      .SetAbrirSubmenuTopoZero(True);
+                      .SetAbrirSubmenuTopoZero(False);
 
   // Criando classe de menu                    
   fMenuController := TMenuController.New(pnEsquerdoInterno, PnPrincipalInterno, fMenuParametros);
@@ -248,6 +260,24 @@ end;
 procedure TfrPrincipal.PnPrincipalInternoClick(Sender: TObject);
 begin
   fMenuController.EsconderSubMenus;
+end;
+
+procedure TfrPrincipal.Button1Click(Sender: TObject);
+begin
+  fMenuController.EsconderMenus;
+  fMenuController.MostrarEsconderMenu('Fazenda', True);
+  fMenuController.MostrarEsconderMenu('Utilitários', True);
+  //fMenuController.MostrarEsconderMenu('Mastite', True);
+end;
+
+procedure TfrPrincipal.Button2Click(Sender: TObject);
+begin
+  fMenuController.LimparMenu;
+end;
+
+procedure TfrPrincipal.Button3Click(Sender: TObject);
+begin
+  GerarMenu;
 end;
 
 initialization
