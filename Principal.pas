@@ -1,15 +1,8 @@
 {
 TODO
- - Criar função que deixa invisivel um menu e um submenu especifico
- - Função para reorganizar os menus mostrando somente os que estão visiveis
- - Ao adicionar menu, setar visible somente no final depois que alterar o visual
  - No adicionar menu pasar um evendo mousedown na imagem do menu para quando minimizado
- - Em OrganizarSubmenusNoContainer se não estiver visible então: continue
- - Remover o larguramenu do create e jogar para o adicionarmenu
  - Abrir form registrado para o ultimo parametro e colocar a função dentro do controller
  - Criar parametrro para colocar menus em ordem alfabetica
- - Adicionar opção de executar evento no menu pois tem menus que não possuem submenus
- - Criar um after click no menu e substituir esse after no submeno no lugar do menuclickview
 }
 
 unit Principal;
