@@ -4,7 +4,7 @@ interface
 
 uses
   Classes, SysUtils, MenuItem, MenuSubItem, Controls, MenuTipos, ExtCtrls, Forms,
-  Graphics, Windows, MenuParametros, MenuContainerSubMenu;
+  Graphics, Windows, MenuParametros, MenuContainerSubMenu, TypInfo;
 
 type
 
@@ -42,6 +42,8 @@ type
     function BuscarMenu(Caption: String): TFrame; overload;
     function BuscarSubMenu(Caption: String): TFrame;
     procedure ReorganizarSubmenus;
+    procedure CriarListas;
+    procedure LimparContainerMenu;
   public
     constructor Create(MenuContainer, SubMenuParent: TWinControl; MenuParametros: iMenuParametros);
     destructor Destroy; override;
@@ -72,6 +74,9 @@ var
   ID, TopoMenu: Integer;
 begin
   Result := Self;
+
+  LimparContainerMenu; // corrige bug de recriar instancia via interface
+
   Self.fVisibilidadeUltimoMenu := VisibilidadeMenu;
 
   if not VisibilidadeMenu then // Permissão de acesso
@@ -83,7 +88,7 @@ begin
   else
     TopoMenu := 0;
 
-  MenuItem:= TfrMenuItem.Create(Nil);
+  MenuItem:= TfrMenuItem.Create(fMenuContainer);
   ID := fListaMenu.Count + 1;
   MenuItem.Name := 'MenuItem' + IntToStr(ID);
   MenuItem.ID := ID;
@@ -276,14 +281,14 @@ begin
 end;
 
 constructor TMenuController.Create(MenuContainer, SubMenuParent: TWinControl; MenuParametros: iMenuParametros);
+var
+  Contador: Integer;
 begin
   fVisibilidadeUltimoMenu := True;
   fMenuParametros := MenuParametros;
   fMenuContainer := MenuContainer;
   fSubMenuParent := SubMenuParent;
-  fListaMenu := TList.Create;
-  fListaSubMenu := TList.Create;
-  FListaContainerSubMenu := TList.Create;
+  CriarListas;
 end;
 
 procedure TMenuController.CriarNovoContainer(IDMenuItem, Topo, Largura, Left: Integer);
@@ -307,15 +312,15 @@ begin
 end;
 
 destructor TMenuController.Destroy;
+var
+  Contador: Integer;
 begin
-
   if Assigned(fListaMenu) then
     FreeAndNil(fListaMenu);
   if Assigned(fListaSubMenu) then
     FreeAndNil(fListaSubMenu);
   if Assigned(FListaContainerSubMenu) then
     FreeAndNil(FListaContainerSubMenu);
-
   inherited;
 end;
 
@@ -509,11 +514,13 @@ procedure TMenuController.LimparMenu;
 var
   Contador: Integer;
 begin
+
   if Assigned(fListaMenu) then
   begin
     for Contador := 0 to Pred(fListaMenu.Count) do
     begin
-      TfrMenuItem(fListaMenu[Contador]).Free;
+      if Assigned(TfrMenuItem(fListaMenu[Contador])) then
+        TfrMenuItem(fListaMenu[Contador]).Free;
     end;
 
     fListaMenu.Clear;
@@ -524,27 +531,49 @@ begin
   begin
     for Contador := 0 to Pred(fListaSubMenu.Count) do
     begin
-      if Assigned(TfrMenuItem(fListaSubMenu[Contador])) then
-        TfrMenuItem(fListaSubMenu[Contador]).Free;
+      if Assigned(TfrMenuSubItem(fListaSubMenu[Contador])) then
+        TfrMenuSubItem(fListaSubMenu[Contador]).Free;
     end;
 
     fListaSubMenu.Clear;
     FreeAndNil(fListaSubMenu);
   end;
 
-  if Assigned(fListaSubMenu) then
+  if Assigned(fListaContainerSubMenu) then
   begin
     for Contador := 0 to Pred(fListaContainerSubMenu.Count) do
     begin
-      if Assigned(TfrMenuItem(fListaContainerSubMenu[Contador])) then
-        TfrMenuItem(fListaContainerSubMenu[Contador]).Free;
+      if Assigned(TfrContainerSubMenu(fListaContainerSubMenu[Contador])) then
+        TfrContainerSubMenu(fListaContainerSubMenu[Contador]).Free;
     end;
 
     fListaContainerSubMenu.Clear;
-    FreeAndNil(fListaSubMenu);
+    FreeAndNil(fListaContainerSubMenu);
   end;
+end;
 
-  fMenuContainer := nil;
+procedure TMenuController.CriarListas;
+begin
+  if not Assigned(fListaMenu) then
+    fListaMenu := TList.Create;
+  if not Assigned(fListaSubMenu) then
+    fListaSubMenu := TList.Create;
+  if not Assigned(FListaContainerSubMenu) then
+    FListaContainerSubMenu := TList.Create;
+end;
+
+procedure TMenuController.LimparContainerMenu;
+var
+  Contador: Integer;
+begin
+  if fListaMenu.Count = 0 then
+    begin
+      for Contador := 0 to Pred(fMenuContainer.ComponentCount) do
+      begin
+        if (fMenuContainer.Components[Contador] is TfrMenuItem) then
+          (fMenuContainer.Components[Contador] as TfrMenuItem).Free;
+      end;
+    end;
 end;
 
 end.

@@ -32,9 +32,9 @@ type
     Label2: TLabel;
     pnMargimLeft: TPanel;
     pnMargimTop: TPanel;
+    Button3: TButton;
     Button1: TButton;
     Button2: TButton;
-    Button3: TButton;
     procedure pnEsquerdoClick(Sender: TObject);
     procedure pnPrincipalClick(Sender: TObject);
     procedure Panel1Click(Sender: TObject);
@@ -114,7 +114,9 @@ begin
                       .SetCorSelecionado($E8E8E8)
                       .SetAbrirSubmenuTopoZero(False);
 
-  // Criando classe de menu                    
+  // Criando classe de menu
+  if Assigned(fMenuController) then
+    fMenuController.LimparMenu;
   fMenuController := TMenuController.New(pnEsquerdoInterno, PnPrincipalInterno, fMenuParametros);
 
   // Criação do menu e submenus
