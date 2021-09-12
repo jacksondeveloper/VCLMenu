@@ -4,7 +4,7 @@ interface
 
 uses
   Classes, SysUtils, MenuItem, MenuSubItem, Controls, MenuTipos, ExtCtrls, Forms,
-  Graphics, Windows, MenuParametros, MenuContainerSubMenu, TypInfo;
+  Graphics, Windows, MenuParametros, MenuContainerSubMenu;
 
 type
 
@@ -22,6 +22,7 @@ type
     procedure MostrarEsconderMenu(Caption: String; Mostrar: Boolean);
     procedure ReorganizarMenus;
     procedure LimparMenu;
+    function BuscarSubMenu(Caption: String): TFrame;
   end;
 
   TMenuController = class(TInterfacedObject, iMenuController)
@@ -88,7 +89,7 @@ begin
   else
     TopoMenu := 0;
 
-  MenuItem:= TfrMenuItem.Create(fMenuContainer);
+  MenuItem:= TfrMenuItem.Create(nil);
   ID := fListaMenu.Count + 1;
   MenuItem.Name := 'MenuItem' + IntToStr(ID);
   MenuItem.ID := ID;
@@ -281,8 +282,6 @@ begin
 end;
 
 constructor TMenuController.Create(MenuContainer, SubMenuParent: TWinControl; MenuParametros: iMenuParametros);
-var
-  Contador: Integer;
 begin
   fVisibilidadeUltimoMenu := True;
   fMenuParametros := MenuParametros;
@@ -312,8 +311,6 @@ begin
 end;
 
 destructor TMenuController.Destroy;
-var
-  Contador: Integer;
 begin
   if Assigned(fListaMenu) then
     FreeAndNil(fListaMenu);
@@ -482,13 +479,9 @@ procedure TMenuController.ReorganizarSubmenus;
 var
   Contador1, Contador2: Integer;
   MenuAtual: TfrMenuItem;
-  ContainerAtual: TfrContainerSubMenu;
-  TopoInicialContainer: Integer;
 begin
   if fMenuParametros.GetAbrirSubmenuTopoZero then
     Exit;
-
-  ContainerAtual := nil; // remove warning
 
   for Contador1 := 0 to Pred(fListaMenu.Count) do
   begin
