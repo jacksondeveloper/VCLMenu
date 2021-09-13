@@ -238,7 +238,7 @@ begin
     end;
 
     // Se o container atingir o tamanho máximo permitido
-    if (ContainerAtual.GetAltura + SubMenuAtual.Height) >= GetAlturaMaximaContainer then
+    if (ContainerAtual.GetAltura + ContainerAtual.Top + SubMenuAtual.Height) >= GetAlturaMaximaContainer then
     begin
 
       // Se alcançou o tamanho máximo então já joga o container para cima para não ficar em baixo e os outros em cima
@@ -351,7 +351,7 @@ function TMenuController.GetAlturaMaximaContainer: Integer;
 var
   PaddingBottom: Integer;
 begin
-  PaddingBottom := 130;
+  PaddingBottom := 0;
   Result := fSubMenuParent.Height - PaddingBottom;
 end;
 
