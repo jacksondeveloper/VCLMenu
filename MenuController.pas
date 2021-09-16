@@ -45,6 +45,7 @@ type
     procedure ReorganizarSubmenus;
     procedure CriarListas;
     procedure LimparContainerMenu;
+    function BuscarAlturaSubmenus: Integer;
   public
     constructor Create(MenuContainer, SubMenuParent: TWinControl; MenuParametros: iMenuParametros);
     destructor Destroy; override;
@@ -226,7 +227,7 @@ begin
       Continue;
 
     // Se for o primeiro item ou mudar o id do menu pai então deve criar um container novo para esse grupo de submenus
-    if (Contador = 0) or (TfrContainerSubMenu(fListaContainerSubMenu[Pred(fListaContainerSubMenu.Count)]).Tag <> SubMenuAtual.IDMenuPai) then
+    if (Contador = 0) or (fListaContainerSubMenu.Count = 0) or (TfrContainerSubMenu(fListaContainerSubMenu[Pred(fListaContainerSubMenu.Count)]).Tag <> SubMenuAtual.IDMenuPai) then
     begin
       if fMenuParametros.GetAbrirSubmenuTopoZero then
         TopoInicialContainer := 0
@@ -475,31 +476,37 @@ begin
   end;
 end;
 
+function TMenuController.BuscarAlturaSubmenus: Integer;
+begin
+  if fMenuParametros.GetAlturaSubMenu > 0 then
+    Result := fMenuParametros.GetAlturaSubMenu
+  else
+    Result := TfrMenuSubItem(fListaSubMenu[0]).Height;
+end;
+
 procedure TMenuController.ReorganizarSubmenus;
 var
-  Contador1, Contador2: Integer;
-  MenuAtual: TfrMenuItem;
+  Contador: Integer;
 begin
+  // Limpa os containers criados para serem recriados com novas posições
+
   if fMenuParametros.GetAbrirSubmenuTopoZero then
     Exit;
 
-  for Contador1 := 0 to Pred(fListaMenu.Count) do
+  for Contador := 0 to Pred(fListaSubMenu.Count) do
   begin
-
-    MenuAtual := TfrMenuItem(fListaMenu[Contador1]);
-
-    if not MenuAtual.Visible then
-      Continue;
-
-    for Contador2 := 0 to Pred(fListaContainerSubMenu.Count) do
-    begin
-      if TfrContainerSubMenu(fListaContainerSubMenu[Contador2]).Tag = MenuAtual.ID then
-      begin
-        TfrContainerSubMenu(fListaContainerSubMenu[Contador2]).Top := MenuAtual.Top;
-      end;
-    end;
-
+    TfrMenuSubItem(fListaSubMenu[Contador]).Parent := nil;
   end;
+
+  for Contador := 0 to Pred(fListaContainerSubMenu.Count) do
+  begin
+    TfrContainerSubMenu(fListaContainerSubMenu[Contador]).Free;
+  end;
+
+  fListaContainerSubMenu.Free;
+  fListaContainerSubMenu := TList.Create;
+
+  OrganizarSubmenusNoContainer;
 
 end;
 
