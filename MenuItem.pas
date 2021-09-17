@@ -20,10 +20,12 @@ type
     FAbrirMouseEnter: Boolean;
     FLarguraMenu: Integer;
     FPossuiSubmenu: Boolean;
+    FMenuClicavel: Boolean;
     procedure SetEvMaximizarMenu(const Value: TEvMaximizarMenu);
     procedure SetAbrirMouseEnter(const Value: Boolean);
     procedure SetEvAfterClick(const Value: TEvAfterClick);
     procedure SetPossuiSubmenu(const Value: Boolean);
+    procedure SetMenuClicavel(const Value: Boolean);
   public
     procedure SetImagemPrincipal(const Value: TPicture);
     procedure MouseEnter(var Msg : TMessage);  Message cm_mouseEnter;
@@ -32,6 +34,7 @@ type
     property AbrirMouseEnter: Boolean read FAbrirMouseEnter write SetAbrirMouseEnter;
     property EvMaximizarMenu: TEvMaximizarMenu read FEvMaximizarMenu write SetEvMaximizarMenu;
     property PossuiSubmenu: Boolean read FPossuiSubmenu write SetPossuiSubmenu;
+    property MenuClicavel: Boolean read FMenuClicavel write SetMenuClicavel;
   end;
 
 var
@@ -54,8 +57,9 @@ begin
     begin
       if Assigned(EvMaximizarMenu) then
         EvMaximizarMenu;
-        
-      EvMenuCLick(Self);
+
+      if not FMenuClicavel then
+        EvMenuCLick(Self);
     end;
 end;
 
@@ -93,6 +97,11 @@ end;
 procedure TfrMenuItem.SetPossuiSubmenu(const Value: Boolean);
 begin
   FPossuiSubmenu := Value;
+end;
+
+procedure TfrMenuItem.SetMenuClicavel(const Value: Boolean);
+begin
+  FMenuClicavel := Value;
 end;
 
 end.

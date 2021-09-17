@@ -99,9 +99,15 @@ begin
 
   // Eventos
   if Assigned(EvMenuClick) then
-    MenuItem.EvMenuCLick := EvMenuClick
+  begin
+    MenuItem.EvMenuCLick := EvMenuClick;
+    MenuItem.MenuClicavel := True;
+  end
   else
+  begin
     MenuItem.EvMenuCLick := MostrarEsconderSubMenusEspecificos;
+    MenuItem.MenuClicavel := False;
+  end;
   MenuItem.AbrirMouseEnter := fMenuParametros.GetAbrirMouseEnter;
   MenuItem.EvMaximizarMenu := fMenuParametros.GetEvMaximizarMenu;
   MenuItem.EvAfterClick := fMenuParametros.GetEvAfterClickMenu;

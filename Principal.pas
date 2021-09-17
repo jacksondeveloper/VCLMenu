@@ -57,6 +57,7 @@ type
     function GetFormAtivo: TForm;
     function GetPermissaoAcesso(Menu: String = ''): Boolean;
     procedure GerarMenu;
+    procedure Sair(Sender: TFrame);
   public
     property MenuController: iMenuController read FMenuController write SetMenuController;
     property FormAtivo: TForm read GetFormAtivo write SetFormAtivo;
@@ -120,41 +121,35 @@ begin
 
   // Criação do menu e submenus
   fMenuController
-    .AdicionarMenu('Animal', Image1.Picture, GetPermissaoAcesso('Animal'))
-    .AdicionarMenu('Animal', Image1.Picture, GetPermissaoAcesso('Animal'))
-    .AdicionarMenu('Animal', Image1.Picture, GetPermissaoAcesso('Animal'))
-    .AdicionarMenu('Animal', Image1.Picture, GetPermissaoAcesso('Animal'))
-    .AdicionarMenu('Animal', Image1.Picture, GetPermissaoAcesso('Animal'))
-    .AdicionarMenu('Animal', Image1.Picture, GetPermissaoAcesso('Animal'))
-    .AdicionarMenu('Animal', Image1.Picture, GetPermissaoAcesso('Animal'))
-      .AdicionarSubMenu('Animal1', AbrirFormRegistrado, 'TfrCadastroTeste', Image1.Picture, GetPermissaoAcesso('Animal1'))
-      .AdicionarSubMenu('Animal2', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
-      .AdicionarSubMenu('Animal3', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
-      .AdicionarSubMenu('Animal4', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
-      .AdicionarSubMenu('Animal5', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
-      .AdicionarSubMenu('Animal6', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
-      .AdicionarSubMenu('Animal7', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
-      .AdicionarSubMenu('Animal8', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
-      .AdicionarSubMenu('Animal9', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
-    .AdicionarMenu('Fazenda', Image1.Picture, GetPermissaoAcesso)
-      .AdicionarSubMenu('Fazenda1', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
-      .AdicionarSubMenu('Fazenda2', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso('Fazenda2'))
-      .AdicionarSubMenu('Fazenda3', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
-    .AdicionarMenu('Mastite', Image1.Picture, GetPermissaoAcesso)
-      .AdicionarSubMenu('Mastite1', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
-      .AdicionarSubMenu('Mastite2', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
+    .AdicionarMenu('Cadastros', Image1.Picture, GetPermissaoAcesso('Animal'))
+      .AdicionarSubMenu('Produto', AbrirFormRegistrado, 'TfrCadastroTeste', Image1.Picture, GetPermissaoAcesso('Animal1'))
+      .AdicionarSubMenu('Marca', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
+      .AdicionarSubMenu('Grupo', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
+      .AdicionarSubMenu('Fornecedor', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
+      .AdicionarSubMenu('Cliente', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
+      .AdicionarSubMenu('Pessoa', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
+      .AdicionarSubMenu('Tributação', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
+      .AdicionarSubMenu('ICMS', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
+      .AdicionarSubMenu('PIS', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
+    .AdicionarMenu('Venda', Image1.Picture, GetPermissaoAcesso)
+      .AdicionarSubMenu('NF-e', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
+      .AdicionarSubMenu('NFC-e', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso('Fazenda2'))
+      .AdicionarSubMenu('SAT', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
+    .AdicionarMenu('PAFECF', Image1.Picture, GetPermissaoAcesso)
+      .AdicionarSubMenu('Leitura X', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
+      .AdicionarSubMenu('Redução Z', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
     .AdicionarMenu('Utilitários', Image1.Picture, GetPermissaoAcesso)
-      .AdicionarSubMenu('Utilitários1', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
-      .AdicionarSubMenu('Utilitários2', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
-      .AdicionarSubMenu('Utilitários3', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
-      .AdicionarSubMenu('Utilitários4', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
-      .AdicionarSubMenu('Utilitários5', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
-      .AdicionarSubMenu('Utilitários6', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
-      .AdicionarSubMenu('Utilitários7', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
-      .AdicionarSubMenu('Utilitários8', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
-      .AdicionarSubMenu('Utilitários9', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
-      .AdicionarSubMenu('Utilitários10', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
-      .AdicionarSubMenu('Utilitários11', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
+      .AdicionarSubMenu('Converter', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
+      .AdicionarSubMenu('Backup', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
+      .AdicionarSubMenu('Restaurar', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
+      .AdicionarSubMenu('Registro', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
+      .AdicionarSubMenu('Termos', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
+      .AdicionarSubMenu('Formatar', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
+      .AdicionarSubMenu('Exportar', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
+      .AdicionarSubMenu('XML', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
+      .AdicionarSubMenu('XLS', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
+      .AdicionarSubMenu('Documento', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
+      .AdicionarSubMenu('', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
       .AdicionarSubMenu('Utilitários12', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
       .AdicionarSubMenu('Utilitários13', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
       .AdicionarSubMenu('Utilitários14', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
@@ -194,6 +189,7 @@ begin
       .AdicionarSubMenu('Utilitários50', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
       .AdicionarSubMenu('Utilitários51', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
       .AdicionarSubMenu('Utilitários52', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
+    .AdicionarMenu('Sair', Image1.Picture, True, Sair)
   .GerarMenu;
 end;
 
@@ -289,6 +285,11 @@ end;
 procedure TfrPrincipal.Button3Click(Sender: TObject);
 begin
   GerarMenu;
+end;
+
+procedure TfrPrincipal.Sair(Sender: TFrame);
+begin
+  Close;
 end;
 
 initialization
