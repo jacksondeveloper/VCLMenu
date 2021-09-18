@@ -11,12 +11,15 @@ type
   iMenuController = interface
     ['{1C9623C4-8C0A-44A6-A1F6-9B1F4E279ECA}']
     procedure GerarMenu;
-    function AdicionarMenu(Caption: string; Imagem: TPicture = nil; VisibilidadeMenu: Boolean = True; EvMenuClick: TEvMenuClick = nil): iMenuController;
+    function AdicionarMenu(Caption: string;
+                           Imagem: TPicture = nil;
+                           VisibilidadeMenu: Boolean = True;
+                           EvMenuClick: TEvMenuClick = nil): iMenuController;
     function AdicionarSubMenu(Caption: string;
                               EvSubMenuClick: TEvMenuClick = nil;
-                              FormRegistrado: String = '';
                               Imagem: TPicture = nil;
-                              Visibilidade: Boolean = True): iMenuController;
+                              Visibilidade: Boolean = True;
+                              FormRegistrado: String = ''): iMenuController;
     procedure EsconderSubMenus;
     procedure EsconderMenus;
     procedure MostrarEsconderMenu(Caption: String; Mostrar: Boolean);
@@ -51,12 +54,15 @@ type
     destructor Destroy; override;
     class function New(MenuContainer, SubMenuParent: TWinControl; MenuParametros: iMenuParametros): iMenuController;
     procedure GerarMenu;
-    function AdicionarMenu(Caption: string; Imagem: TPicture = nil; VisibilidadeMenu: Boolean = True; EvMenuClick: TEvMenuClick = nil): iMenuController;
+    function AdicionarMenu(Caption: string;
+                           Imagem: TPicture = nil;
+                           VisibilidadeMenu: Boolean = True;
+                           EvMenuClick: TEvMenuClick = nil): iMenuController;
     function AdicionarSubMenu(Caption: string;
                               EvSubMenuClick: TEvMenuClick = nil;
-                              FormRegistrado: String = '';
                               Imagem: TPicture = nil;
-                              Visibilidade: Boolean = True): iMenuController;
+                              Visibilidade: Boolean = True;
+                              FormRegistrado: String = ''): iMenuController;
     procedure EsconderSubMenus;
     procedure EsconderMenus;
     procedure MostrarEsconderMenu(Caption: String; Mostrar: Boolean);
@@ -70,7 +76,10 @@ implementation
 
 { TMenuController }
 
-function TMenuController.AdicionarMenu(Caption: string; Imagem: TPicture = nil; VisibilidadeMenu: Boolean = True; EvMenuClick: TEvMenuClick = nil): iMenuController;
+function TMenuController.AdicionarMenu(Caption: string;
+                                       Imagem: TPicture = nil;
+                                       VisibilidadeMenu: Boolean = True;
+                                       EvMenuClick: TEvMenuClick = nil): iMenuController;
 var
   MenuItem: TfrMenuItem;
   ID, TopoMenu: Integer;
@@ -149,9 +158,9 @@ end;
 
 function TMenuController.AdicionarSubMenu(Caption: string;
                                           EvSubMenuClick: TEvMenuClick = nil;
-                                          FormRegistrado: String = '';
                                           Imagem: TPicture = nil;
-                                          Visibilidade: Boolean = True): iMenuController;
+                                          Visibilidade: Boolean = True;
+                                          FormRegistrado: String = ''): iMenuController;
 var
   SubMenuItem: TfrMenuSubItem;
   ID: Integer;
