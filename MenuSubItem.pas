@@ -59,8 +59,7 @@ end;
 
 procedure TfrMenuSubItem.pnContainerClick(Sender: TObject);
 begin
-  if Assigned(EvFecharSubMenus) then
-    EvFecharSubMenus;
+  EvFecharSubMenus;
 
   if Assigned(EvMinimizarMenu) then
     EvMinimizarMenu;

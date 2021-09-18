@@ -1,5 +1,6 @@
 {
 TODO
+ - Ao passar em menu com submenu e deopis em menu sem submenu o submenu do anterior está ficando aberto
  - Abrir form registrado para o ultimo parametro e colocar a função dentro do controller
  - Criar parametrro para colocar menus em ordem alfabetica
 }
@@ -58,6 +59,7 @@ type
     function GetPermissaoAcesso(Menu: String = ''): Boolean;
     procedure GerarMenu;
     procedure Sair(Sender: TFrame);
+    procedure Mensagem(Sender: TFrame);
   public
     property MenuController: iMenuController read FMenuController write SetMenuController;
     property FormAtivo: TForm read GetFormAtivo write SetFormAtivo;
@@ -189,6 +191,7 @@ begin
       .AdicionarSubMenu('Utilitários50', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
       .AdicionarSubMenu('Utilitários51', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
       .AdicionarSubMenu('Utilitários52', AbrirCadastro, EmptyStr, Image1.Picture, GetPermissaoAcesso)
+    .AdicionarMenu('Mensagem', Image1.Picture, True, Mensagem)
     .AdicionarMenu('Sair', Image1.Picture, True, Sair)
   .GerarMenu;
 end;
@@ -290,6 +293,11 @@ end;
 procedure TfrPrincipal.Sair(Sender: TFrame);
 begin
   Close;
+end;
+
+procedure TfrPrincipal.Mensagem(Sender: TFrame);
+begin
+  ShowMessage('Trolei');
 end;
 
 initialization

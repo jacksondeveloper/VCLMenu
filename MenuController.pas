@@ -111,6 +111,7 @@ begin
   MenuItem.AbrirMouseEnter := fMenuParametros.GetAbrirMouseEnter;
   MenuItem.EvMaximizarMenu := fMenuParametros.GetEvMaximizarMenu;
   MenuItem.EvAfterClick := fMenuParametros.GetEvAfterClickMenu;
+  MenuItem.EvFecharSubMenus := EsconderSubMenus;
 
   // Dimensões
   if fMenuParametros.GetAlturaMenu > 0 then
