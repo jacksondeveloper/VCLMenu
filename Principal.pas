@@ -1,9 +1,3 @@
-{
-TODO
- - Abrir form registrado para o ultimo parametro e colocar a função dentro do controller
- - Criar parametrro para colocar menus em ordem alfabetica
-}
-
 unit Principal;
 
 interface
@@ -276,7 +270,6 @@ begin
   fMenuController.EsconderMenus;
   fMenuController.MostrarEsconderMenu('Fazenda', True);
   fMenuController.MostrarEsconderMenu('Utilitários', True);
-  //fMenuController.MostrarEsconderMenu('Mastite', True);
 end;
 
 procedure TfrPrincipal.Button2Click(Sender: TObject);
