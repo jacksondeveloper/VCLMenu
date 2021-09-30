@@ -347,6 +347,7 @@ begin
   begin
     TfrMenuItem(fListaMenu[contador]).Visible := True;
   end;
+  fMenuContainer.Update;
 end;
 
 function TMenuController.GetContainerSubMenu: TList;
