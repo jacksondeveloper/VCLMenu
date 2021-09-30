@@ -28,6 +28,8 @@ type
     Button3: TButton;
     Button1: TButton;
     Button2: TButton;
+    Button4: TButton;
+    Button5: TButton;
     procedure pnEsquerdoClick(Sender: TObject);
     procedure pnPrincipalClick(Sender: TObject);
     procedure Panel1Click(Sender: TObject);
@@ -37,6 +39,8 @@ type
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
   private
     fMenuController: iMenuController;
     fMenuParametros: iMenuParametros;
@@ -267,9 +271,8 @@ end;
 
 procedure TfrPrincipal.Button1Click(Sender: TObject);
 begin
-  fMenuController.EsconderMenus;
-  fMenuController.MostrarEsconderMenu('Fazenda', True);
-  fMenuController.MostrarEsconderMenu('Utilitários', True);
+  fMenuController.MostrarEsconderMenu('Cadastros', False);
+  fMenuController.MostrarEsconderMenu('Utilitários', False);
 end;
 
 procedure TfrPrincipal.Button2Click(Sender: TObject);
@@ -290,6 +293,17 @@ end;
 procedure TfrPrincipal.Mensagem(Sender: TFrame);
 begin
   ShowMessage('Trolei');
+end;
+
+procedure TfrPrincipal.Button4Click(Sender: TObject);
+begin
+  fMenuController.EsconderMenus;
+end;
+
+procedure TfrPrincipal.Button5Click(Sender: TObject);
+begin
+  fMenuController.MostrarEsconderMenu('Cadastros', True);
+  fMenuController.MostrarEsconderMenu('Utilitários', True);
 end;
 
 initialization

@@ -228,7 +228,7 @@ object frPrincipal: TfrPrincipal
       end
       object Button1: TButton
         Left = 35
-        Top = 88
+        Top = 81
         Width = 100
         Height = 25
         Caption = 'Ocultar Itens'
@@ -237,12 +237,30 @@ object frPrincipal: TfrPrincipal
       end
       object Button2: TButton
         Left = 35
-        Top = 128
+        Top = 183
         Width = 100
         Height = 25
         Caption = 'Limpar'
         TabOrder = 4
         OnClick = Button2Click
+      end
+      object Button4: TButton
+        Left = 35
+        Top = 149
+        Width = 100
+        Height = 25
+        Caption = 'Ocultar Todos'
+        TabOrder = 5
+        OnClick = Button4Click
+      end
+      object Button5: TButton
+        Left = 35
+        Top = 115
+        Width = 100
+        Height = 25
+        Caption = 'Mostrar Itens'
+        TabOrder = 6
+        OnClick = Button5Click
       end
     end
   end

@@ -429,7 +429,7 @@ begin
     MenuItem.Top := TopoMenu;
     TopoMenu := TopoMenu + MenuItem.Height;
 
-  end; 
+  end;
 end;
 
 function TMenuController.BuscarMenu(Caption: String): TFrame;
