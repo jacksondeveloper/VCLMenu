@@ -55,6 +55,11 @@ end;
 procedure TfrMenuItem.MouseEnter(var Msg: TMessage);
 begin
   inherited;
+
+  if AbrirMouseEnter then
+    if Assigned(EvFecharSubMenus) then
+      EvFecharSubMenus;
+
   if AbrirMouseEnter then
     if Assigned(EvMenuCLick) then
     begin
