@@ -68,6 +68,7 @@ type
     procedure MostrarEsconderMenu(Caption: String; Mostrar: Boolean);
     procedure ReorganizarMenus;
     procedure LimparMenu;
+    procedure FecharOutrosSubMenus(IDMenuItem: Integer);
     procedure CriarNovoContainer(IDMenuItem, Topo, Largura, Left: Integer);
     property ContainerSubMenu: TList read GetContainerSubMenu write SetContainerSubMenu;
   end;
@@ -121,6 +122,7 @@ begin
   MenuItem.EvMaximizarMenu := fMenuParametros.GetEvMaximizarMenu;
   MenuItem.EvAfterClick := fMenuParametros.GetEvAfterClickMenu;
   MenuItem.EvFecharSubMenus := EsconderSubMenus;
+  MenuItem.EVFecharOutrosSubMenus := FecharOutrosSubMenus;
 
   // Dimensões
   if fMenuParametros.GetAlturaMenu > 0 then
@@ -591,6 +593,15 @@ begin
           (fMenuContainer.Components[Contador] as TfrMenuItem).Free;
       end;
     end;
+end;
+
+procedure TMenuController.FecharOutrosSubMenus(IDMenuItem: Integer);
+var
+  Contador: integer;
+begin
+  for Contador := 0 to Pred(FListaContainerSubMenu.Count) do
+    if TfrContainerSubMenu(fListaContainerSubMenu[Contador]).Tag <> IDMenuItem then
+      TfrContainerSubMenu(FListaContainerSubMenu[Contador]).Visible := False;
 end;
 
 end.

@@ -22,12 +22,15 @@ type
     FPossuiSubmenu: Boolean;
     FMenuClicavel: Boolean;
     FEvFecharSubMenus: TEvFecharSubMenus;
+    FEVFecharOutrosSubMenus: TEvFecharOutrosSubMenus;
     procedure SetEvMaximizarMenu(const Value: TEvMaximizarMenu);
     procedure SetAbrirMouseEnter(const Value: Boolean);
     procedure SetEvAfterClick(const Value: TEvAfterClick);
     procedure SetPossuiSubmenu(const Value: Boolean);
     procedure SetMenuClicavel(const Value: Boolean);
     procedure SetEvFecharSubMenus(const Value: TEvFecharSubMenus);
+    procedure SetEVFecharOutrosSubMenus(
+      const Value: TEvFecharOutrosSubMenus);
   public
     procedure SetImagemPrincipal(const Value: TPicture);
     procedure MouseEnter(var Msg : TMessage);  Message cm_mouseEnter;
@@ -38,6 +41,7 @@ type
     property PossuiSubmenu: Boolean read FPossuiSubmenu write SetPossuiSubmenu;
     property MenuClicavel: Boolean read FMenuClicavel write SetMenuClicavel;
     property EvFecharSubMenus: TEvFecharSubMenus read FEvFecharSubMenus write SetEvFecharSubMenus;
+    property EVFecharOutrosSubMenus: TEvFecharOutrosSubMenus read FEVFecharOutrosSubMenus write SetEVFecharOutrosSubMenus;
   end;
 
 var
@@ -57,8 +61,8 @@ begin
   inherited;
 
   if AbrirMouseEnter then
-    if Assigned(EvFecharSubMenus) then
-      EvFecharSubMenus;
+    if Assigned(EVFecharOutrosSubMenus) then
+      EVFecharOutrosSubMenus(Self.ID);
 
   if AbrirMouseEnter then
     if Assigned(EvMenuCLick) then
@@ -117,6 +121,11 @@ end;
 procedure TfrMenuItem.SetEvFecharSubMenus(const Value: TEvFecharSubMenus);
 begin
   FEvFecharSubMenus := Value;
+end;
+
+procedure TfrMenuItem.SetEVFecharOutrosSubMenus(const Value: TEvFecharOutrosSubMenus);
+begin
+  FEVFecharOutrosSubMenus := Value;
 end;
 
 end.
